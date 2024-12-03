@@ -1,0 +1,44 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.light {
+  --primary-bg-color: 30, 30, 30;
+  --primary-card-color:  16, 16, 16;
+  --primary-text-color: #FFFFFF;
+}
+
+.dark {
+  --primary-bg-color:  1, 1, 1;
+  --primary-card-color:  16, 16, 16;
+  --primary-text-color: #FFFFFF;
+}
+
+
+.padding-main {
+  padding: clamp(1rem, 0.6rem + 2vw, 3rem);
+}
+.padding-main-left {
+  padding-left:  clamp(1rem, 0.6rem + 2vw, 3rem);
+}
+
+
+.padding-main-right {
+  padding-right:  clamp(1rem, 0.6rem + 2vw, 3rem);
+}
+
+.padding-main-top {
+  padding-top: clamp(1rem, 0.6rem + 2vw, 3rem);
+}
+
+.padding-main-bottom {
+  padding-bottom: clamp(1rem, 0.6rem + 2vw, 3rem);
+}
+
+.main-gap {
+  gap: clamp(4.75rem, 4rem + 3.75vw, 8.5rem);
+}
+
