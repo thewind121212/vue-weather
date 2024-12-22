@@ -1,4 +1,3 @@
-import { text } from 'stream/consumers'
 import type { Config } from 'tailwindcss'
 
 export default {
@@ -12,6 +11,9 @@ export default {
         primary: 'rgba(var(--primary-bg-color))',
         'primary-text': 'rgba(var(--primary-text-color))',
         'priamry-card': 'rgba(var(--primary-card-color))',
+      },
+      fontFamily: {
+        sfPro: ['"SF Pro Display"', 'sans-serif'],
       }
     },
   },

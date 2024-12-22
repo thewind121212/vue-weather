@@ -4,6 +4,68 @@
 @tailwind utilities;
 
 
+/* main.css */
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 100; /* Ultralight */
+  src: url('/fonts/SF-Pro-Display-Ultralight.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 200; /* Thin */
+  src: url('/fonts/SF-Pro-Display-Thin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 300; /* Light */
+  src: url('/fonts/SF-Pro-Display-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 400; /* Regular */
+  src: url('/fonts/SF-Pro-Display-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 500; /* Medium */
+  src: url('/fonts/SF-Pro-Display-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 600; /* Semibold */
+  src: url('/fonts/SF-Pro-Display-Semibold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 700; /* Bold */
+  src: url('/fonts/SF-Pro-Display-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: 800; /* Heavy */
+  src: url('/fonts/SF-Pro-Display-Heavy.woff2') format('woff2');
+}
+
+
+:root {
+  --font: 'SF Pro Display', sans-serif;
+}
 
 .light {
   --primary-bg-color: 30, 30, 30;
@@ -41,4 +103,3 @@
 .main-gap {
   gap: clamp(4.75rem, 4rem + 3.75vw, 8.5rem);
 }
-
