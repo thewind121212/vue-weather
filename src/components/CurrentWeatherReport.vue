@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
     <div
-        className="col-span-2 row-span-1 bg-[#1A1A1A] rounded-2xl text-[#FFFF] text-5xl p-6">
+        className="col-span-2 row-span-1 bg-[#222239] rounded-2xl text-[#FFFF] text-5xl p-6">
         {{ data?.temp_c }}°C
     </div>
 </template>
