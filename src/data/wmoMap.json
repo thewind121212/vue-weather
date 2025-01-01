@@ -1,0 +1,143 @@
+{
+    "0": {
+        "category": "Clear",
+        "description": "Clear sky",
+        "image_day": "/weather_icons/clear-day.svg",
+        "image_night": "clear-night.svg"
+    },
+    "1": {
+        "category": "Partly Cloudy to Overcast",
+        "description": "Mainly clear, partly cloudy, and overcast",
+        "image": "partly_cloudy.png"
+    },
+    "2": {
+        "category": "Partly Cloudy to Overcast",
+        "description": "Mainly clear, partly cloudy, and overcast",
+        "image": "partly_cloudy.png"
+    },
+    "3": {
+        "category": "Partly Cloudy to Overcast",
+        "description": "Mainly clear, partly cloudy, and overcast",
+        "image": "partly_cloudy.png"
+    },
+    "45": {
+        "category": "Fog",
+        "description": "Fog and depositing rime fog",
+        "image": "fog.png"
+    },
+    "48": {
+        "category": "Fog",
+        "description": "Fog and depositing rime fog",
+        "image": "fog.png"
+    },
+    "51": {
+        "category": "Drizzle",
+        "description": "Drizzle: Light intensity",
+        "image": "drizzle.png"
+    },
+    "53": {
+        "category": "Drizzle",
+        "description": "Drizzle: Moderate intensity",
+        "image": "drizzle.png"
+    },
+    "55": {
+        "category": "Drizzle",
+        "description": "Drizzle: Dense intensity",
+        "image": "drizzle.png"
+    },
+    "56": {
+        "category": "Freezing Drizzle",
+        "description": "Freezing Drizzle: Light intensity",
+        "image": "freezing_drizzle.png"
+    },
+    "57": {
+        "category": "Freezing Drizzle",
+        "description": "Freezing Drizzle: Dense intensity",
+        "image": "freezing_drizzle.png"
+    },
+    "61": {
+        "category": "Rain",
+        "description": "Rain: Slight intensity",
+        "image": "rain.png"
+    },
+    "63": {
+        "category": "Rain",
+        "description": "Rain: Moderate intensity",
+        "image": "rain.png"
+    },
+    "65": {
+        "category": "Heavy Rain",
+        "description": "Rain: Heavy intensity",
+        "image": "heavy_rain.png"
+    },
+    "66": {
+        "category": "Freezing Rain",
+        "description": "Freezing Rain: Light intensity",
+        "image": "freezing_rain.png"
+    },
+    "67": {
+        "category": "Freezing Rain",
+        "description": "Freezing Rain: Heavy intensity",
+        "image": "freezing_rain.png"
+    },
+    "71": {
+        "category": "Snow",
+        "description": "Snowfall: Slight intensity",
+        "image": "snow.png"
+    },
+    "73": {
+        "category": "Snow",
+        "description": "Snowfall: Moderate intensity",
+        "image": "snow.png"
+    },
+    "75": {
+        "category": "Heavy Snow",
+        "description": "Snowfall: Heavy intensity",
+        "image": "heavy_snow.png"
+    },
+    "77": {
+        "category": "Snow Grains",
+        "description": "Snow grains",
+        "image": "snow_grains.png"
+    },
+    "80": {
+        "category": "Rain Showers",
+        "description": "Rain showers: Slight intensity",
+        "image": "rain_showers.png"
+    },
+    "81": {
+        "category": "Rain Showers",
+        "description": "Rain showers: Moderate intensity",
+        "image": "rain_showers.png"
+    },
+    "82": {
+        "category": "Heavy Rain Showers",
+        "description": "Rain showers: Violent",
+        "image": "heavy_rain_showers.png"
+    },
+    "85": {
+        "category": "Snow Showers",
+        "description": "Snow showers: Slight intensity",
+        "image": "snow_showers.png"
+    },
+    "86": {
+        "category": "Heavy Snow Showers",
+        "description": "Snow showers: Heavy intensity",
+        "image": "heavy_snow_showers.png"
+    },
+    "95": {
+        "category": "Thunderstorm",
+        "description": "Thunderstorm: Slight or moderate",
+        "image": "thunderstorm.png"
+    },
+    "96": {
+        "category": "Thunderstorm with Hail",
+        "description": "Thunderstorm with slight hail",
+        "image": "thunderstorm_hail.png"
+    },
+    "99": {
+        "category": "Thunderstorm with Hail",
+        "description": "Thunderstorm with heavy hail",
+        "image": "thunderstorm_hail.png"
+    }
+}

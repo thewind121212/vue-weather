@@ -1,65 +1,120 @@
-export interface Location {
-  name: string;
-  region: string;
-  country: string;
-  lat: number;
-  lon: number;
-  tz_id: string;
-  localtime_epoch: number;
-  localtime: string;
+
+enum Unit {
+  ISO8601 = "iso8601",
+  Seconds = "seconds",
+  Celsius = "°C",
+  Percent = "%",
+  Millimeters = "mm",
+  WMOCode = "wmo code",
+  KilometersPerHour = "km/h",
+  Hour = "h",
+  None = "",
 }
 
-export interface Condition {
-  text: string;
-  icon: string;
-  code: number;
+interface CurrentWeatherUnits {
+  time: Unit.ISO8601;
+  interval: Unit.Seconds;
+  temperature_2m: Unit.Celsius;
+  relative_humidity_2m: Unit.Percent;
+  apparent_temperature: Unit.Celsius;
+  precipitation: Unit.Millimeters;
+  rain: Unit.Millimeters;
+  weather_code: Unit.WMOCode;
+  cloud_cover: Unit.Percent;
+  wind_speed_10m: Unit.KilometersPerHour;
 }
 
-export interface AirQuality {
-  co: number;
-  no2: number;
-  o3: number;
-  so2: number;
-  pm2_5: number;
-  pm10: number;
-  "us-epa-index": number;
-  "gb-defra-index": number;
+
+
+interface HourWeatherUnits {
+  time: Unit.ISO8601;
+  temperature_2m: Unit.Celsius;
+  relative_humidity_2m: Unit.Percent;
+  apparent_temperature: Unit.Celsius;
+  precipitation_probability: Unit.Percent;
+  precipitation: Unit.Millimeters;
+  rain: Unit.Millimeters;
+  weather_code: Unit.WMOCode;
+  cloud_cover: Unit.Percent;
 }
 
-export interface Current {
-  last_updated_epoch: number;
-  last_updated: string;
-  temp_c: number;
-  temp_f: number;
-  is_day: number;
-  condition: Condition;
-  wind_mph: number;
-  wind_kph: number;
-  wind_degree: number;
-  wind_dir: string;
-  pressure_mb: number;
-  pressure_in: number;
-  precip_mm: number;
-  precip_in: number;
-  humidity: number;
-  cloud: number;
-  feelslike_c: number;
-  feelslike_f: number;
-  windchill_c: number;
-  windchill_f: number;
-  heatindex_c: number;
-  heatindex_f: number;
-  dewpoint_c: number;
-  dewpoint_f: number;
-  vis_km: number;
-  vis_miles: number;
-  uv: number;
-  gust_mph: number;
-  gust_kph: number;
-  air_quality: AirQuality;
+interface DailyWeatherUnits {
+  time: Unit.ISO8601;
+  weather_code: Unit.WMOCode;
+  temperature_2m_max: Unit.Celsius;
+  temperature_2m_min: Unit.Celsius;
+  apparent_temperature_max: Unit.Celsius;
+  apparent_temperature_min: Unit.Celsius;
+  sunrise: Unit.ISO8601;
+  uv_index_max: Unit.None;
+  precipitation_sum: Unit.Millimeters;
+  rain_sum: Unit.Millimeters;
+  precipitation_hours: Unit.Hour;
+  precipitation_probability_max: Unit.Percent;
 }
 
-export interface WeatherData {
-  location: Location;
-  current: Current;
+interface CurrentWeatherData {
+  time: string;
+  interval: number;
+  temperature_2m: number;
+  relative_humidity_2m: number;
+  apparent_temperature: number;
+  precipitation: number;
+  rain: number;
+  weather_code: number;
+  cloud_cover: number;
+  wind_speed_10m: number;
 }
+
+
+
+interface WeatherHourlyData {
+  time: string[];
+  temperature_2m: number[];
+  relative_humidity_2m: number[];
+  apparent_temperature: number[];
+  precipitation_probability: number[];
+  precipitation: number[];
+  rain: number[];
+  weather_code: string[];
+  cloud_cover: number[];
+}
+
+
+interface WeatherDailyData {
+  time: string[];
+  weather_code: number[];
+  temperature_2m_max: number[];
+  temperature_2m_min: number[];
+  apparent_temperature_max: number[];
+  apparent_temperature_min: number[];
+  sunrise: string[];
+  uv_index_max: number[];
+  precipitation_sum: number[];
+  rain_sum: number[];
+  precipitation_hours: number[];
+  precipitation_probability_max: number[];
+}
+
+interface WeatherData {
+  latitude: number;
+  longitude: number;
+  generationtime_ms: number;
+  utc_offset_seconds: number;
+  timezone: string;
+  timezone_abbreviation: string;
+  elevation: number;
+  current_units: CurrentWeatherUnits;
+  current: CurrentWeatherData;
+  hourly_units: HourWeatherUnits;
+  hourly: WeatherHourlyData;
+  daily_units: DailyWeatherUnits;
+  daily: WeatherDailyData;
+  locationId: string;
+  timestamp: number;
+
+}
+
+
+export { Unit };
+export type { WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };

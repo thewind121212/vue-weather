@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import { Current } from '../types/weatherTypes';
+import weatherCode from '../data/wmoMap.json';
 
 
 const props = defineProps({
@@ -11,12 +12,15 @@ const props = defineProps({
 })
 
 
+
 </script>
 
 
 <template>
-    <div
-        className="col-span-2 row-span-1 bg-[#222239] rounded-2xl text-[#FFFF] text-5xl p-6">
+    <div className="col-span-2 row-span-1 bg-[#222239] rounded-2xl text-[#FFFF] text-5xl p-6">
         {{ data?.temp_c }}°C
+        <img className="w-20 h-20" :src="`${weatherCode?.[0].image_day
+            }`" :alt="`${weatherCode?.[0].image_day
+                }`" />
     </div>
 </template>
