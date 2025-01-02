@@ -116,5 +116,12 @@ interface WeatherData {
 }
 
 
+interface WeatherDataRes {
+  current: string;
+  data: WeatherData;
+  message: string;
+}
+
+
 export { Unit };
-export type { WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };
+export type { WeatherDataRes, WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };

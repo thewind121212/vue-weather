@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
-import { type WeatherData } from './types/weatherTypes';
+import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
-import axios from 'axios';
+import { computed, ref, watch } from 'vue';
 
 
 
 
-const currentWeatherFetch = async (): Promise<WeatherData | null> => {
+const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
 
   try {
 
@@ -34,8 +34,6 @@ const { isPending, isError, data, isFetching } = useQuery({
   queryFn: currentWeatherFetch,
 })
 
-console.log(data.value)
-
 
 </script>
 
@@ -44,7 +42,7 @@ console.log(data.value)
     <div className="flex h-full w-full items-center justify-center">
       <div className="grid h-full w-full gap-8 p-2 grid-cols-4 grid-rows-2 rounded-lg">
 
-        <CurrentWeatherReport :data="data?.current" :isPending="isPending" :isError="isError"
+        <CurrentWeatherReport :data="data?.data.current" :isPending="isPending" :isError="isError"
           :isFetching="isFetching" />
         <div className="col-span-1 row-span-1 bg-[#222239] rounded-2xl flex items-center justify-center">
           2

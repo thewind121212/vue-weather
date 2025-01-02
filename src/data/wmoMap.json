@@ -3,141 +3,168 @@
         "category": "Clear",
         "description": "Clear sky",
         "image_day": "/weather_icons/clear-day.svg",
-        "image_night": "clear-night.svg"
+        "image_night": "/weather_icons/clear-night.svg"
     },
     "1": {
         "category": "Partly Cloudy to Overcast",
         "description": "Mainly clear, partly cloudy, and overcast",
-        "image": "partly_cloudy.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "2": {
         "category": "Partly Cloudy to Overcast",
         "description": "Mainly clear, partly cloudy, and overcast",
-        "image": "partly_cloudy.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "3": {
         "category": "Partly Cloudy to Overcast",
         "description": "Mainly clear, partly cloudy, and overcast",
-        "image": "partly_cloudy.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "45": {
         "category": "Fog",
         "description": "Fog and depositing rime fog",
-        "image": "fog.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "48": {
         "category": "Fog",
         "description": "Fog and depositing rime fog",
-        "image": "fog.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "51": {
         "category": "Drizzle",
         "description": "Drizzle: Light intensity",
-        "image": "drizzle.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "53": {
         "category": "Drizzle",
         "description": "Drizzle: Moderate intensity",
-        "image": "drizzle.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "55": {
         "category": "Drizzle",
         "description": "Drizzle: Dense intensity",
-        "image": "drizzle.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "56": {
         "category": "Freezing Drizzle",
         "description": "Freezing Drizzle: Light intensity",
-        "image": "freezing_drizzle.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "57": {
         "category": "Freezing Drizzle",
         "description": "Freezing Drizzle: Dense intensity",
-        "image": "freezing_drizzle.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "61": {
         "category": "Rain",
         "description": "Rain: Slight intensity",
-        "image": "rain.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "63": {
         "category": "Rain",
         "description": "Rain: Moderate intensity",
-        "image": "rain.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "65": {
         "category": "Heavy Rain",
         "description": "Rain: Heavy intensity",
-        "image": "heavy_rain.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "66": {
         "category": "Freezing Rain",
         "description": "Freezing Rain: Light intensity",
-        "image": "freezing_rain.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "67": {
         "category": "Freezing Rain",
         "description": "Freezing Rain: Heavy intensity",
-        "image": "freezing_rain.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "71": {
         "category": "Snow",
         "description": "Snowfall: Slight intensity",
-        "image": "snow.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "73": {
         "category": "Snow",
         "description": "Snowfall: Moderate intensity",
-        "image": "snow.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "75": {
         "category": "Heavy Snow",
         "description": "Snowfall: Heavy intensity",
-        "image": "heavy_snow.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "77": {
         "category": "Snow Grains",
         "description": "Snow grains",
-        "image": "snow_grains.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "80": {
         "category": "Rain Showers",
         "description": "Rain showers: Slight intensity",
-        "image": "rain_showers.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "81": {
         "category": "Rain Showers",
         "description": "Rain showers: Moderate intensity",
-        "image": "rain_showers.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "82": {
         "category": "Heavy Rain Showers",
         "description": "Rain showers: Violent",
-        "image": "heavy_rain_showers.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "85": {
         "category": "Snow Showers",
         "description": "Snow showers: Slight intensity",
-        "image": "snow_showers.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "86": {
         "category": "Heavy Snow Showers",
         "description": "Snow showers: Heavy intensity",
-        "image": "heavy_snow_showers.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "95": {
         "category": "Thunderstorm",
         "description": "Thunderstorm: Slight or moderate",
-        "image": "thunderstorm.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "96": {
         "category": "Thunderstorm with Hail",
         "description": "Thunderstorm with slight hail",
-        "image": "thunderstorm_hail.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "99": {
         "category": "Thunderstorm with Hail",
         "description": "Thunderstorm with heavy hail",
-        "image": "thunderstorm_hail.png"
+        "image_day": "/weather_icons/partly-cloudy-day.svg",
+        "image_night": "/weather_icons/partly-cloudy-night.svg"
     }
 }
