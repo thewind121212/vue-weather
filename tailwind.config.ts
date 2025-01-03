@@ -8,12 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'rgba(var(--primary-bg-color))',
+        primary: '#060C1A',
+        secondary: '#0E1421',
+        'primary-h-color': '#7068FF',
         'primary-text': 'rgba(var(--primary-text-color))',
         'priamry-card': 'rgba(var(--primary-card-color))',
       },
       fontFamily: {
         sfPro: ['"SF Pro Display"', 'sans-serif'],
+      },
+      animation: {
+        'spin-slow': 'spin 5s linear infinite',
       }
     },
   },
