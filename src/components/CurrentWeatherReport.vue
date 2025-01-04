@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ComputedRef, defineProps } from 'vue';
+import { computed, ComputedRef, defineProps, watch } from 'vue';
 import { WeatherDailyData, type CurrentWeatherData } from '../types/weatherTypes';
 import weatherCodeJson from '../data/wmoMap.json';
 import { useTempUnitStore } from '../store/tempUnit';
+import { useLocationStore } from '../store/location';
 
 
 interface WeatherCodeType {
@@ -13,6 +14,7 @@ interface WeatherCodeType {
 }
 
 const unit = useTempUnitStore()
+const locationStore = useLocationStore()
 
 const weatherCode: Record<string, WeatherCodeType> = weatherCodeJson as Record<string, WeatherCodeType>;
 
@@ -55,7 +57,7 @@ const currentTempature = computed(() => {
 
 
 <template>
-    <div class="col-span-2 row-span-2 bg-secondary rounded-2xl p-6 text-white">
+    <div v-if="!props.isFetching" class="col-span-2 row-span-2 bg-secondary rounded-2xl p-6 text-white">
         <div class="flex items-start justify-start relative w-full">
             <img class="w-[160px] h-[160px] absolute left-[-20px] top-[-30px]"
                 :src="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`"
@@ -66,9 +68,11 @@ const currentTempature = computed(() => {
                 <p class="text-2xl font-light">Feel Like {{ data?.apparent_temperature }}</p>
             </div>
             <div
-                class="w-auto h-[50px] rounded-[25px] bg-primary-h-color px-6 text-white flex justify-start items-center gap-2 ml-auto">
+                class="w-auto h-[48px] rounded-[25px] bg-primary-h-color px-6 text-white flex justify-start items-center gap-2 ml-auto">
                 <i class="pi pi-map-marker" style="font-size: 1.2rem"></i>
-                <p>Ho Chi Minh, Viet Nam</p>
+                <p class="text-[14px] cursor-default">{{ locationStore.$state.location?.name &&
+                    locationStore.$state.location?.name + ", " }}
+                    {{ locationStore.$state.location?.country }}</p>
             </div>
         </div>
         <div class="flex w-full h-auto">
@@ -84,7 +88,7 @@ const currentTempature = computed(() => {
                         High: {{ currentDay?.temperature_2m_max[0] }}{{ unit.$state.tempUnit === 'C' ? '°C' : "°F" }}
                     </p>
                 </div>
-                <div class="flex relative gap-2 justify-start items-center">
+                <div class="flex relative gap-2 justify-start items-center mt-6">
                     <div class="w-[10px] h-[28px] pl-6"></div>
                     <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-fit">
                         Humidity {{ data?.relative_humidity_2m }}

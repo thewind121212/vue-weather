@@ -12,12 +12,16 @@
     "@primevue/themes": "^4.2.5",
     "@tanstack/vue-query": "^5.62.2",
     "axios": "^1.7.9",
+    "country-flag-icons": "^1.5.13",
+    "gsap": "^3.12.5",
+    "lodash": "^4.17.21",
     "pinia": "^2.3.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.5",
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.14",
     "@vitejs/plugin-vue": "^5.2.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",

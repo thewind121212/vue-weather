@@ -3,8 +3,12 @@ import { useQuery } from '@tanstack/vue-query';
 import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
-import { reactive, ref } from 'vue';
+import { onBeforeMount, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';
+import SearchModal from './components/SearchModal.vue';
+import { Location } from './types/geoTypes';
+import { useLocationStore } from './store/location';
+import { throttle } from 'lodash';
 
 
 
@@ -16,19 +20,34 @@ const time = reactive<{
   hr: ""
 })
 
-const inputRef = ref<HTMLInputElement | null>(null)
 const unit = useTempUnitStore()
+const locationStore = useLocationStore()
 
 const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
 
 
 
   try {
+    const locationLocalStore = localStorage.getItem('location')
+
+    let locationParams: Location | null = locationStore.$state.location
+
+
+
+    locationParams = locationParams ? locationParams : locationLocalStore ? JSON.parse(locationLocalStore) : null
+
+
+    const timeZone = new Intl.DateTimeFormat().resolvedOptions().timeZone
+    if (!locationParams) {
+      throw new Error('Location not found')
+    }
 
     const res = await AxiosCLient.get('/weather', {
       params: {
-        locationName: "DaLat",
-        manualTimezone: 'Asia/Ho_Chi_Minh',
+        manualTimezone: timeZone ? timeZone : 'Asia/Ho_Chi_Minh',
+        locationIdRequest: locationParams.id,
+        latitudeRequest: locationParams.latitude,
+        longitudeRequest: locationParams.longitude
       }
     })
 
@@ -56,17 +75,25 @@ const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
   }
 }
 
-const { isPending, isError, data, isFetching } = useQuery({
+const { isPending, isError, data, isFetching, refetch } = useQuery({
   queryKey: ['currentWeather'],
   queryFn: currentWeatherFetch,
 })
 
+watch(locationStore.$state, () => {
+  refetch()
+})
 
-const onChanges = () => {
-  //handler fnction later
-  // console.log(inputRef.value)
-}
+const handerChangeTempUnitDebounce = throttle((payload: "C" | "F",) => {
+  unit.setTempUnit(unit.$state.tempUnit = payload)
+}, 500)
 
+
+
+
+onBeforeMount(() => {
+  handerChangeTempUnitDebounce.cancel()
+})
 
 </script>
 
@@ -90,14 +117,9 @@ const onChanges = () => {
       </div>
       <div class="w-[400px] h-[64px] ml-auto flex justify-start items-center gap-6">
         <!-- location find  -->
-        <div class="w-[300px] h-[51px] relative flex">
-          <i class="pi pi-map ml-4 text-white absolute left-0 top-1/2 -translate-y-1/2" style="font-size: 1.5rem;"></i>
-          <input type="text"
-            class="w-full h-full bg-secondary rounded-xl text-[#dae2eb] pl-[48px] outline-none border-transparent"
-            v-on:input="onChanges" v-model="inputRef" placeholder="Search city" />
-        </div>
+        <SearchModal />
         <div class="bg-secondary w-[110px] h-[51px] rounded-[27px] flex justify-center items-center relative"
-          v-on:click="unit.setTempUnit(unit.$state.tempUnit === 'C' ? 'F' : 'C')">
+          v-on:click="handerChangeTempUnitDebounce(unit.$state.tempUnit === 'C' ? 'F' : 'C')">
           <div
             class="w-[42px] h-[42px] aspect-square rounded-[21px] text-black flex justify-center items-center duration-300 bg-[#7068FF] absolute z-10"
             :class="unit.$state.tempUnit === 'C' ? '!left-[8px]' : 'left-[50%]'">
