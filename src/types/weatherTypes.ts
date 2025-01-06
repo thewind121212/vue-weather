@@ -129,5 +129,13 @@ interface WeatherDataRes {
 }
 
 
+
+interface WeatherCodeType {
+    category: string,
+    description: string,
+    image_day: string,
+    image_night: string,
+}
+
 export { Unit };
-export type { WeatherDataRes, WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };
+export type {WeatherCodeType ,WeatherDataRes, WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };

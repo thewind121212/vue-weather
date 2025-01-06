@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/vue-query';
 import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from './types/weatherTypes';
-import CurrentWeatherReport from './components/CurrentWeatherReport.vue';
+import CurrentWeatherReport from './components/CurrentWeather/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
 import { onBeforeMount, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';

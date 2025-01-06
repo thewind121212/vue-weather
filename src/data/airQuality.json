@@ -1,0 +1,54 @@
+{
+    "aqi_colors": [
+        {
+            "index": "0",
+            "color": "#02FA83",
+            "description": "Excellent air quality, safe for everyone."
+        },
+        {
+            "index": "1",
+            "color": "#02DB5C",
+            "description": "Good air quality, safe for most people."
+        },
+        {
+            "index": "2",
+            "color": "#30B502",
+            "description": "Fair air quality, some risk for sensitive groups."
+        },
+        {
+            "index": "3",
+            "color": "#FFDE30",
+            "description": "Moderate risk for sensitive groups, mild effects possible."
+        },
+        {
+            "index": "4",
+            "color": "#FEB156",
+            "description": "Unhealthy for sensitive groups, general public may notice effects."
+        },
+        {
+            "index": "5",
+            "color": "#EC8B1A",
+            "description": "Unhealthy for all, sensitive groups at higher risk."
+        },
+        {
+            "index": "6",
+            "color": "#FF6C3E",
+            "description": "Very unhealthy, everyone may experience serious effects."
+        },
+        {
+            "index": "7",
+            "color": "#FF0000",
+            "description": "Hazardous, health warnings for everyone."
+        },
+        {
+            "index": "8",
+            "color": "#D80000",
+            "description": "Severely hazardous, avoid outdoor activities."
+        },
+        {
+            "index": "9",
+            "color": "#CE0395",
+            "description": "Extremely hazardous, emergency conditions."
+        }
+    ]
+}
