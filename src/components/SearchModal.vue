@@ -51,7 +51,7 @@ onMounted(() => {
 const geoQueryFetch = async () => {
     try {
         const geoQuery: { data: { data: GeoResponse } } = await AxiosCLient.post("/geo_search", {
-            geoQuery: inputValue.value
+            geoQuery: inputValue.value?.trimEnd()
         })
         loading.value = false
         return geoQuery.data.data
@@ -63,19 +63,15 @@ const geoQueryFetch = async () => {
 }
 
 
-const onChanges = () => {
+const onChanges = (e: any) => {
     if (!inputValue.value) {
         return
     }
+    refetch()
 }
 
 watch(inputValue, () => {
-    if (!inputValue.value) {
-        loading.value = false
-        return
-    }
     loading.value = true
-    refetch()
 })
 
 
@@ -91,14 +87,14 @@ watch(showModel, () => {
 })
 
 
-const { isError, data, isFetching, refetch } = useQuery({
+const { data, isFetching, refetch, isRefetching } = useQuery({
     queryKey: ['geoSearch', inputValue.value],
     queryFn: geoQueryFetch,
     initialData: null,
     enabled: false,
 })
 
-const debouncedHandler = debounce(onChanges, 300)
+const debouncedHandler = debounce(onChanges, 500)
 
 const clearInputHander = () => {
     inputValue.value = ""
@@ -150,8 +146,8 @@ onBeforeMount(() => {
                         id="searchInputField" v-on:input="debouncedHandler" v-model="inputValue"
                         placeholder="Search city" />
                     <div class="w-full bg-secondary mt-2 rounded-md flex justify-start items-center flex-col max-h-[400px] overflow-scroll"
-                        :class="(isFetching || loading) && ' min-h-[200px] justify-center'">
-                        <i v-if="(isFetching || loading)" class="pi pi-spin pi-spinner text-[#dae2eb]"
+                        :class="(isRefetching || loading || isFetching) && ' min-h-[200px] justify-center'">
+                        <i v-if="(isRefetching || loading || isFetching)" class="pi pi-spin pi-spinner text-[#dae2eb]"
                             style="font-size: 2.5rem"></i>
                         <div v-else class="w-full h-full flex justify-center items-center flex-col">
                             <div v-if="data?.results?.length! > 0 && inputValue" v-for="item in data?.results"

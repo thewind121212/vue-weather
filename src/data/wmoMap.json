@@ -26,8 +26,8 @@
     "45": {
         "category": "Fog",
         "description": "Fog and rime fog",
-        "image_day": "/weather_icons/partly-cloudy-day.svg",
-        "image_night": "/weather_icons/partly-cloudy-night.svg"
+        "image_day": "/weather_icons/fog-day.svg",
+        "image_night": "/weather_icons/fog-night.svg"
     },
     "48": {
         "category": "Fog",
@@ -74,8 +74,8 @@
     "63": {
         "category": "Rain",
         "description": "Moderate rain",
-        "image_day": "/weather_icons/partly-cloudy-day.svg",
-        "image_night": "/weather_icons/partly-cloudy-night.svg"
+        "image_day": "/weather_icons/partly-cloudy-day-rain.svg",
+        "image_night": "/weather_icons/partly-cloudy-night-rain.svg"
     },
     "65": {
         "category": "Heavy Rain",

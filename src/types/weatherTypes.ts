@@ -7,6 +7,7 @@ enum Unit {
   Millimeters = "mm",
   WMOCode = "wmo code",
   KilometersPerHour = "km/h",
+  Degree = "°",
   Hour = "h",
   None = "",
 }
@@ -51,6 +52,9 @@ interface DailyWeatherUnits {
   rain_sum: Unit.Millimeters;
   precipitation_hours: Unit.Hour;
   precipitation_probability_max: Unit.Percent;
+  wind_speed_10m: Unit.KilometersPerHour
+  wind_direction_10m: Unit.Degree,
+  wind_gusts_10m: Unit.KilometersPerHour
 }
 
 interface CurrentWeatherData {
@@ -64,6 +68,8 @@ interface CurrentWeatherData {
   weather_code: number;
   cloud_cover: number;
   wind_speed_10m: number;
+  wind_direction_10: number,
+  wind_gusts_10m: number
 }
 
 

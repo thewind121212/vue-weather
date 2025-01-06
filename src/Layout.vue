@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
+import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
@@ -9,6 +10,7 @@ import SearchModal from './components/SearchModal.vue';
 import { Location } from './types/geoTypes';
 import { useLocationStore } from './store/location';
 import { throttle } from 'lodash';
+import { AirQualityRes } from './types/airTypes';
 
 
 
@@ -23,8 +25,10 @@ const time = reactive<{
 const unit = useTempUnitStore()
 const locationStore = useLocationStore()
 
-const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
-
+const currentWeatherFetch = async (): Promise<{
+  weather: WeatherDataRes
+  air: AirQualityRes
+} | null> => {
 
 
   try {
@@ -42,7 +46,7 @@ const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
       throw new Error('Location not found')
     }
 
-    const res = await AxiosCLient.get('/weather', {
+    const weatherFetch = AxiosCLient.get('/weather', {
       params: {
         manualTimezone: timeZone ? timeZone : 'Asia/Ho_Chi_Minh',
         locationIdRequest: locationParams.id,
@@ -51,8 +55,24 @@ const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
       }
     })
 
+    const airFetch = AxiosCLient.get('/air-quality', {
+      params: {
+        manualTimezone: timeZone ? timeZone : 'Asia/Ho_Chi_Minh',
+        locationIdRequest: locationParams.id,
+        latitudeRequest: locationParams.latitude,
+        longitudeRequest: locationParams.longitude
+      }
+    })
+
+    const promiseArray: [Promise<AxiosResponse<WeatherDataRes>>, Promise<AxiosResponse<AirQualityRes>>] = [weatherFetch, airFetch]
+
+    const [weatherRes, airRes] = await Promise.all(promiseArray)
+
+
+
+
     const timeBaseOnTimeZone = new Date().toLocaleString("en-US", {
-      timeZone: res.data.timezone,
+      timeZone: weatherRes.data.data.timezone,
       weekday: "short",
       day: "2-digit",
       month: "short",
@@ -67,7 +87,12 @@ const currentWeatherFetch = async (): Promise<WeatherDataRes | null> => {
 
 
 
-    return res.data
+    return {
+      weather: weatherRes.data,
+      air: airRes.data
+    }
+
+
   } catch (error) {
     console.log('Error', error)
     console.error(error);
@@ -138,11 +163,18 @@ onBeforeMount(() => {
       </div>
     </div>
     <div class="flex h-[calc(100vh-160px)] w-full items-center justify-center">
-      <div class="grid h-full w-full gap-8 p-2 grid-cols-4 grid-rows-3 rounded-lg">
-        <CurrentWeatherReport :data="data?.data.current" :isPending="isPending" :isError="isError"
-          :currentDay="data?.data.daily" :timeZone="data?.data.timezone" :isFetching="isFetching" />
+      <div class="grid h-full w-full gap-4 p-2 grid-cols-7 grid-rows-3 rounded-lg">
+        <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isPending="isPending" :isError="isError"
+          :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
+          :timeZone="data?.weather.data.timezone" :isFetching="isFetching" />
+        <div class="col-span-2 row-span-2 bg-transparent rounded-2xl flex items-center justify-center">
+          2
+        </div>
         <div class="col-span-2 row-span-2 bg-secondary rounded-2xl flex items-center justify-center">
           2
+        </div>
+        <div class="col-span-3 row-span-1 bg-secondary rounded-2xl flex items-center justify-center">
+          4
         </div>
         <div class="col-span-3 row-span-1 bg-secondary rounded-2xl flex items-center justify-center">
           4
