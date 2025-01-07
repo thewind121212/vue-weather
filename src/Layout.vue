@@ -4,23 +4,39 @@ import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeather/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
-import { onBeforeMount, reactive, watch } from 'vue';
+import { computed, onBeforeMount, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';
 import SearchModal from './components/SearchModal.vue';
+import { ref } from "vue"
+import { LottieAnimation } from "lottie-web-vue"
+import WatermelonJSON from "../public/Find.json"
+
+
 import { Location } from './types/geoTypes';
 import { useLocationStore } from './store/location';
 import { throttle } from 'lodash';
 import { AirQualityRes } from './types/airTypes';
+import CurrentWeatherInfo from './components/CurrentWeather/CurrentWeatherInfo.vue';
+import { timeImgGen } from './utils/utils';
+import CurrentAirStatistics from './components/CurrentWeather/CurrentAirStatistics.vue';
+import ProgressCircle from './components/svg/ProgressCircle.vue';
+
+
+
+let anim = ref()
 
 
 
 const time = reactive<{
   day: string,
   hr: string
+  imgTime: string | null
 }>({
   day: "",
-  hr: ""
+  hr: "",
+  imgTime: null
 })
+
 
 const unit = useTempUnitStore()
 const locationStore = useLocationStore()
@@ -46,9 +62,10 @@ const currentWeatherFetch = async (): Promise<{
       throw new Error('Location not found')
     }
 
+
     const weatherFetch = AxiosCLient.get('/weather', {
       params: {
-        manualTimezone: timeZone ? timeZone : 'Asia/Ho_Chi_Minh',
+        manualTimezone: locationParams.timezone ? locationParams.timezone : 'Asia/Ho_Chi_Minh',
         locationIdRequest: locationParams.id,
         latitudeRequest: locationParams.latitude,
         longitudeRequest: locationParams.longitude
@@ -57,7 +74,7 @@ const currentWeatherFetch = async (): Promise<{
 
     const airFetch = AxiosCLient.get('/air-quality', {
       params: {
-        manualTimezone: timeZone ? timeZone : 'Asia/Ho_Chi_Minh',
+        manualTimezone: locationParams.timezone ? locationParams.timezone : 'Asia/Ho_Chi_Minh',
         locationIdRequest: locationParams.id,
         latitudeRequest: locationParams.latitude,
         longitudeRequest: locationParams.longitude
@@ -84,6 +101,8 @@ const currentWeatherFetch = async (): Promise<{
 
     time.hr = timeBaseOnTimeZone.split(',')[3]
     time.day = timeBaseOnTimeZone.split(',').slice(0, 3).join(',')
+    time.imgTime = timeImgGen(Number(timeBaseOnTimeZone.split(',')[3].split(":")[0])) ?? null
+
 
 
 
@@ -100,7 +119,7 @@ const currentWeatherFetch = async (): Promise<{
   }
 }
 
-const { isPending, isError, data, isFetching, refetch } = useQuery({
+const { isPending, isError, data, isFetching, refetch, isRefetching } = useQuery({
   queryKey: ['currentWeather'],
   queryFn: currentWeatherFetch,
 })
@@ -111,8 +130,7 @@ watch(locationStore.$state, () => {
 
 const handerChangeTempUnitDebounce = throttle((payload: "C" | "F",) => {
   unit.setTempUnit(unit.$state.tempUnit = payload)
-}, 500)
-
+}, 1000)
 
 
 
@@ -124,65 +142,98 @@ onBeforeMount(() => {
 
 <template>
   <div class="w-svw h-svh padding-main bg-primary dark font-sfPro font-[500]">
+    <div v-if="(isFetching && isRefetching)"
+      class="fixed top-0 left-0 bg-[#060c1a85] z-[99] w-screen h-screen flex justify-center items-center backdrop-blur-sm">
+      <div
+        class="w-[25rem] h-[25rem] rounded-[32% 68% 84% 16% / 54% 39% 61% 46%] bg-white flex justify-center items-center"
+        style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;">
+
+        <LottieAnimation ref="anim" :animation-data="WatermelonJSON" :loop="true" :auto-play="true" :speed="1"
+          class="w-[18.75rem]" />
+      </div>
+    </div>
     <div class="top-bar p-2 flex justify-start items-center">
-      <img src="/logo.webp" alt="logo"
-        class="w-[80px] h-[80px] scale-125 min-w-[80px] min-h-[80px] -translate-y-[0.5px]" />
-      <div class="w-auto h-[64px] flex justify-center items-star flex-col">
-        <div class="w-auto h-auto flex justify-start items-center text-[#dae2eb]">
+      <img src="/logo.webp" alt="logo" class="w-20 h-20 scale-125 min-w-20 min-h-20 -translate-y-[0.03125rem]" />
+      <div class="w-auto h-[4rem] flex justify-center items-star flex-col">
+        <div class="w-auto h-auto flex justify-start items-center text-[#dae2eb] relative">
           <p class="text-2xl">
             {{ time.hr }}
+            <span class="text-xl font-light text-[#dae2eba1] inline-block -translate-y-[0.1875rem]">
+              ({{ data?.weather.data.timezone }})
+            </span>
           </p>
-          <i v-if="Number(time.hr.trim().substring(0, 2)) > 18" class="pi pi-moon ml-1 animate-spin-slow"
-            style="font-size: 1.3rem"></i>
-          <i v-else class="pi pi-sun ml-1 animate-spin-slow" style="font-size: 1.5rem"></i>
         </div>
         <p class="text-white text-4xl">
           {{ time.day }}
         </p>
       </div>
-      <div class="w-[400px] h-[64px] ml-auto flex justify-start items-center gap-6">
+
+
+      <div class="w-[8.75rem] h-24 relative">
+        <img v-if="time.imgTime !== null" :src="time.imgTime" :alt="time.imgTime"
+          class="w-24 h-auto absolute left-0 top-[-0.313rem]">
+      </div>
+      <div class="w-[25rem] h-16 ml-auto flex justify-start items-center gap-6">
         <!-- location find  -->
         <SearchModal />
-        <div class="bg-secondary w-[110px] h-[51px] rounded-[27px] flex justify-center items-center relative"
+        <div
+          class="bg-secondary w-[6.6875rem] h-[3.1875rem] rounded-[1.6875rem] flex justify-center items-center relative"
           v-on:click="handerChangeTempUnitDebounce(unit.$state.tempUnit === 'C' ? 'F' : 'C')">
           <div
-            class="w-[42px] h-[42px] aspect-square rounded-[21px] text-black flex justify-center items-center duration-300 bg-[#7068FF] absolute z-10"
-            :class="unit.$state.tempUnit === 'C' ? '!left-[8px]' : 'left-[50%]'">
+            class="size-[2.625rem] aspect-square rounded-[1.3125rem] text-black flex justify-center items-center duration-300 bg-[#7068FF] absolute z-10"
+            :class="unit.$state.tempUnit === 'C' ? '!left-[0.5rem]' : 'left-[50%]'">
           </div>
           <div
-            class="w-[42px] h-[42px] aspect-square bg-transparent font-semibold rounded-[21px] flex justify-center items-center translate-x-[2px] translate-y-[1px] relative z-20 cursor-pointer"
+            class="size-[2.625rem] aspect-square bg-transparent font-semibold rounded-[1.3125rem] flex justify-center items-center translate-x-[0.125rem] translate-y-[0.0625rem] relative z-20 cursor-pointer"
             :class="unit.$state.tempUnit === 'C' ? 'text-white' : 'text-[#676B73]'">
             C°
           </div>
           <div
-            class="w-[42px] h-[42px] aspect-square bg-transparent font-semibold rounded-[21px] flex justify-center items-center translate-x-[2px] translate-y-[1px] relative z-20 cursor-pointer"
+            class="size-[2.625rem] aspect-square bg-transparent font-semibold rounded-[1.3125rem] flex justify-center items-center translate-x-[0.125rem] translate-y-[0.0625rem] relative z-20 cursor-pointer"
             :class="unit.$state.tempUnit === 'F' ? 'text-white' : 'text-[#676B73]'">
             F°
           </div>
         </div>
       </div>
     </div>
-    <div class="flex h-[calc(100vh-160px)] w-full items-center justify-center">
-      <div class="grid h-full w-full gap-4 p-2 grid-cols-7 grid-rows-3 rounded-lg">
+    <div class="flex h-[calc(100vh-10rem)] w-full items-start justify-center">
+      <div class="flex h-auto  w-full gap-4 p-2 rounded-lg min-h-[17.75rem]">
+        <!-- col 1 -->
         <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isPending="isPending" :isError="isError"
           :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
-          :timeZone="data?.weather.data.timezone" :isFetching="isFetching" />
-        <div class="col-span-2 row-span-2 bg-transparent rounded-2xl flex items-center justify-center">
-          2
+          :timeZone="data?.weather.data.timezone" :airHourly="data?.air.data.hourly"
+          :weatherHourly="data?.weather.data.hourly" :isFetching="isFetching" />
+        <!-- col 2 -->
+        <div class="bg-secondary rounded-2xl flex flex-col items-start justify-start p-6 flex-0 min-w-[13.75rem]">
+          <div class="flex gap-2 justify-center items-center ml-1 mb-4">
+            <span
+              class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
+            <p class="text-[1rem] font-bold text-white">Live Weather Statistics </p>
+          </div>
+          <CurrentWeatherInfo :weather-current="data?.weather.data.current" :current-day="data?.weather.data.daily"
+            :air-current="data?.air.data.current" :weatherHourly="data?.weather.data.hourly" />
         </div>
-        <div class="col-span-2 row-span-2 bg-secondary rounded-2xl flex items-center justify-center">
-          2
+        <!-- col 3 -->
+        <div class="flex gap-4 flex-1 rounded-2xl">
+          <div class="bg-secondary h-full flex-1 rounded-2xl p-6 basis-1/3 flex-col min-w-[17.75rem]">
+            <div class="flex gap-2 justify-start items-center ml-1 mb-4">
+              <span
+                class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
+              <p class="text-[1rem] font-bold text-white">Live Air Statistics</p>
+            </div>
+              <CurrentAirStatistics
+              :air-current="data?.air.data.current"
+              />
+          </div>
+          <div class="bg-secondary h-full flex-1 rounded-2xl p-6 basis-2/3">
+            <div class="gap-2 justify-start items-center ml-1 mb-4">
+              <span
+                class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
+              <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
+            </div>
+            <ProgressCircle/>
+          </div>
         </div>
-        <div class="col-span-3 row-span-1 bg-secondary rounded-2xl flex items-center justify-center">
-          4
-        </div>
-        <div class="col-span-3 row-span-1 bg-secondary rounded-2xl flex items-center justify-center">
-          4
-        </div>
-        <div class="col-span-1 row-span-1 bg-secondary rounded-2xl flex items-center justify-center">
-          4
-        </div>
-
       </div>
     </div>
 

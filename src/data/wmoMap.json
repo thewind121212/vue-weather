@@ -6,22 +6,22 @@
         "image_night": "/weather_icons/clear-night.svg"
     },
     "1": {
-        "category": "Cloudy",
+        "category": "Quarter Cloudy",
         "description": "Clear to overcast",
         "image_day": "/weather_icons/partly-cloudy-day.svg",
         "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "2": {
-        "category": "Cloudy",
+        "category": "Partly Cloudy",
         "description": "Clear to overcast",
         "image_day": "/weather_icons/partly-cloudy-day.svg",
         "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "3": {
-        "category": "Cloudy",
+        "category": "OverCast",
         "description": "Clear to overcast",
-        "image_day": "/weather_icons/partly-cloudy-day.svg",
-        "image_night": "/weather_icons/partly-cloudy-night.svg"
+        "image_day": "/weather_icons/overcast.svg",
+        "image_night": "/weather_icons/overcast-night.svg"
     },
     "45": {
         "category": "Fog",

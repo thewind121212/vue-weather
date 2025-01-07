@@ -122,13 +122,12 @@ onBeforeMount(() => {
     debouncedHandler.cancel()
 })
 
-
 </script>
 
 
 
 <template>
-    <div class="w-[300px] h-[51px] relative flex justify-end items-center">
+    <div class="w-[18.75rem] h-[3.1875rem] relative flex justify-end items-center">
         <i class="pi pi-map ml-4 text-white absolute right-0 top-1/2 -translate-y-1/2" style="font-size: 1.5rem;"
             v-on:click="toggleModalHandler"></i>
         <div class="fixed w-screen h-screen top-0 left-0 z-[40] hidden" id="searchOverlay">
@@ -136,17 +135,17 @@ onBeforeMount(() => {
                 <div class="w-full h-full bg-[#1E1E1Ebd] backdrop-blur-sm absolute left-0 top-0 z-10" id="searchModal"
                     v-on:click="toggleModalHandler">
                 </div>
-                <div class="w-[400px] h-[51px] relative opacity-0 z-20" id="searchInput">
+                <div class="w-[25rem] h-[3.1875rem] relative opacity-0 z-20" id="searchInput">
                     <i class="pi pi-map ml-4 text-white absolute left-0 top-1/2 -translate-y-1/2"
                         style="font-size: 1.5rem;"></i>
                     <i class="pi pi-times mr-4 text-white absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"
                         v-on:click="clearInputHander" style="font-size: 1rem;"></i>
                     <input type="text"
-                        class="w-full h-full rounded-xl text-[#dae2eb] pl-[48px] bg-secondary outline-none border-transparent"
+                        class="w-full h-full rounded-xl text-[#dae2eb] pl-[3rem] bg-secondary outline-none border-transparent"
                         id="searchInputField" v-on:input="debouncedHandler" v-model="inputValue"
                         placeholder="Search city" />
-                    <div class="w-full bg-secondary mt-2 rounded-md flex justify-start items-center flex-col max-h-[400px] overflow-scroll"
-                        :class="(isRefetching || loading || isFetching) && ' min-h-[200px] justify-center'">
+                    <div class="w-full bg-secondary mt-2 rounded-md flex justify-start items-center flex-col max-h-[25rem] overflow-scroll"
+                        :class="(isRefetching || loading || isFetching) && ' min-h-[12.5rem] justify-center'">
                         <i v-if="(isRefetching || loading || isFetching)" class="pi pi-spin pi-spinner text-[#dae2eb]"
                             style="font-size: 2.5rem"></i>
                         <div v-else class="w-full h-full flex justify-center items-center flex-col">
@@ -160,7 +159,7 @@ onBeforeMount(() => {
                                     <h1 class="text-[#dae2eb] font-semibold">
                                         {{ item.name }}</h1>
                                 </div>
-                                <p class="text-white font-light text-[14px]">
+                                <p class="text-white font-light text-[0.875rem]">
                                     {{ item.admin1 }}
                                     {{ item.admin2 && ", " + item.admin2 }}
                                     {{ item.admin3 && ", " + item.admin3 }}
@@ -168,9 +167,9 @@ onBeforeMount(() => {
                                 </p>
                             </div>
                             <div v-else-if="inputValue"
-                                class="w-full h-[200px] flex flex-col justify-center items-center relative gap-1">
+                                class="w-full h-[12.5rem] flex flex-col justify-center items-center relative gap-1">
                                 <i class="pi pi-map text-[#9fa1a3]" style="font-size: 2rem;"></i>
-                                <p class="text-[#9fa1a3] text-sm text-center w-[120px]">Location Not Found</p>
+                                <p class="text-[#9fa1a3] text-sm text-center w-[7.5rem]">Location Not Found</p>
                             </div>
                         </div>
                     </div>

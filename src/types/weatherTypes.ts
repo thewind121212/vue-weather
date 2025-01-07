@@ -7,6 +7,7 @@ enum Unit {
   Millimeters = "mm",
   WMOCode = "wmo code",
   KilometersPerHour = "km/h",
+  Centimeters = "cm",
   Degree = "°",
   Hour = "h",
   None = "",
@@ -34,6 +35,7 @@ interface HourWeatherUnits {
   apparent_temperature: Unit.Celsius;
   precipitation_probability: Unit.Percent;
   precipitation: Unit.Millimeters;
+  snowfall: Unit.Centimeters;
   rain: Unit.Millimeters;
   weather_code: Unit.WMOCode;
   cloud_cover: Unit.Percent;
@@ -82,6 +84,7 @@ interface WeatherHourlyData {
   precipitation_probability: number[];
   precipitation: number[];
   rain: number[];
+  snowfall: number[];
   weather_code: string[];
   cloud_cover: number[];
 }

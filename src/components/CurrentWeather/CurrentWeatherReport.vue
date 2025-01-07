@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { defineProps, } from 'vue';
-import { CurrentWeatherData, WeatherDailyData } from '../../types/weatherTypes';
-import { CurrentAirData } from '../../types/airTypes';
+import { CurrentWeatherData, WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
+import { CurrentAirData, HourlyAirData } from '../../types/airTypes';
 import CurrentWeather from './CurrentWeather.vue';
 import CurrentTempature from './CurrentTempature.vue';
-import CurrentWeatherInfo from './CurrentWeatherInfo.vue';
+import CurrentAirQuality from './CurrentAirQuality.vue';
 
 
 const props = defineProps({
@@ -13,28 +13,26 @@ const props = defineProps({
     isError: Boolean,
     isFetching: Boolean,
     timeZone: String,
-    currentDay: Object as () => WeatherDailyData
+    currentDay: Object as () => WeatherDailyData,
+    airHourly: Object as () => HourlyAirData,
+    weatherHourly: Object as () => WeatherHourlyData
 })
 
 
-const uiAqi = 30
+
+
 
 </script>
 
 
 <template>
-    <div class="col-span-3 row-span-2 bg-secondary rounded-2xl p-6 text-white min-w-[600px]">
+    <div class="bg-secondary rounded-2xl p-6 text-white flex-0">
         <CurrentWeather :weatherCurrent="weatherCurrent" :time-zone="timeZone" />
         <div class="flex w-full h-auto mt-4">
             <div class="w-full flex flex-col justify-center items-start gap-1">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-start w-full">
                     <CurrentTempature :current-day="currentDay" :weather-current="weatherCurrent" />
-                </div>
-
-
-                <div class="flex justify-start items-start">
-                    <CurrentWeatherInfo :weather-current="weatherCurrent" :current-day="currentDay"
-                        :air-current="airCurrent" />
+                    <CurrentAirQuality :us-aqi="airCurrent?.us_aqi" :pm2_5="airCurrent?.pm2_5" :airHourly="airHourly" />
                 </div>
             </div>
         </div>

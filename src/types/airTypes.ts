@@ -10,7 +10,10 @@ interface CurrentUnits {
     interval: Unit;
     us_aqi: Unit;
     pm2_5: Unit;
+    pm10: Unit;
     carbon_monoxide: Unit;
+    sulphur_dioxide: Unit;
+    ozone: Unit;
 }
 
 interface CurrentAirData {
@@ -19,17 +22,21 @@ interface CurrentAirData {
     us_aqi: number;
     uv_index: number;
     pm2_5: number;
+    pm10: number;
+    carbon_dioxide: number,
+    sulphur_dioxide: number,
+    ozone: number,
     carbon_monoxide: number;
 }
 
-interface HourlyUnits {
+interface HourlyAirUnits {
     time: Unit;
     pm2_5: Unit;
     carbon_monoxide: Unit;
     us_aqi: Unit;
 }
 
-interface HourlyData {
+interface HourlyAirData {
     time: string[];
     pm2_5: (number)[];
     carbon_monoxide: (number)[];
@@ -46,8 +53,8 @@ interface AirQualityData {
     elevation: number;
     current_units: CurrentUnits;
     current: CurrentAirData;
-    hourly_units: HourlyUnits;
-    hourly: HourlyData;
+    hourly_units: HourlyAirUnits;
+    hourly: HourlyAirData;
     daily_units: any;
     daily: any;
     locaitonId: string;
@@ -62,4 +69,7 @@ interface AirQualityRes {
     message: string;
 }
 
-export type { AirQualityData, CurrentAirData, HourlyData, CurrentUnits, HourlyUnits, Unit, AirQualityRes }
+
+type FaceType = "good" | "moderate" | "semi unhealthy" | "unhealthy" | "very unhealthy" | "haizous" | "unknow"
+
+export type { AirQualityData, CurrentAirData, HourlyAirData, CurrentUnits, HourlyAirUnits, Unit, AirQualityRes, FaceType }

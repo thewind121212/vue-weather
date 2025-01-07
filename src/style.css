@@ -3,93 +3,89 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* main.css */
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 100; /* Ultralight */
-  src: url('/fonts/SF-Pro-Display-Ultralight.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Ultralight.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 200; /* Thin */
-  src: url('/fonts/SF-Pro-Display-Thin.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Thin.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 300; /* Light */
-  src: url('/fonts/SF-Pro-Display-Light.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Light.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 400; /* Regular */
-  src: url('/fonts/SF-Pro-Display-Regular.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Regular.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 500; /* Medium */
-  src: url('/fonts/SF-Pro-Display-Medium.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Medium.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 600; /* Semibold */
-  src: url('/fonts/SF-Pro-Display-Semibold.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Semibold.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 700; /* Bold */
-  src: url('/fonts/SF-Pro-Display-Bold.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Bold.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 800; /* Heavy */
-  src: url('/fonts/SF-Pro-Display-Heavy.woff2') format('woff2');
+  src: url("/fonts/SF-Pro-Display-Heavy.woff2") format("woff2");
 }
 
-
 :root {
-  --font: 'SF Pro Display', sans-serif;
+  --font: "SF Pro Display", sans-serif;
 }
 
 .light {
   --primary-bg-color: 30, 30, 30;
-  --primary-card-color:  16, 16, 16;
-  --primary-text-color: #FFFFFF;
+  --primary-card-color: 16, 16, 16;
+  --primary-text-color: #ffffff;
 }
 
 .dark {
-  --primary-bg-color:  1, 1, 1;
-  --primary-card-color:  16, 16, 16;
-  --primary-text-color: #FFFFFF;
+  --primary-bg-color: 1, 1, 1;
+  --primary-card-color: 16, 16, 16;
+  --primary-text-color: #ffffff;
 }
-
 
 .padding-main {
   padding: clamp(1rem, 0.6rem + 2vw, 3rem);
 }
 .padding-main-left {
-  padding-left:  clamp(1rem, 0.6rem + 2vw, 3rem);
+  padding-left: clamp(1rem, 0.6rem + 2vw, 3rem);
 }
 
-
 .padding-main-right {
-  padding-right:  clamp(1rem, 0.6rem + 2vw, 3rem);
+  padding-right: clamp(1rem, 0.6rem + 2vw, 3rem);
 }
 
 .padding-main-top {
@@ -102,4 +98,17 @@
 
 .main-gap {
   gap: clamp(4.75rem, 4rem + 3.75vw, 8.5rem);
+}
+
+
+
+html {
+  font-size: 0.8333333333333333333333333333vw; /* 1rem = 20px */
+}
+
+
+@media (max-width: 1920px) {
+  html {
+    font-size: 16px !important;
+  }
 }

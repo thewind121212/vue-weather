@@ -32,11 +32,11 @@ const currentTempature = computed(() => {
             {{ currentTempature }}{{ unit.$state.tempUnit === 'C' ? '°C' : "°F" }}
         </p>
         <div class="w-full h-auto flex gap-6">
-            <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-[42px]">
-                Low: {{ currentDay?.temperature_2m_min[0] }}{{ unit.$state.tempUnit === 'C' ? '°C' : "°F" }}
+            <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-[2.625rem]">
+                Low {{ currentDay?.temperature_2m_min[0] }}{{ unit.$state.tempUnit === 'C' ? '°C' : "°F" }}
             </p>
-            <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-[42px]">
-                High: {{ currentDay?.temperature_2m_max[0] }}{{ unit.$state.tempUnit === 'C' ? '°C' : "°F"
+            <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-[2.625rem]">
+                High {{ currentDay?.temperature_2m_max[0] }}{{ unit.$state.tempUnit === 'C' ? '°C' : "°F"
                 }}
             </p>
         </div>
