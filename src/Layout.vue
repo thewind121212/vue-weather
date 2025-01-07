@@ -197,7 +197,7 @@ onBeforeMount(() => {
       </div>
     </div>
     <div class="flex h-[calc(100vh-10rem)] w-full items-start justify-center">
-      <div class="flex h-auto  w-full gap-4 p-2 rounded-lg min-h-[17.75rem]">
+      <div class="flex h-auto  w-full gap-4 p-2 rounded-lg max-h-[18.75rem]">
         <!-- col 1 -->
         <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isPending="isPending" :isError="isError"
           :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
@@ -221,9 +221,7 @@ onBeforeMount(() => {
                 class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
               <p class="text-[1rem] font-bold text-white">Live Air Statistics</p>
             </div>
-              <CurrentAirStatistics
-              :air-current="data?.air.data.current"
-              />
+            <CurrentAirStatistics :air-current="data?.air.data.current" />
           </div>
           <div class="bg-secondary h-full flex-1 rounded-2xl p-6 basis-2/3">
             <div class="gap-2 justify-start items-center ml-1 mb-4">
@@ -231,7 +229,10 @@ onBeforeMount(() => {
                 class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
               <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
             </div>
-            <ProgressCircle/>
+            <div class="grid grid-cols-2 grid-rows-2 h-[12.25rem]">
+              <ProgressCircle :bg-stroke-color="'#ddd'" :stroke-width=4 :svg-width="130" :svg-height="70"
+                :current-value="50" :radius="60" :max-value="100" />
+            </div>
           </div>
         </div>
       </div>
