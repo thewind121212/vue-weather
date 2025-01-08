@@ -26,7 +26,7 @@ const props = defineProps({
 
 
 <template>
-    <div class="bg-secondary rounded-2xl p-6 text-white flex-0">
+    <div class="bg-secondary rounded-2xl p-6 text-white flex-0 min-w-[620px]">
         <CurrentWeather :weatherCurrent="weatherCurrent" :time-zone="timeZone" />
         <div class="flex w-full h-auto mt-4">
             <div class="w-full flex flex-col justify-center items-start gap-1">

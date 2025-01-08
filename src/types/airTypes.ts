@@ -33,6 +33,7 @@ interface HourlyAirUnits {
     time: Unit;
     pm2_5: Unit;
     carbon_monoxide: Unit;
+    uv_index: Unit;
     us_aqi: Unit;
 }
 
@@ -40,6 +41,7 @@ interface HourlyAirData {
     time: string[];
     pm2_5: (number)[];
     carbon_monoxide: (number)[];
+    uv_index: (number)[];
     us_aqi: (number)[];
 }
 

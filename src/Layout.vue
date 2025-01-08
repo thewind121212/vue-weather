@@ -4,12 +4,12 @@ import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeather/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
-import { computed, onBeforeMount, reactive, watch } from 'vue';
+import { onBeforeMount, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';
 import SearchModal from './components/SearchModal.vue';
 import { ref } from "vue"
 import { LottieAnimation } from "lottie-web-vue"
-import WatermelonJSON from "../public/Find.json"
+import WatermelonJSON from "./vendor/Lottie/Find.json"
 
 
 import { Location } from './types/geoTypes';
@@ -19,7 +19,7 @@ import { AirQualityRes } from './types/airTypes';
 import CurrentWeatherInfo from './components/CurrentWeather/CurrentWeatherInfo.vue';
 import { timeImgGen } from './utils/utils';
 import CurrentAirStatistics from './components/CurrentWeather/CurrentAirStatistics.vue';
-import ProgressCircle from './components/svg/ProgressCircle.vue';
+import TodayHightLight from './components/Today/TodayHightLight.vue';
 
 
 
@@ -119,7 +119,7 @@ const currentWeatherFetch = async (): Promise<{
   }
 }
 
-const { isPending, isError, data, isFetching, refetch, isRefetching } = useQuery({
+const { isLoading, isError, data, isFetching, refetch, isRefetching } = useQuery({
   queryKey: ['currentWeather'],
   queryFn: currentWeatherFetch,
 })
@@ -142,7 +142,7 @@ onBeforeMount(() => {
 
 <template>
   <div class="w-svw h-svh padding-main bg-primary dark font-sfPro font-[500]">
-    <div v-if="(isFetching && isRefetching)"
+    <div v-if="(isFetching || isLoading)"
       class="fixed top-0 left-0 bg-[#060c1a85] z-[99] w-screen h-screen flex justify-center items-center backdrop-blur-sm">
       <div
         class="w-[25rem] h-[25rem] rounded-[32% 68% 84% 16% / 54% 39% 61% 46%] bg-white flex justify-center items-center"
@@ -199,12 +199,12 @@ onBeforeMount(() => {
     <div class="flex h-[calc(100vh-10rem)] w-full items-start justify-center">
       <div class="flex h-auto  w-full gap-4 p-2 rounded-lg max-h-[18.75rem]">
         <!-- col 1 -->
-        <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isPending="isPending" :isError="isError"
+        <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isError="isError"
           :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
           :timeZone="data?.weather.data.timezone" :airHourly="data?.air.data.hourly"
           :weatherHourly="data?.weather.data.hourly" :isFetching="isFetching" />
         <!-- col 2 -->
-        <div class="bg-secondary rounded-2xl flex flex-col items-start justify-start p-6 flex-0 min-w-[13.75rem]">
+        <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-6 flex-0 min-w-[20rem]">
           <div class="flex gap-2 justify-center items-center ml-1 mb-4">
             <span
               class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
@@ -215,7 +215,7 @@ onBeforeMount(() => {
         </div>
         <!-- col 3 -->
         <div class="flex gap-4 flex-1 rounded-2xl">
-          <div class="bg-secondary h-full flex-1 rounded-2xl p-6 basis-1/3 flex-col min-w-[17.75rem]">
+          <div class="gradient-bg h-full flex-1 rounded-2xl p-6 basis-2/5 flex-col min-w-[17.75rem]">
             <div class="flex gap-2 justify-start items-center ml-1 mb-4">
               <span
                 class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
@@ -223,16 +223,12 @@ onBeforeMount(() => {
             </div>
             <CurrentAirStatistics :air-current="data?.air.data.current" />
           </div>
-          <div class="bg-secondary h-full flex-1 rounded-2xl p-6 basis-2/3">
-            <div class="gap-2 justify-start items-center ml-1 mb-4">
-              <span
-                class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
+          <div class="gradient-bg h-full flex-1 rounded-2xl p-6 basis-3/5 min-w-[20.625rem]">
+            <div class="flex gap-2 justify-start items-center ml-1 mb-4">
+              <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
               <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
             </div>
-            <div class="grid grid-cols-2 grid-rows-2 h-[12.25rem]">
-              <ProgressCircle :bg-stroke-color="'#ddd'" :stroke-width=4 :svg-width="130" :svg-height="70"
-                :current-value="50" :radius="60" :max-value="100" />
-            </div>
+            <TodayHightLight :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly" :airQualityHourly="data?.air.data.hourly" :time-zone="data?.weather.data.timezone" />
           </div>
         </div>
       </div>

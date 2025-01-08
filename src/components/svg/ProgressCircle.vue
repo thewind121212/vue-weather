@@ -1,6 +1,7 @@
 <template>
   <div>
-    <svg :width="svgWidth" :height="svgHeight" :viewBox="`0 0 ${svgWidth} ${svgHeight}`">
+    <svg :width="svgWidth! * currentRemValue" :height="svgHeight! * currentRemValue"
+      :viewBox="`0 0 ${svgWidth} ${svgHeight}`">
       <defs>
         <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#32E1A0" />
@@ -13,14 +14,16 @@
       <path :d="halfCirclePath" fill="none" :stroke="bgStrokeColor" :stroke-width="strokeWidth"
         :stroke-linecap="roundedCap ? 'round' : 'butt'" />
       <path :d="halfCirclePath" fill="none" stroke="url(#progressGradient)" :stroke-width="strokeWidth"
-        :stroke-dasharray="dashArray" class="duration-300" :stroke-linecap="roundedCap ? 'round' : 'butt'" />
+        :stroke-dasharray="dashArray" class="duration-500" :stroke-linecap="roundedCap ? 'round' : 'butt'" />
     </svg>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
+
+const currentRemValue = ref<number>(0)
 
 const props = defineProps({
   svgWidth: Number,
@@ -46,6 +49,16 @@ const halfCirclePath = computed(
   () => `M ${props.strokeWidth},${props.radius! + props.strokeWidth!} a ${props.radius},${props.radius!} 0 1,1 ${props.radius! * 2},0`
 );
 
+
+onMounted(() => {
+  const getAndSetSize = () => {
+    const rootFontSize = getComputedStyle(document.documentElement).fontSize;
+    currentRemValue.value = parseFloat(rootFontSize);
+  };
+  window.addEventListener('resize',getAndSetSize);
+
+  getAndSetSize()
+})
 
 // that is the value that you can change to see the progress
 const dashArray = computed(() => `${(circumference.value * percentage.value) / 100} ${circumference.value}`);

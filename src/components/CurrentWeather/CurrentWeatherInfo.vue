@@ -32,42 +32,42 @@ watch(() => props.weatherCurrent, () => {
 
 
     renderList = [{
-        staticName: 'Humidity',
+        staticName: 'Now Humidity',
         dynamicValue: (props.weatherCurrent?.relative_humidity_2m ?? '') + '%',
         iconSrc: '/weather_icons/humidity.svg',
         imgElementClasss: 'w-[3.125rem] h-[3.125rem] absolute left-[-0.75rem]',
         alt: 'humidity_icon',
     },
     {
-        staticName: 'Rain Chance',
+        staticName: 'Now Rain Chance',
         dynamicValue: (maxPrecipitaionHr) + '%',
         iconSrc: '/weather_icons/sleet.svg',
         imgElementClasss: 'w-[2.375rem] h-[2.375rem] absolute left-[-0.375rem] top-[-0.375rem]',
         alt: 'rain_icon'
     },
     {
-        staticName: 'UV',
+        staticName: 'Now UV',
         dynamicValue: props.airCurrent?.uv_index ?? '',
         iconSrc: `/weather_icons/uv-index-${Math.min(Math.floor(Number(props.airCurrent?.uv_index! < 1 ? 0 : props.airCurrent?.uv_index ?? 0)), 11)}.svg`,
         imgElementClasss: 'w-[2.375rem] h-[2.375rem] absolute left-[-0.375rem] top-[-0.375rem]',
         alt: 'uv_icon'
     },
     {
-        staticName: 'Wind Speed',
+        staticName: 'Now Wind Speed',
         dynamicValue: (props.weatherCurrent?.wind_speed_10m ?? '') + ' km/h',
         iconSrc: `/weather_icons/wind-beaufort-${Math.min(Math.floor(Number(props.weatherCurrent?.wind_speed_10m! < 1 ? 0 : props.weatherCurrent?.wind_speed_10m! ?? 0)), 12)}.svg`,
         imgElementClasss: 'w-[2.5rem] h-[2.5rem] absolute left-[-0.375rem] top-[-0.375rem]',
         alt: 'wind_icon'
     },
     {
-        staticName: 'Snow',
+        staticName: 'Now Snow Fall',
         dynamicValue: snowFallHr + ' cm',
         iconSrc: `/weather_icons/snowflake.svg`,
         imgElementClasss: 'w-[2.625rem] h-[2.625rem] absolute left-[-0.375rem] top-[-0.375rem]',
         alt: 'snow_icon'
     },
     {
-        staticName: 'Rain',
+        staticName: 'Now Rain Fall',
         dynamicValue: rain + ' mm',
         iconSrc: `/weather_icons/raindrops.svg`,
         imgElementClasss: 'w-[2.5rem] h-[2.5rem] absolute left-[-0.375rem] top-[-0.375rem]',

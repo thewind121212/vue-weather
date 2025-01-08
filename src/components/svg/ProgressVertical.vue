@@ -4,7 +4,7 @@
             class="duration-200 rotate-180">
             <rect x="0" y="0" :width="progressWidth" :height="progressHeight" :fill="colorBackgroud"
                 :rx="borderRadius" />
-            <rect x="0" y="0" :width="progressWidth" :height="percentage" :fill="colorFill" class="duration-300"
+            <rect x="0" y="0" :width="progressWidth" :height="percentage" :fill="colorFill" class="duration-500"
                 :rx="borderRadius" />
         </svg>
     </div>
@@ -36,11 +36,16 @@ const props = defineProps({
 
 
 onMounted(() => {
-    const rootFontSize = getComputedStyle(document.documentElement).fontSize;
-    const remValue = parseFloat(rootFontSize);
-    heightPx.value = Number(props.progressHeight?.replace("rem", "")) * remValue
-    widthPx.value = Number(props.progressWidth?.replace("rem", "")) * remValue
-    borderRadius.value = Number(props.progressWidth?.replace("rem", "")) * remValue / 2
+
+    const getAndSetSize = () => {
+        const rootFontSize = getComputedStyle(document.documentElement).fontSize;
+        const remValue = parseFloat(rootFontSize);
+        heightPx.value = Number(props.progressHeight?.replace("rem", "")) * remValue
+        widthPx.value = Number(props.progressWidth?.replace("rem", "")) * remValue
+        borderRadius.value = Number(props.progressWidth?.replace("rem", "")) * remValue / 2
+    }
+    window.addEventListener('resize', getAndSetSize)
+    getAndSetSize()
 })
 
 

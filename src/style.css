@@ -100,12 +100,19 @@
   gap: clamp(4.75rem, 4rem + 3.75vw, 8.5rem);
 }
 
+.gradient-bg {
+  background: radial-gradient(
+    circle,
+    #162850 0%,
+    #121a2d 100%
+  );
+}
 
+/* this place using for responsive */
 
 html {
   font-size: 0.8333333333333333333333333333vw; /* 1rem = 20px */
 }
-
 
 @media (max-width: 1920px) {
   html {

@@ -98,6 +98,7 @@ interface WeatherDailyData {
   apparent_temperature_max: number[];
   apparent_temperature_min: number[];
   sunrise: string[];
+  sunset: string[];
   uv_index_max: number[];
   precipitation_sum: number[];
   rain_sum: number[];

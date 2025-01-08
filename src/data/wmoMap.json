@@ -66,10 +66,10 @@
         "image_night": "/weather_icons/partly-cloudy-night.svg"
     },
     "61": {
-        "category": "Rain",
+        "category": "Light Rain",
         "description": "Light rain",
-        "image_day": "/weather_icons/partly-cloudy-day.svg",
-        "image_night": "/weather_icons/partly-cloudy-night.svg"
+        "image_day": "/weather_icons/partly-cloudy-day-hail.svg",
+        "image_night": "/weather_icons/partly-cloudy-night-hail.svg"
     },
     "63": {
         "category": "Rain",
@@ -152,8 +152,8 @@
     "95": {
         "category": "Thunderstorm",
         "description": "Light thunderstorm",
-        "image_day": "/weather_icons/partly-cloudy-day.svg",
-        "image_night": "/weather_icons/partly-cloudy-night.svg"
+        "image_day": "/weather_icons/thunderstorms-day.svg",
+        "image_night": "/weather_icons/thunderstorms-night.svg"
     },
     "96": {
         "category": "Thunderstorm with Hail",

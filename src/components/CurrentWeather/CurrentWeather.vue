@@ -36,6 +36,7 @@ const weatherCodeFetch: ComputedRef<string> = computed(() => {
 })
 
 
+
 </script>
 
 
@@ -50,14 +51,14 @@ const weatherCodeFetch: ComputedRef<string> = computed(() => {
             <p class="text-3xl"> {{ weatherCode?.[weatherCodeFetch].category }}</p>
             <p class="text-2xl font-light">Feel Like {{ weatherCurrent?.apparent_temperature }}</p>
         </div>
-        <div class="w-auto h-[5rem] flex flex-col justify-between items-end ml-10">
+        <div class="w-auto h-[5rem] flex flex-col justify-between items-end ml-auto">
             <div class="flex gap-2 justify-center items-center">
                 <span
                     class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
                 <p class="text-[1rem] font-bold">Live Report</p>
             </div>
             <div
-                class="w-auto h-[3rem] rounded-[1.5625rem] bg-primary-h-color px-6 text-white flex justify-start items-center gap-2 ml-auto">
+                class="w-auto h-[2.5rem] rounded-[1.5625rem] bg-primary-h-color px-6 text-white flex justify-start items-center gap-2 ml-auto">
                 <i class="pi pi-map-marker" style="font-size: 1.2rem"></i>
                 <p class="text-[0.875rem] cursor-default">{{ locationStore.$state.location?.name &&
                     locationStore.$state.location?.name + ", " }}
