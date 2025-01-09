@@ -63,6 +63,11 @@
 
 :root {
   --font: "SF Pro Display", sans-serif;
+  --clr-1: #052b2f;
+  --clr-2: #073438;
+  --clr-3: #0e4b50;
+  --clr-4: #2d8f85;
+  --clr-5: #637c54;
 }
 
 .light {
@@ -101,11 +106,7 @@
 }
 
 .gradient-bg {
-  background: radial-gradient(
-    circle,
-    #162850 0%,
-    #121a2d 100%
-  );
+  background: radial-gradient(circle, #162850 0%, #121a2d 100%);
 }
 
 /* this place using for responsive */
@@ -118,4 +119,40 @@ html {
   html {
     font-size: 16px !important;
   }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+.hour-card::before,
+.hour-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -0.1rem;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--clr-3),
+    var(--clr-4),
+    var(--clr-5),
+    var(--clr-4),
+    var(--clr-3)
+  );
+  border-radius: inherit;
+  animation: rotation 20s linear infinite;
+}
+
+.hour-card::after {
 }

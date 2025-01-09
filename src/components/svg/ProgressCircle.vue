@@ -11,16 +11,28 @@
           <stop offset="100%" stop-color="#ED4D4D" />
         </linearGradient>
       </defs>
-      <path :d="halfCirclePath" fill="none" :stroke="bgStrokeColor" :stroke-width="strokeWidth"
+      <defs>
+        <linearGradient id="humidity" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3391D6" />
+          <stop offset="100%" stop-color="#133E87" />
+        </linearGradient>
+      </defs>
+      <defs>
+        <linearGradient id="cloud" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ADD8E6" />
+          <stop offset="100%" stop-color="#3391D6" />
+        </linearGradient>
+      </defs>
+      <path :d="halfCirclePath" fill="none" :stroke="bgStrokeColor" :stroke-width="strokeWidthBg"
         :stroke-linecap="roundedCap ? 'round' : 'butt'" />
-      <path :d="halfCirclePath" fill="none" stroke="url(#progressGradient)" :stroke-width="strokeWidth"
+      <path :d="halfCirclePath" fill="none" :stroke="`url(#${linkColor})`" :stroke-width="strokeWidth"
         :stroke-dasharray="dashArray" class="duration-500" :stroke-linecap="roundedCap ? 'round' : 'butt'" />
     </svg>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, onRenderTriggered, PropType, ref, watch } from 'vue';
 
 
 const currentRemValue = ref<number>(0)
@@ -30,9 +42,11 @@ const props = defineProps({
   svgHeight: Number,
   radius: Number,
   strokeWidth: Number,
+  strokeWidthBg: Number,
   bgStrokeColor: String,
   roundedCap: Boolean,
   maxValue: Number,
+  linkColor: String as PropType<"progressGradient" | "humidity" | "cloud">,
   currentValue: Number
 });
 
@@ -49,14 +63,20 @@ const halfCirclePath = computed(
   () => `M ${props.strokeWidth},${props.radius! + props.strokeWidth!} a ${props.radius},${props.radius!} 0 1,1 ${props.radius! * 2},0`
 );
 
+var getAndSetSize = () => {
+  const rootFontSize = getComputedStyle(document.documentElement).fontSize;
+  currentRemValue.value = parseFloat(rootFontSize);
+};
 
 onMounted(() => {
-  const getAndSetSize = () => {
-    const rootFontSize = getComputedStyle(document.documentElement).fontSize;
-    currentRemValue.value = parseFloat(rootFontSize);
-  };
-  window.addEventListener('resize',getAndSetSize);
+  window.addEventListener('resize', getAndSetSize);
 
+  getAndSetSize()
+})
+
+
+onRenderTriggered(() => {
+  console.log('rendered')
   getAndSetSize()
 })
 

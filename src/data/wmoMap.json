@@ -122,8 +122,8 @@
     "80": {
         "category": "Rain Showers",
         "description": "Light rain showers",
-        "image_day": "/weather_icons/partly-cloudy-day.svg",
-        "image_night": "/weather_icons/partly-cloudy-night.svg"
+        "image_day": "/weather_icons/overcast-day-hail.svg",
+        "image_night": "/weather_icons/overcast-night-hail.svg"
     },
     "81": {
         "category": "Rain Showers",

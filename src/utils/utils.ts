@@ -295,3 +295,57 @@ export const getAirlive = (pm10: number, co2: number, so2: number, o3: number) =
     max: 300
   }
 ]
+
+
+
+export const genTimeFn = (time: number) => {
+    if (time < 9) {
+        return `${time} AM`
+    }
+    if (time < 13) {
+        return `${time} AM`
+    }
+
+    if (time < 24) {
+        return `${time - 12} PM`
+    }
+
+}
+
+export function getUVIndexRiskText(uvIndex: number): {
+    advice: string,
+    color: string
+} {
+    if (uvIndex >= 0 && uvIndex <= 3) {
+        return {
+            advice: "0-2 Minimal risk. You can safely enjoy outdoor activities. Wear sunglasses on bright days.",
+            color: "#4ade80"
+        }
+    } else if (uvIndex <= 5) {
+        return {
+            advice: "3-5 Moderate risk. Use sunscreen (SPF 30+), wear a hat and sunglasses, and seek shade during midday.",
+            color: "#fde047"
+        }
+    } else if (uvIndex <= 7) {
+        return {
+            advice: "6-7 High risk. Apply sunscreen generously, wear protective clothing, and avoid staying in direct sunlight",
+            color: "#fb923c"
+        }
+    } else if (uvIndex <= 10) {
+        return {
+            advice: "8-10 Very high risk. Minimize sun exposure, stay in the shade, and use a broad-spectrum sunscreen with SPF 30+.",
+            color: "#f87171"
+        }
+    } else if (uvIndex >= 11) {
+        return {
+            advice: "11+ Extreme risk. Avoid outdoor activities if possible, especially during midday. Use sunscreen, cover up completely, and stay indoors.",
+            color: '#a78bfa'
+        }
+    } else {
+        return {
+            advice: "Invalid UV index. Please provide a number between 0 and 11+.",
+            color: '#f87171'
+        }
+    }
+}
+

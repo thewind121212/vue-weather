@@ -4,12 +4,13 @@ import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeather/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
-import { onBeforeMount, reactive, watch } from 'vue';
+import { onBeforeMount, onMounted, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';
 import SearchModal from './components/SearchModal.vue';
 import { ref } from "vue"
 import { LottieAnimation } from "lottie-web-vue"
 import WatermelonJSON from "./vendor/Lottie/Find.json"
+import 'swiper/swiper-bundle.css';
 
 
 import { Location } from './types/geoTypes';
@@ -20,6 +21,7 @@ import CurrentWeatherInfo from './components/CurrentWeather/CurrentWeatherInfo.v
 import { timeImgGen } from './utils/utils';
 import CurrentAirStatistics from './components/CurrentWeather/CurrentAirStatistics.vue';
 import TodayHightLight from './components/Today/TodayHightLight.vue';
+import UVIndexhr from './components/HourReport/UvIndexHr.vue';
 
 
 
@@ -40,6 +42,7 @@ const time = reactive<{
 
 const unit = useTempUnitStore()
 const locationStore = useLocationStore()
+const simulateAppLoading = ref<boolean>(true)
 
 const currentWeatherFetch = async (): Promise<{
   weather: WeatherDataRes
@@ -119,7 +122,7 @@ const currentWeatherFetch = async (): Promise<{
   }
 }
 
-const { isLoading, isError, data, isFetching, refetch, isRefetching } = useQuery({
+const { isLoading, isError, data, isFetching, refetch } = useQuery({
   queryKey: ['currentWeather'],
   queryFn: currentWeatherFetch,
 })
@@ -138,18 +141,24 @@ onBeforeMount(() => {
   handerChangeTempUnitDebounce.cancel()
 })
 
+onMounted(() => {
+  setTimeout(() => {
+    simulateAppLoading.value = false
+  }, 300)
+})
+
 </script>
 
 <template>
   <div class="w-svw h-svh padding-main bg-primary dark font-sfPro font-[500]">
-    <div v-if="(isFetching || isLoading)"
-      class="fixed top-0 left-0 bg-[#060c1a85] z-[99] w-screen h-screen flex justify-center items-center backdrop-blur-sm">
+    <div v-if="(isFetching || isLoading || simulateAppLoading)"
+      class="fixed top-0 left-0 bg-[#060c1a85] z-[1010] w-screen h-screen flex justify-center items-center backdrop-blur-md">
       <div
-        class="w-[25rem] h-[25rem] rounded-[32% 68% 84% 16% / 54% 39% 61% 46%] bg-white flex justify-center items-center"
+        class="w-[28rem] h-[28rem] rounded-[30% 70% 70% 30% / 30% 56% 44% 70% ] bg-white flex justify-center items-center"
         style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;">
 
         <LottieAnimation ref="anim" :animation-data="WatermelonJSON" :loop="true" :auto-play="true" :speed="1"
-          class="w-[18.75rem]" />
+          class="w-[20.75rem]" />
       </div>
     </div>
     <div class="top-bar p-2 flex justify-start items-center">
@@ -228,7 +237,9 @@ onBeforeMount(() => {
               <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
               <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
             </div>
-            <TodayHightLight :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly" :airQualityHourly="data?.air.data.hourly" :time-zone="data?.weather.data.timezone" />
+            <TodayHightLight :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
+              :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
+              :day="time.day" />
           </div>
         </div>
       </div>
