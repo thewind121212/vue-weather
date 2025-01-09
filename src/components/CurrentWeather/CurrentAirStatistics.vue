@@ -28,7 +28,7 @@ const airLiveStatistics = computed(() => {
 <template>
 
     <div class="w-full h-auto grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-8">
-        <div v-for="item of airLiveStatistics" class="w-full h-auto flex justify-start items-center gap-4">
+        <div v-for="item of airLiveStatistics" class="w-full h-auto flex justify-start items-center gap-4 pl-1">
             <ProgressVertical :progressWidth="'0.625rem'" :progressHeight="'5rem'" :colorBackgroud="item.colorbg"
                 :colorFill="item.color" :overAllValue="item.max" :currentValue="item.value" />
             <div class="flex flex-col">

@@ -299,53 +299,116 @@ export const getAirlive = (pm10: number, co2: number, so2: number, o3: number) =
 
 
 export const genTimeFn = (time: number) => {
-    if (time < 9) {
-        return `${time} AM`
-    }
-    if (time < 13) {
-        return `${time} AM`
-    }
+  if (time < 9) {
+    return `${time} AM`
+  }
+  if (time < 13) {
+    return `${time} AM`
+  }
 
-    if (time < 24) {
-        return `${time - 12} PM`
-    }
+  if (time < 24) {
+    return `${time - 12} PM`
+  }
 
 }
 
 export function getUVIndexRiskText(uvIndex: number): {
-    advice: string,
-    color: string
+  advice: string,
+  color: string
 } {
-    if (uvIndex >= 0 && uvIndex <= 3) {
-        return {
-            advice: "0-2 Minimal risk. You can safely enjoy outdoor activities. Wear sunglasses on bright days.",
-            color: "#4ade80"
-        }
-    } else if (uvIndex <= 5) {
-        return {
-            advice: "3-5 Moderate risk. Use sunscreen (SPF 30+), wear a hat and sunglasses, and seek shade during midday.",
-            color: "#fde047"
-        }
-    } else if (uvIndex <= 7) {
-        return {
-            advice: "6-7 High risk. Apply sunscreen generously, wear protective clothing, and avoid staying in direct sunlight",
-            color: "#fb923c"
-        }
-    } else if (uvIndex <= 10) {
-        return {
-            advice: "8-10 Very high risk. Minimize sun exposure, stay in the shade, and use a broad-spectrum sunscreen with SPF 30+.",
-            color: "#f87171"
-        }
-    } else if (uvIndex >= 11) {
-        return {
-            advice: "11+ Extreme risk. Avoid outdoor activities if possible, especially during midday. Use sunscreen, cover up completely, and stay indoors.",
-            color: '#a78bfa'
-        }
-    } else {
-        return {
-            advice: "Invalid UV index. Please provide a number between 0 and 11+.",
-            color: '#f87171'
-        }
+  if (uvIndex >= 0 && uvIndex <= 3) {
+    return {
+      advice: "0-2 Minimal risk. You can safely enjoy outdoor activities. Wear sunglasses on bright days.",
+      color: "#4ade80"
     }
+  } else if (uvIndex <= 5) {
+    return {
+      advice: "3-5 Moderate risk. Use sunscreen (SPF 30+), wear a hat and sunglasses, and seek shade during midday.",
+      color: "#fde047"
+    }
+  } else if (uvIndex <= 7) {
+    return {
+      advice: "6-7 High risk. Apply sunscreen generously, wear protective clothing, and avoid staying in direct sunlight",
+      color: "#fb923c"
+    }
+  } else if (uvIndex <= 10) {
+    return {
+      advice: "8-10 Very high risk. Minimize sun exposure, stay in the shade, and use a broad-spectrum sunscreen with SPF 30+.",
+      color: "#f87171"
+    }
+  } else if (uvIndex >= 11) {
+    return {
+      advice: "11+ Extreme risk. Avoid outdoor activities if possible, especially during midday. Use sunscreen, cover up completely, and stay indoors.",
+      color: '#a78bfa'
+    }
+  } else {
+    return {
+      advice: "Invalid UV index. Please provide a number between 0 and 11+.",
+      color: '#f87171'
+    }
+  }
 }
 
+
+export function getRainAdvice(percent: number) {
+  if (percent >= 0 && percent <= 20) {
+    return {
+      advice: "Minimal chance of rain. You can plan outdoor activities with confidence. No need for rain gear.",
+      color: "#4ade80"
+    };
+  } else if (percent > 20 && percent <= 40) {
+    return {
+      advice: "Slight chance of rain. Consider carrying a small umbrella or a raincoat, just in case.",
+      color: "#fef08a"
+    };
+  } else if (percent > 40 && percent <= 60) {
+    return {
+      advice: "Moderate chance of rain. Check the forecast for timing. Bring an umbrella for outdoor plans.",
+      color: "#fb923c"
+    };
+  } else if (percent > 60 && percent <= 80) {
+    return {
+      advice: "Rain is likely. Plan for wet conditions. Wear waterproof shoes and carry an umbrella or raincoat.",
+      color: "#f87171"
+    };
+  } else if (percent > 80 && percent <= 100) {
+    return {
+      advice: "Rain is very likely or guaranteed. Limit outdoor activities if possible and prepare for wet conditions.",
+      color: '#a78bfa'
+    };
+  } else {
+    return {
+      advice: "Invalid percentage. Please provide a value between 0 and 100.",
+      color: "#000000"
+    };
+  }
+}
+
+export function getHumidityAdvice(humidity: number) {
+  if (humidity >= 0 && humidity <= 30) {
+    return {
+      advice: "Low humidity. The air is dry, which may cause discomfort for some people. Stay hydrated and use moisturizer if necessary.",
+      color: "#eff6ff"
+    };
+  } else if (humidity > 30 && humidity <= 60) {
+    return {
+      advice: "Comfortable humidity. Ideal for most activities also feel very comfort.",
+      color: "#bfdbfe"
+    };
+  } else if (humidity > 60 && humidity <= 84) {
+    return {
+      advice: "High humidity. May feel sticky or uncomfortable. Try to reduce humidity for more comfort.",
+      color: "#3b82f6"
+    };
+  } else if (humidity > 84 && humidity <= 100) {
+    return {
+      advice: "Very high humidity. The air feels heavy and may pose health risks, especially for those with respiratory conditions.",
+      color: "#2563eb"
+    };
+  } else {
+    return {
+      advice: "Invalid humidity. Please provide a value between 0 and 100.",
+      color: "#000000"
+    };
+  }
+}

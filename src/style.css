@@ -154,5 +154,31 @@ html {
   animation: rotation 20s linear infinite;
 }
 
+/* .hour-card::after {
+} */
+
 .hour-card::after {
+  filter: blur(0.2rem);
+}
+
+.flip-content {
+  transform-style: preserve-3d;
+}
+
+.fliped {
+  transform: rotateX(180deg);
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
+  /* line-height: 300px; */
+  color: white;
+  text-align: center;
+  backface-visibility: hidden;
+}
+
+.back {
+  color: white;
+  transform: rotateX(180deg);
 }

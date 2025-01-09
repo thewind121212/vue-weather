@@ -1,10 +1,8 @@
 <script setup lang="tsx">
 import { computed, ComputedRef } from 'vue';
-import weatherCodeJson from '../../data/wmoMap.json';
 import { CurrentWeatherData, WeatherCodeType } from '../../types/weatherTypes';
 import { useLocationStore } from '../../store/location';
-
-
+import weatherCodeJson from '../../data/wmoMap.json';
 
 const weatherCode: Record<string, WeatherCodeType> = weatherCodeJson as Record<string, WeatherCodeType>;
 

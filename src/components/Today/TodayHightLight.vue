@@ -3,8 +3,9 @@ import { computed, onMounted, ref } from 'vue';
 import { HourlyAirData } from '../../types/airTypes';
 import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import ProgressCircle from '../svg/ProgressCircle.vue';
-import UVIndexhr from '../HourReport/UvIndexHr.vue';
+import UVIndexhr from '../HourReport/ModalHr.vue';
 import gsap from 'gsap';
+import { useSortedInfo } from '../../store/sortInfo';
 
 type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | null
 
@@ -12,6 +13,7 @@ const uvElement = ref<HTMLElement[] | null>(null)
 const rainElement = ref<HTMLElement[] | null>(null)
 const humidityElement = ref<HTMLElement[] | null>(null)
 const cloudElement = ref<HTMLElement[] | null>(null)
+const sortedInfo = useSortedInfo()
 
 const modalMounted = ref<ModalName>(null)
 const gsapTLref = gsap.timeline({
@@ -42,26 +44,25 @@ const todayData = computed<{
 }[]>(() => {
     const rainChance = props.weatherDaily?.precipitation_probability_max[0] ?? 0;
     const humidity = (
-        (props.weatherHourly?.relative_humidity_2m?.slice(0, 24).reduce((acc, curr) => acc + curr, 0) ?? 0) / 24
+        (sortedInfo.$state.humiditySort.reduce((acc, curr) => acc + curr, 0) ?? 0) / 24
     ).toFixed(0);
     const cloudCover = (
-        (props.weatherHourly?.cloud_cover?.slice(0, 24).reduce((acc, curr) => acc + curr, 0) ?? 0) / 24
+        (sortedInfo.$state.cloudCoverSort.reduce((acc, curr) => acc + curr, 0) ?? 0) / 24
     ).toFixed(0);
 
-    const uv = Math.max(...props.airQualityHourly?.uv_index?.slice(0, 24) ?? [0]);
 
     return [{
         id: "uv",
-        title: 'UV index max',
+        title: 'UV index Max',
         order: 'order-1',
-        value: uv ?? 5,
+        value: sortedInfo.uvIndexSort[23] ?? 5,
         linkColor: "progressGradient",
         max: 13,
         unit: '',
     },
     {
         id: "rain",
-        title: 'Rain Chance',
+        title: 'Rain Chance Max',
         order: 'order-2',
         value: Number(rainChance),
         linkColor: "progressGradient",
@@ -70,7 +71,7 @@ const todayData = computed<{
     },
     {
         id: "humidity",
-        title: 'Humidity',
+        title: 'Humidity Avg',
         order: 'order-4',
         max: 100,
         linkColor: "humidity",
@@ -79,7 +80,7 @@ const todayData = computed<{
     },
     {
         id: "cloud",
-        title: 'Cloud Cover',
+        title: 'Cloud Cover Avg',
         order: 'order-5',
         linkColor: "cloud",
         max: 100,
@@ -153,7 +154,7 @@ const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
                 }
             )
             gsap.to(
-                `#${id}-today-hr`, {
+                `#$modal-today-hr`, {
                 display: "none",
                 opacity: 0,
                 duration: 0,
@@ -195,7 +196,7 @@ const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
             duration: 0.5,
             animation: "power2.inOut",
         }, '>')
-        .fromTo(`#${id}-today-hr`, {
+        .fromTo(`#modal-today-hr`, {
             duration: 0.4,
             display: "none",
             opacity: 0,
@@ -231,7 +232,56 @@ onMounted(() => {
     })
 })
 
+const modalMountObject = computed<
+    {
+        dataHr: number[] | undefined,
+        unit: string,
+        headerName: string,
+    }>(() => {
+        if (modalMounted.value === 'uv') {
+            {
+                return {
+                    dataHr: props.airQualityHourly?.uv_index.slice(0, 24),
+                    unit: '',
+                    headerName: 'UV Index Today',
+                }
+            }
+        }
+        if (modalMounted.value === 'rain') {
+            {
+                return {
+                    dataHr: props.weatherHourly?.precipitation_probability.slice(0, 24),
+                    unit: '%',
+                    headerName: 'Rain Chance Today',
+                }
+            }
+        }
 
+        if (modalMounted.value === 'cloud') {
+            {
+                return {
+                    dataHr: props.weatherHourly?.cloud_cover.slice(0, 24),
+                    unit: '%',
+                    headerName: 'Cloud Cover Today',
+                }
+            }
+        }
+        if (modalMounted.value === 'humidity') {
+            {
+                return {
+                    dataHr: props.weatherHourly?.relative_humidity_2m.slice(0, 24),
+                    unit: '%',
+                    headerName: 'Humidity Today',
+                }
+            }
+        }
+        return {
+            dataHr: props.airQualityHourly?.uv_index.slice(0, 24),
+            unit: '',
+            headerName: 'UV Index Today',
+        }
+
+    })
 
 
 </script>
@@ -243,8 +293,8 @@ onMounted(() => {
     <div class="grid grid-cols-3 grid-rows-2 h-[12.25rem] gap-2 max-[1870px]:grid-cols-2">
 
         <div class="fixed top-0 left-0 z-[10002]">
-            <UVIndexhr :day="day" :hr="hr" :timeZone="timeZone" :uvHr="airQualityHourly?.uv_index"
-                :modalName="modalMounted!" />
+            <UVIndexhr :day="day" :hr="hr" :timeZone="timeZone" :dataHr="modalMountObject.dataHr"
+                :modalMounted="modalMounted!" :unit="modalMountObject.unit" :headerName="modalMountObject.headerName" />
         </div>
         <div v-for="(item, index) in todayData" :key="index"
             class="bg-[#0D1321] rounded-xl flex justify-center items-center flex-col relative overflow-hidden"
