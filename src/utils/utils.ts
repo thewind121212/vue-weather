@@ -412,3 +412,8 @@ export function getHumidityAdvice(humidity: number) {
     };
   }
 }
+
+export const convertFromCelciusToFahrenheit = (celsius: string | number, unit: "C" | "F") => {
+  if (unit === "C") return celsius + "°C"
+  return (Number(celsius) * 9 / 5 + 32).toFixed(1) + "°F"
+}

@@ -11,6 +11,7 @@ const props = defineProps({
 
 
 
+
 const faceRender = reactive<
     {
         color: string | null,

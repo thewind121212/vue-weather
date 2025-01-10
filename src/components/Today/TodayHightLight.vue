@@ -3,17 +3,16 @@ import { computed, onMounted, ref } from 'vue';
 import { HourlyAirData } from '../../types/airTypes';
 import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import ProgressCircle from '../svg/ProgressCircle.vue';
-import UVIndexhr from '../HourReport/ModalHr.vue';
+import HrModal from '../HourReport/ModalHr.vue';
 import gsap from 'gsap';
 import { useSortedInfo } from '../../store/sortInfo';
+import { returnModalType } from '../../utils/modal';
 
 type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | null
 
-const uvElement = ref<HTMLElement[] | null>(null)
-const rainElement = ref<HTMLElement[] | null>(null)
-const humidityElement = ref<HTMLElement[] | null>(null)
-const cloudElement = ref<HTMLElement[] | null>(null)
 const sortedInfo = useSortedInfo()
+
+
 
 const modalMounted = ref<ModalName>(null)
 const gsapTLref = gsap.timeline({
@@ -49,7 +48,6 @@ const todayData = computed<{
     const cloudCover = (
         (sortedInfo.$state.cloudCoverSort.reduce((acc, curr) => acc + curr, 0) ?? 0) / 24
     ).toFixed(0);
-
 
     return [{
         id: "uv",
@@ -109,28 +107,29 @@ const sunCalc = computed<{
 const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
 
 
-
     let element: HTMLElement | null = null
 
-    if (!uvElement.value || !rainElement.value || !humidityElement.value || !cloudElement.value) return
+
 
     switch (id) {
         case 'uv':
-            element = uvElement.value[0]
+            element = document.getElementById('uv-placeholder')
             break;
         case 'rain':
-            element = rainElement.value[0]
+            element = document.getElementById('rain-placeholder')
             break;
         case 'humidity':
-            element = humidityElement.value[0]
+            element = document.getElementById('humidity-placeholder')
             break;
         case 'cloud':
-            element = cloudElement.value[0]
+            element = document.getElementById('cloud-placeholder')
             break;
     }
 
 
     if (gsapTLref.isActive() || !element) return
+
+
 
     const { x, y, width, height } = element.parentElement?.getBoundingClientRect() as DOMRect
     const remValue = parseFloat(getComputedStyle(document.documentElement).fontSize)
@@ -167,7 +166,6 @@ const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
     }
 
     gsapTLref.clear()
-    modalMounted.value = id
     const idE = `#${id}-placeholder`
     gsapTLref.
         to(idE, {
@@ -212,6 +210,7 @@ const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
         }, '>')
 
     gsapTLref.play()
+    modalMounted.value = id
 
 }
 
@@ -238,49 +237,13 @@ const modalMountObject = computed<
         unit: string,
         headerName: string,
     }>(() => {
-        if (modalMounted.value === 'uv') {
-            {
-                return {
-                    dataHr: props.airQualityHourly?.uv_index.slice(0, 24),
-                    unit: '',
-                    headerName: 'UV Index Today',
-                }
-            }
-        }
-        if (modalMounted.value === 'rain') {
-            {
-                return {
-                    dataHr: props.weatherHourly?.precipitation_probability.slice(0, 24),
-                    unit: '%',
-                    headerName: 'Rain Chance Today',
-                }
-            }
-        }
 
-        if (modalMounted.value === 'cloud') {
-            {
-                return {
-                    dataHr: props.weatherHourly?.cloud_cover.slice(0, 24),
-                    unit: '%',
-                    headerName: 'Cloud Cover Today',
-                }
-            }
-        }
-        if (modalMounted.value === 'humidity') {
-            {
-                return {
-                    dataHr: props.weatherHourly?.relative_humidity_2m.slice(0, 24),
-                    unit: '%',
-                    headerName: 'Humidity Today',
-                }
-            }
-        }
-        return {
-            dataHr: props.airQualityHourly?.uv_index.slice(0, 24),
-            unit: '',
-            headerName: 'UV Index Today',
-        }
-
+        return returnModalType(modalMounted.value!,
+            props.airQualityHourly?.uv_index.slice(0, 24)!,
+            props.weatherHourly?.precipitation_probability.slice(0, 24)!,
+            props.weatherHourly?.cloud_cover.slice(0, 24)!,
+            props.weatherHourly?.relative_humidity_2m.slice(0, 24)!,
+        )
     })
 
 
@@ -293,16 +256,15 @@ const modalMountObject = computed<
     <div class="grid grid-cols-3 grid-rows-2 h-[12.25rem] gap-2 max-[1870px]:grid-cols-2">
 
         <div class="fixed top-0 left-0 z-[10002]">
-            <UVIndexhr :day="day" :hr="hr" :timeZone="timeZone" :dataHr="modalMountObject.dataHr"
+            <HrModal :day="day" :hr="hr" :timeZone="timeZone" :dataHr="modalMountObject.dataHr"
                 :modalMounted="modalMounted!" :unit="modalMountObject.unit" :headerName="modalMountObject.headerName" />
         </div>
         <div v-for="(item, index) in todayData" :key="index"
             class="bg-[#0D1321] rounded-xl flex justify-center items-center flex-col relative overflow-hidden"
             :class="item.order">
-            <div class="bg-transparent w-full h-full absolute left-0 top-0 z-[1000] rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0"
+            <div class="bg-transparent w-full h-full absolute left-0 top-0 z-[1000] rounded-xl opacity-0 backdrop-blur-[2px] cursor-pointer"
                 v-on:click="startTimeLine(item.id as 'uv' | 'rain' | 'cloud' | 'humidity')"
-                :id="(item.id.toLowerCase()) + '-placeholder'"
-                :ref="item.id === 'uv' ? 'uvElement' : item.id === 'rain' ? 'rainElement' : item.id === 'humidity' ? 'humidityElement' : 'cloudElement'">
+                :id="(item.id.toLowerCase()) + '-placeholder'">
             </div>
             <h3 class="text-white text-[0.875rem] text-left font-light">{{ item.title }}</h3>
             <p class="absolute text-white font-semibold bottom-2 text-xl">{{ item.value }} {{ item.unit }}</p>

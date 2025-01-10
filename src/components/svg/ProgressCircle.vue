@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onRenderTriggered, PropType, ref, watch } from 'vue';
+import { computed, onMounted, onRenderTriggered, PropType, ref } from 'vue';
 
 
 const currentRemValue = ref<number>(0)

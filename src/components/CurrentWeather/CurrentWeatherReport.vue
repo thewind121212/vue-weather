@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { defineProps, } from 'vue';
+import { defineProps, watch, } from 'vue';
 import { CurrentWeatherData, WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import { CurrentAirData, HourlyAirData } from '../../types/airTypes';
 import CurrentWeather from './CurrentWeather.vue';
 import CurrentTempature from './CurrentTempature.vue';
 import CurrentAirQuality from './CurrentAirQuality.vue';
+import { useAirQualityInfo } from '../../store/airInfo';
 
 
 const props = defineProps({
@@ -18,8 +19,13 @@ const props = defineProps({
     weatherHourly: Object as () => WeatherHourlyData
 })
 
+const airInfo = useAirQualityInfo()
 
-
+watch(() => props.weatherCurrent, () => {
+    if (props.weatherCurrent) {
+        airInfo.setAirQuality(props.airCurrent?.us_aqi!, props.airCurrent?.pm2_5!, props.airCurrent?.pm10!)
+    }
+}, { immediate: true })
 
 
 </script>

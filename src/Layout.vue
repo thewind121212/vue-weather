@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from './types/weatherTypes';
 import CurrentWeatherReport from './components/CurrentWeather/CurrentWeatherReport.vue';
 import { AxiosCLient } from './lib/axios';
-import { onBeforeMount, onMounted, reactive, watch } from 'vue';
+import { onBeforeMount, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';
 import SearchModal from './components/SearchModal.vue';
 import { ref } from "vue"
@@ -44,7 +44,6 @@ const time = reactive<{
 const unit = useTempUnitStore()
 const sortedInfo = useSortedInfo()
 const locationStore = useLocationStore()
-const simulateAppLoading = ref<boolean>(true)
 
 const currentWeatherFetch = async (): Promise<{
   weather: WeatherDataRes
@@ -143,11 +142,6 @@ onBeforeMount(() => {
   handerChangeTempUnitDebounce.cancel()
 })
 
-onMounted(() => {
-  setTimeout(() => {
-    simulateAppLoading.value = false
-  }, 300)
-})
 
 watch(data, () => {
   if (data.value?.air && data.value?.weather) {
@@ -167,7 +161,7 @@ watch(data, () => {
 <template>
   <div class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.png')] bg-cover bg-center overflow-hidden">
     <div class="w-full h-full backdrop-blur-lg p-10">
-      <div v-if="(isFetching || isLoading || simulateAppLoading)"
+      <div v-if="(isFetching || isLoading)"
         class="fixed top-0 left-0 bg-[#060c1a85] z-[1010] w-screen h-screen flex justify-center items-center backdrop-blur-md">
         <div
           class="w-[28rem] h-[28rem] rounded-[30% 70% 70% 30% / 30% 56% 44% 70% ] bg-white flex justify-center items-center"
@@ -270,8 +264,8 @@ watch(data, () => {
             <div class="flex gap-4 rounded-2xl h-full">
               <div class="gradient-bg flex-auto rounded-2xl p-6 basis-3/5 max-w-[25.625rem] h-full flex flex-col">
                 <div class="flex gap-2 justify-start items-center ml-1 mb-4">
-                  <span class="w-4 h-4 min-w-4 min-h-4 rounded-full t g-blue-400 -translate-y-[0.0313rem]"></span>
-                  <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
+                  <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
+                  <p class="text-[1rem] font-bold text-white">Today Forcast</p>
                 </div>
                 <TodayForcast :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
                   :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"

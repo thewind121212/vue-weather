@@ -4,7 +4,6 @@ import { computed, onMounted, ref, watch, } from 'vue';
 import { Swiper as SwiperInstance } from 'swiper/types';
 import HeaderHr from './HeaderHr.vue';
 import { getUVIndexRiskText, genTimeFn, getRainAdvice, getHumidityAdvice } from '../../utils/utils';
-import { is } from 'drizzle-orm';
 
 
 const hrSelected = ref<number>(0)
@@ -193,7 +192,7 @@ const genCloudyCoverImage = (percents: number, hour: number): string => {
                                 <img v-if="modalMounted === 'rain'" :src="genRainChangeImage(item, index)" alt="uv-icon"
                                     class="w-[3.7rem] h-auto my-6">
                                 <img v-if="modalMounted === 'humidity'"
-                                    :src="item > 50 ? '/public/weather_icons/raindrops.svg' : '/public/weather_icons/raindrop.svg'"
+                                    :src="item > 50 ? '/weather_icons/raindrops.svg' : '/weather_icons/raindrop.svg'"
                                     alt="uv-icon" class="w-[3.7rem] h-auto my-6">
                                 <img v-if="modalMounted === 'cloud'" :src="genCloudyCoverImage(item, index)"
                                     alt="uv-icon" class="w-[3.7rem] h-auto my-6">

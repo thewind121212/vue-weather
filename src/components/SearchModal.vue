@@ -63,7 +63,7 @@ const geoQueryFetch = async () => {
 }
 
 
-const onChanges = (e: any) => {
+const onChanges = () => {
     if (!inputValue.value) {
         return
     }
