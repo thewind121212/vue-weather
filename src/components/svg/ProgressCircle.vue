@@ -76,7 +76,6 @@ onMounted(() => {
 
 
 onRenderTriggered(() => {
-  console.log('rendered')
   getAndSetSize()
 })
 

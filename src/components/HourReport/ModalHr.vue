@@ -3,11 +3,10 @@ import { Swiper, SwiperSlide, } from 'swiper/vue';
 import { computed, onMounted, ref, watch, } from 'vue';
 import { Swiper as SwiperInstance } from 'swiper/types';
 import HeaderHr from './HeaderHr.vue';
-import { getUVIndexRiskText, genTimeFn, getRainAdvice, getHumidityAdvice } from '../../utils/utils';
+import { getUVIndexRiskText, genTimeFn, getRainAdvice, getHumidityAdvice, genCloudyCoverImage, genRainChangeImage} from '../../utils/utils';
 
 
 const hrSelected = ref<number>(0)
-
 
 
 const slideRef = ref<SwiperInstance | null>(null)
@@ -82,57 +81,7 @@ const advice = computed(() => {
 })
 
 
-const genRainChangeImage = (percents: number, hour: number): string => {
-    const isNight = hour < 6 || hour > 18
-    const isHaveRain = percents > 0
 
-    switch (isNight) {
-        case (true): {
-            return isHaveRain ? '/weather_icons/overcast-night-hail.svg' : '/weather_icons/clear-night.svg'
-        }
-        case (false): {
-            return isHaveRain ? '/weather_icons/hail.svg' : '/weather_icons/clear-day.svg'
-        }
-    }
-}
-
-
-const genCloudyCoverImage = (percents: number, hour: number): string => {
-    const isNight = hour < 6 || hour > 18
-
-    switch (isNight) {
-        case (true): {
-            if (percents < 20) {
-                return '/weather_icons/clear-night.svg'
-            }
-            if (percents < 50) {
-                return '/weather_icons/partly-cloudy-night.svg'
-            }
-            if (percents < 95) {
-                return '/weather_icons/overcast.svg'
-            }
-            if (percents >= 95) {
-                return '/weather_icons/extreme.svg'
-            }
-            return '/weather_icons/clear-night.svg'
-        }
-        case (false): {
-            if (percents < 20) {
-                return '/weather_icons/clear-day.svg'
-            }
-            if (percents < 50) {
-                return '/weather_icons/cloudy.svg'
-            }
-            if (percents < 95) {
-                return '/weather_icons/overcast.svg'
-            }
-            if (percents >= 95) {
-                return '/weather_icons/extreme.svg'
-            }
-            return '/weather_icons/clear.svg'
-        }
-    }
-}
 
 
 </script>

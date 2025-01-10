@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 import { HourlyAirData } from '../../types/airTypes';
 import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import ProgressCircle from '../svg/ProgressCircle.vue';
-import HrModal from '../HourReport/ModalHr.vue';
 import gsap from 'gsap';
 import { useSortedInfo } from '../../store/sortInfo';
-import { returnModalType } from '../../utils/modal';
+import { mountModalHander, returnModalType } from '../../utils/modal';
 
-type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | null
+
+const HrModal = defineAsyncComponent(() => import('../HourReport/ModalHr.vue'))
+
+export type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | null
 
 const sortedInfo = useSortedInfo()
 
 
 
+const isResize = ref<boolean>(false)
 const modalMounted = ref<ModalName>(null)
 const gsapTLref = gsap.timeline({
     paused: true,
@@ -106,121 +109,17 @@ const sunCalc = computed<{
 
 const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
 
-
-    let element: HTMLElement | null = null
-
-
-
-    switch (id) {
-        case 'uv':
-            element = document.getElementById('uv-placeholder')
-            break;
-        case 'rain':
-            element = document.getElementById('rain-placeholder')
-            break;
-        case 'humidity':
-            element = document.getElementById('humidity-placeholder')
-            break;
-        case 'cloud':
-            element = document.getElementById('cloud-placeholder')
-            break;
-    }
-
-
-    if (gsapTLref.isActive() || !element) return
-
-
-
-    const { x, y, width, height } = element.parentElement?.getBoundingClientRect() as DOMRect
-    const remValue = parseFloat(getComputedStyle(document.documentElement).fontSize)
-
-
-    if (!gsapTLref.reversed() && !gsapTLref.paused()) {
-        if (gsapTLref.getChildren().length === 0) {
-            gsap.to(
-                `#${id}-placeholder`,
-                {
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "transparent",
-                    opacity: 0,
-                    zIndex: 10,
-                    duration: 0.2,
-                    borderRadius: "0.75rem",
-                }
-            )
-            gsap.to(
-                `#$modal-today-hr`, {
-                display: "none",
-                opacity: 0,
-                duration: 0,
-            })
-            gsapTLref.reverse()
-            return
-        }
-        gsapTLref.reverse()
-        return
-    }
-
-    gsapTLref.clear()
-    const idE = `#${id}-placeholder`
-    gsapTLref.
-        to(idE, {
-            position: "fixed",
-            top: `${y / remValue}rem`,
-            left: `${x / remValue}rem`,
-            width: `${width / remValue}rem`,
-            cursor: "default",
-            height: `${height / remValue}rem`,
-            duration: 0,
-            opacity: 0,
-            zIndex: 1000,
-        }, '<')
-        .to(idE, {
-            backgroundColor: "rgba(0,0,0,0.9)",
-            duration: 0.4,
-            opacity: 0.8,
-        }, '>')
-        .to(idE, {
-            top: 0,
-            left: 0,
-            width: "100vw",
-            opacity: 1,
-            height: "100vh",
-            borderRadius: "0",
-            duration: 0.5,
-            animation: "power2.inOut",
-        }, '>')
-        .fromTo(`#modal-today-hr`, {
-            duration: 0.4,
-            display: "none",
-            opacity: 0,
-            visibility: "hidden",
-            y: -50,
-        }, {
-            opacity: 1,
-            display: "flex",
-            duration: 0.3,
-            visibility: "visible",
-            animation: "power2.inOut",
-            y: 0,
-        }, '>')
-
-    gsapTLref.play()
+    mountModalHander(id, gsapTLref, isResize.value)
     modalMounted.value = id
-
+    if (isResize.value) {
+        isResize.value = false
+    }
 }
 
 
 onMounted(() => {
-    console.log("he")
     window.addEventListener("resize", () => {
-        if (!gsapTLref.isActive()) {
-            gsapTLref.clear()
-        }
+        isResize.value = true
     })
     window.addEventListener("keydown", (e) => {
         if (e.code === 'Escape') {
@@ -261,7 +160,9 @@ const modalMountObject = computed<
         </div>
         <div v-for="(item, index) in todayData" :key="index"
             class="bg-[#0D1321] rounded-xl flex justify-center items-center flex-col relative overflow-hidden"
-            :class="item.order">
+            :class="item.order"
+            :style="{ pointerEvents: (modalMounted === item.id || modalMounted === null) ? 'auto' : 'none' }">
+
             <div class="bg-transparent w-full h-full absolute left-0 top-0 z-[1000] rounded-xl opacity-0 backdrop-blur-[2px] cursor-pointer"
                 v-on:click="startTimeLine(item.id as 'uv' | 'rain' | 'cloud' | 'humidity')"
                 :id="(item.id.toLowerCase()) + '-placeholder'">

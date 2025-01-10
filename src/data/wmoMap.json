@@ -20,7 +20,7 @@
     "3": {
         "category": "OverCast",
         "description": "Clear to overcast",
-        "image_day": "/weather_icons/overcast.svg",
+        "image_day": "/weather_icons/overcast-day.svg",
         "image_night": "/weather_icons/overcast-night.svg"
     },
     "45": {

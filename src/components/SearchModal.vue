@@ -15,6 +15,9 @@ const showModel = ref<boolean>(false)
 const inputRef = ref<HTMLElement | null>(null)
 const locationStore = useLocationStore()
 
+const inputOverlay = ref<HTMLElement | null>(null)
+const inputSeach = ref<HTMLElement | null>(null)
+
 
 var seachTl = gsap.timeline({
     paused: true, onComplete: () => {
@@ -28,13 +31,12 @@ var seachTl = gsap.timeline({
 
 onMounted(() => {
     inputRef.value = document.getElementById("searchInputField")
-
-    seachTl.fromTo("#searchOverlay", {
+    seachTl.fromTo(inputOverlay.value, {
         display: "none",
     }, {
         display: "block",
     }, '>')
-        .fromTo("#searchInput", {
+        .fromTo(inputSeach.value, {
             opacity: 0,
             animation: "power1.out",
             duration: 0.5,
@@ -130,12 +132,12 @@ onBeforeMount(() => {
     <div class="w-[18.75rem] h-[3.1875rem] relative flex justify-end items-center">
         <i class="pi pi-map ml-4 text-white absolute right-0 top-1/2 -translate-y-1/2" style="font-size: 1.5rem;"
             v-on:click="toggleModalHandler"></i>
-        <div class="fixed w-screen h-screen top-0 left-0 z-[40] hidden" id="searchOverlay">
+        <div class="fixed w-screen h-screen top-0 left-0 z-[40] hidden" ref="inputOverlay">
             <div class="w-full h-full relative flex justify-center items-start pt-[12%]">
                 <div class="w-full h-full bg-[#1E1E1Ebd] backdrop-blur-sm absolute left-0 top-0 z-10" id="searchModal"
                     v-on:click="toggleModalHandler">
                 </div>
-                <div class="w-[25rem] h-[3.1875rem] relative opacity-0 z-20" id="searchInput">
+                <div class="w-[25rem] h-[3.1875rem] relative opacity-0 z-20" ref="inputSeach">
                     <i class="pi pi-map ml-4 text-white absolute left-0 top-1/2 -translate-y-1/2"
                         style="font-size: 1.5rem;"></i>
                     <i class="pi pi-times mr-4 text-white absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"
