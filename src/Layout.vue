@@ -7,9 +7,6 @@ import { AxiosCLient } from './lib/axios';
 import { onBeforeMount, reactive, watch } from 'vue';
 import { useTempUnitStore } from './store/tempUnit';
 import SearchModal from './components/SearchModal.vue';
-import { ref } from "vue"
-import { LottieAnimation } from "lottie-web-vue"
-import WatermelonJSON from "./vendor/Lottie/Find.json"
 import { useSortedInfo } from './store/sortInfo';
 import 'swiper/swiper-bundle.css';
 
@@ -23,10 +20,10 @@ import { timeImgGen } from './utils/utils';
 import CurrentAirStatistics from './components/CurrentWeather/CurrentAirStatistics.vue';
 import TodayHightLight from './components/Today/TodayHightLight.vue';
 import TodayForcast from './components/Today/TodayForcast.vue';
+import LoadingHome from './components/Loading/HomeLoading.vue';
 
 
 
-let anim = ref()
 
 
 
@@ -61,7 +58,6 @@ const currentWeatherFetch = async (): Promise<{
     locationParams = locationParams ? locationParams : locationLocalStore ? JSON.parse(locationLocalStore) : null
 
 
-    const timeZone = new Intl.DateTimeFormat().resolvedOptions().timeZone
     if (!locationParams) {
       throw new Error('Location not found')
     }
@@ -106,8 +102,6 @@ const currentWeatherFetch = async (): Promise<{
     time.hr = timeBaseOnTimeZone.split(',')[3]
     time.day = timeBaseOnTimeZone.split(',').slice(0, 3).join(',')
     time.imgTime = timeImgGen(Number(timeBaseOnTimeZone.split(',')[3].split(":")[0])) ?? null
-
-
 
 
     return {
@@ -161,16 +155,8 @@ watch(data, () => {
 <template>
   <div class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.png')] bg-cover bg-center overflow-hidden">
     <div class="w-full h-full backdrop-blur-lg p-10">
-      <div v-if="(isFetching || isLoading)"
-        class="fixed top-0 left-0 bg-[#060c1a85] z-[1010] w-screen h-screen flex justify-center items-center backdrop-blur-md">
-        <div
-          class="w-[28rem] h-[28rem] rounded-[30% 70% 70% 30% / 30% 56% 44% 70% ] bg-white flex justify-center items-center"
-          style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;">
+      <LoadingHome v-if="(isFetching || isLoading)" />
 
-          <LottieAnimation ref="anim" :animation-data="WatermelonJSON" :loop="true" :auto-play="true" :speed="1"
-            class="w-[20.75rem]" />
-        </div>
-      </div>
       <div class="top-bar p-2 flex justify-start items-center">
         <img src="/logo.webp" alt="logo" class="w-20 h-20 scale-125 min-w-20 min-h-20 -translate-y-[0.03125rem]" />
         <div class="w-auto h-[4rem] flex justify-center items-star flex-col">
