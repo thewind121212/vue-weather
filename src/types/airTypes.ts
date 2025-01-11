@@ -32,6 +32,7 @@ interface CurrentAirData {
 interface HourlyAirUnits {
     time: Unit;
     pm2_5: Unit;
+    pm10: Unit;
     carbon_monoxide: Unit;
     uv_index: Unit;
     us_aqi: Unit;
@@ -43,6 +44,7 @@ interface HourlyAirData {
     carbon_monoxide: (number)[];
     uv_index: (number)[];
     us_aqi: (number)[];
+    pm10: (number)[];
 }
 
 interface AirQualityData {

@@ -470,3 +470,45 @@ export const genRainChangeImage = (percents: number, hour: number): string => {
         }
     }
 }
+
+export function getAQIRiskText(aqi: number): {
+  advice: string,
+  color: string
+} {
+  if (aqi >= 0 && aqi <= 50) {
+    return {
+      advice: "0-50 Good. Air quality is satisfactory, and air pollution poses little or no risk.",
+      color: "#009966" // Green
+    };
+  } else if (aqi <= 100) {
+    return {
+      advice: "51-100 Moderate. Acceptable air quality; however, there may be a moderate health concern for a very small number of people.",
+      color: "#ffde33" // Yellow
+    };
+  } else if (aqi <= 150) {
+    return {
+      advice: "101-150 Unhealthy for Sensitive Groups. Members of sensitive groups may experience health effects. The general public is not likely to be affected.",
+      color: "#ff9933" // Orange
+    };
+  } else if (aqi <= 200) {
+    return {
+      advice: "151-200 Unhealthy. Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.",
+      color: "#cc0033" // Red
+    };
+  } else if (aqi <= 300) {
+    return {
+      advice: "201-300 Very Unhealthy. Health warnings of emergency conditions. The entire population is more likely to be affected.",
+      color: "#660099" // Purple
+    };
+  } else if (aqi <= 500) {
+    return {
+      advice: "301-500 Hazardous. Health alert: everyone may experience more serious health effects.",
+      color: "#7e0023" // Maroon
+    };
+  } else {
+    return {
+      advice: "Invalid AQI value. Please provide a number between 0 and 500.",
+      color: "#7e0023" // Maroon
+    };
+  }
+}

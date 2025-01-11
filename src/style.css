@@ -5,6 +5,7 @@
 
 /* main.css */
 
+
 @font-face {
   font-family: "SF Pro Display";
   font-style: normal;
@@ -113,6 +114,7 @@
 
 html {
   font-size: 16px; /* 1rem = 20px */
+  background-color: #060C1A;
 }
 
 @media (max-width: 1920px) {
@@ -170,15 +172,26 @@ html {
   transition: transform 0.5s;
 }
 
+.fliped .front {
+  opacity: 0;
+}
+
+.fliped .back {
+  opacity: 1;
+}
+
 .front,
 .back {
   /* line-height: 300px; */
   color: white;
+  white-space: nowrap;
   text-align: center;
   backface-visibility: hidden;
+  transition: opacity 0.5s;
 }
 
 .back {
   color: white;
+  opacity: 0;
   transform: rotateX(180deg);
 }

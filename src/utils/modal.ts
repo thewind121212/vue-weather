@@ -1,8 +1,7 @@
 import { ModalName } from "../components/Today/TodayHightLight.vue";
 import gsap from 'gsap'
 
-export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResize: boolean) => {
-
+export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResize: boolean, modalID: '#modal-today-hr' | '#forcast-today-hr' = '#modal-today-hr') => {
 
 
     let element: HTMLElement | null = null
@@ -19,6 +18,15 @@ export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResiz
             break;
         case 'cloud':
             element = document.getElementById('cloud-placeholder')
+            break;
+        case 'weatherCard':
+            element = document.getElementById('weatherCard-placeholder')
+            break;
+        case 'air':
+            element = document.getElementById('air-placeholder')
+            break;
+        case 'moon':
+            element = document.getElementById('moon-placeholder')
             break;
     }
 
@@ -49,7 +57,7 @@ export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResiz
                 }
             )
             gsap.to(
-                `#modal-today-hr`, {
+                `${modalID}`, {
                 display: "none",
                 opacity: 0,
                 duration: 0,
@@ -90,7 +98,7 @@ export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResiz
             duration: 0.5,
             animation: "power2.inOut",
         }, '>')
-        .fromTo(`#modal-today-hr`, {
+        .fromTo(`${modalID}`, {
             duration: 0.4,
             display: "none",
             opacity: 0,
@@ -111,7 +119,7 @@ export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResiz
 }
 
 
-export const returnModalType = (modalMounted: string, dataAir: number[], dataRainChance: number[], dataCloud: number[], dataHumidity: number[]) => {
+export const returnModalType = (modalMounted: string, dataAir: number[], dataRainChance: number[], dataCloud: number[], dataHumidity: number[], dataAirIndex: number[]) => {
 
     switch (modalMounted) {
         case 'uv':
@@ -137,6 +145,12 @@ export const returnModalType = (modalMounted: string, dataAir: number[], dataRai
                 dataHr: dataHumidity.slice(0, 24),
                 unit: '%',
                 headerName: 'Humidity Today',
+            }
+        case 'air':
+            return {
+                dataHr: dataAirIndex.slice(0, 24),
+                unit: '',
+                headerName: 'Air Index Today',
             }
         default:
             return {

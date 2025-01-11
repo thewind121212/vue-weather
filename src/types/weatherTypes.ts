@@ -85,7 +85,8 @@ interface WeatherHourlyData {
   precipitation: number[];
   rain: number[];
   snowfall: number[];
-  weather_code: string[];
+  weather_code: number[];
+  wind_speed_10m: number[];
   cloud_cover: number[];
 }
 
@@ -102,6 +103,7 @@ interface WeatherDailyData {
   uv_index_max: number[];
   precipitation_sum: number[];
   rain_sum: number[];
+  wind_speed_10m: number[];
   precipitation_hours: number[];
   precipitation_probability_max: number[];
 }
@@ -135,11 +137,11 @@ interface WeatherDataRes {
 
 
 interface WeatherCodeType {
-    category: string,
-    description: string,
-    image_day: string,
-    image_night: string,
+  category: string,
+  description: string,
+  image_day: string,
+  image_night: string,
 }
 
 export { Unit };
-export type {WeatherCodeType ,WeatherDataRes, WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };
+export type { WeatherCodeType, WeatherDataRes, WeatherData, CurrentWeatherData, WeatherHourlyData, WeatherDailyData, CurrentWeatherUnits, HourWeatherUnits, DailyWeatherUnits };

@@ -9,7 +9,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex justify-start items-center gap-2">
+    <div class="flex justify-end items-center gap-2 w-[60.25rem] ml-auto">
         <div class="text-white flex justify-start items-center gap-2">
             <span
                 class="animate-pulse size-[1rem] max-w-6 max-h-6 rounded-full bg-red-400 -translate-y-[0.0313rem]"></span>

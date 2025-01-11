@@ -6,22 +6,23 @@ import ProgressCircle from '../svg/ProgressCircle.vue';
 import gsap from 'gsap';
 import { useSortedInfo } from '../../store/sortInfo';
 import { mountModalHander, returnModalType } from '../../utils/modal';
+import { useModalStore } from '../../store/modal';
 
 
 const HrModal = defineAsyncComponent(() => import('../HourReport/ModalHr.vue'))
 
-export type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | null
+export type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | 'weatherCard' | 'moon' | 'air' | 'pm2_5' | null
 
 const sortedInfo = useSortedInfo()
 
 
 
 const isResize = ref<boolean>(false)
-const modalMounted = ref<ModalName>(null)
+const modalStore = useModalStore()
 const gsapTLref = gsap.timeline({
     paused: true,
     onReverseComplete: () => {
-        modalMounted.value = null
+        modalStore.setModalMounted(null)
     }
 })
 
@@ -110,7 +111,7 @@ const sunCalc = computed<{
 const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
 
     mountModalHander(id, gsapTLref, isResize.value)
-    modalMounted.value = id
+    modalStore.setModalMounted(id)
     if (isResize.value) {
         isResize.value = false
     }
@@ -137,11 +138,12 @@ const modalMountObject = computed<
         headerName: string,
     }>(() => {
 
-        return returnModalType(modalMounted.value!,
+        return returnModalType(modalStore.modalMounted!,
             props.airQualityHourly?.uv_index.slice(0, 24)!,
             props.weatherHourly?.precipitation_probability.slice(0, 24)!,
             props.weatherHourly?.cloud_cover.slice(0, 24)!,
             props.weatherHourly?.relative_humidity_2m.slice(0, 24)!,
+            props.airQualityHourly?.us_aqi.slice(0, 24)!,
         )
     })
 
@@ -156,12 +158,13 @@ const modalMountObject = computed<
 
         <div class="fixed top-0 left-0 z-[10002]">
             <HrModal :day="day" :hr="hr" :timeZone="timeZone" :dataHr="modalMountObject.dataHr"
-                :modalMounted="modalMounted!" :unit="modalMountObject.unit" :headerName="modalMountObject.headerName" />
+                :unit="modalMountObject.unit" :headerName="modalMountObject.headerName"
+                :air-hourly="airQualityHourly" />
         </div>
         <div v-for="(item, index) in todayData" :key="index"
             class="bg-[#0D1321] rounded-xl flex justify-center items-center flex-col relative overflow-hidden"
             :class="item.order"
-            :style="{ pointerEvents: (modalMounted === item.id || modalMounted === null) ? 'auto' : 'none' }">
+            :style="{ pointerEvents: (modalStore.modalMounted === item.id || modalStore.modalMounted === null) ? 'auto' : 'none' }">
 
             <div class="bg-transparent w-full h-full absolute left-0 top-0 z-[1000] rounded-xl opacity-0 backdrop-blur-[2px] cursor-pointer"
                 v-on:click="startTimeLine(item.id as 'uv' | 'rain' | 'cloud' | 'humidity')"
