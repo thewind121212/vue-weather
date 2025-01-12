@@ -6,6 +6,7 @@ import { useSortedInfo } from '../../store/sortInfo';
 import gsap from 'gsap';
 import { convertFromCelciusToFahrenheit, genTheAirImage } from '../../utils/utils';
 import { useAirQualityInfo } from '../../store/airInfo';
+import MoonPhaseModal from '../../moon/MoonPhaseModal.vue';
 
 
 import weatherCodeJson from '../../data/wmoMap.json';
@@ -154,6 +155,9 @@ const faceRender = computed(() => {
             <ForcastModalHr :day="day" :hr="hr" :timeZone="timeZone" :dataHr="weatherHourly?.weather_code.slice(0, 24)"
                 :unit="''" :headerName="'Today Forcast'" :weatherHourly="weatherHourly" :airHourly="airQualityHourly" />
         </div>
+        <div class="fixed top-0 left-0 z-[10001]">
+            <MoonPhaseModal :timeZone="timeZone" :hr="hr" :day="day" />
+        </div>
 
         <div class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-cover bg-center overflow-hidden"
             :class="isHaveRain ? `bg-[url('/image-rain.png')]` : `bg-[url('/image-day.png')]`">
@@ -224,7 +228,8 @@ const faceRender = computed(() => {
                         <div class="font-light text-white text-[0.875rem] block">New Moon in 14 day</div>
                     </div>
                     <p class="font-light text-gray-300 text-[0.875rem] underline cursor-pointer pointer-events-none"
-                        v-on:click="startTimeLine('moon')" :class="{ '!pointer-events-auto': !modalStore.modalMounted }">
+                        v-on:click="startTimeLine('moon')"
+                        :class="{ '!pointer-events-auto': !modalStore.modalMounted }">
                         See More</p>
                 </div>
                 <div class="relative flex justify-center items-center ml-2">
