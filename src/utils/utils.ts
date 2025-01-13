@@ -1,4 +1,5 @@
 import { FaceType } from "../types/airTypes"
+import { responseMoonPhaseType } from "../types/moon"
 
 
 export const timeImgGen = (t: number) => {
@@ -511,4 +512,35 @@ export function getAQIRiskText(aqi: number): {
       color: "#7e0023" // Maroon
     };
   }
+}
+
+
+export const genMoonPhaseImage = (moonPhase: responseMoonPhaseType) => {
+    switch (moonPhase) {
+        case ('New Moon'): {
+            return '/moon/new-moon.svg'
+        }
+        case ('Waxing Crescent'): {
+            return '/moon/waxing-crescent.svg'
+        }
+        case ('First Quarter'): {
+            return '/moon/first-quarter.svg'
+        }
+        case ('Waxing Gibbous'): {
+            return '/moon/waxing-gibbous.svg'
+        }
+        case ('Full Moon'): {
+            return '/moon/full-moon.svg'
+        }
+        case ('Waning Gibbous'): {
+            return '/moon/waning-gibbous.svg'
+        }
+        case ('Last Quarter'): {
+            return '/moon/last-quarter.svg'
+        }
+        case ('Waning Crescent'): {
+            return '/moon/waning-crescent.svg'
+        }
+
+    }
 }

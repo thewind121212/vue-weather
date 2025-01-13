@@ -19,6 +19,8 @@ import { timeImgGen } from './utils/utils';
 import CurrentAirStatistics from './components/CurrentWeather/CurrentAirStatistics.vue';
 import TodayHightLight from './components/Today/TodayHightLight.vue';
 import TodayForcast from './components/Today/TodayForcast.vue';
+import More from './components/More/More.vue';
+import Weekly from './components/Weekly/Weekly.vue';
 
 
 const LoadingHome = defineAsyncComponent(() => import('./components/Loading/HomeLoading.vue'))
@@ -247,18 +249,13 @@ watch(data, () => {
           <!-- row 2 -->
           <div class="flex w-full gap-4 p-2 rounded-lg flex-auto pt-0">
             <div class="w-full h-full min-h-[26.625rem] max-h-[26.625rem]">
-
-              <div class="flex gap-4 rounded-2xl h-full">
-                <div class="gradient-bg flex-auto rounded-2xl p-6 basis-3/5 max-w-[25.625rem] h-full flex flex-col">
-                  <div class="flex gap-2 justify-start items-center ml-1 mb-4">
-                    <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
-                    <p class="text-[1rem] font-bold text-white">Today Forcast</p>
-                  </div>
-                  <TodayForcast :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
-                    :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
-                    :weatherCurrent="data?.weather.data.current" :day="time.day" />
-
-                </div>
+              <div class="flex gap-4 rounded-2xl h-full justify-between">
+                <TodayForcast :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
+                  :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
+                  :weatherCurrent="data?.weather.data.current" :day="time.day" />
+                <Weekly :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
+                  :hr="time.hr" :day="time.day" />
+                <More />
               </div>
 
             </div>

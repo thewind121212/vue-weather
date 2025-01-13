@@ -1,7 +1,7 @@
 import { ModalName } from "../components/Today/TodayHightLight.vue";
 import gsap from 'gsap'
 
-export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResize: boolean, modalID: '#modal-today-hr' | '#forcast-today-hr' = '#modal-today-hr') => {
+export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResize: boolean, modalID: '#modal-today-hr' | '#forcast-today-hr' | '#modal-moon' = '#modal-today-hr') => {
 
 
     let element: HTMLElement | null = null
@@ -59,6 +59,7 @@ export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResiz
             gsap.to(
                 `${modalID}`, {
                 display: "none",
+                transform: "translateY(-50%) translateX(-50%)",
                 opacity: 0,
                 duration: 0,
             })

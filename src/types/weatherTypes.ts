@@ -7,6 +7,7 @@ enum Unit {
   Millimeters = "mm",
   WMOCode = "wmo code",
   KilometersPerHour = "km/h",
+  hPa = "hPa",
   Centimeters = "cm",
   Degree = "°",
   Hour = "h",
@@ -66,6 +67,7 @@ interface CurrentWeatherData {
   relative_humidity_2m: number;
   apparent_temperature: number;
   precipitation: number;
+  surface_pressure: number;
   rain: number;
   weather_code: number;
   cloud_cover: number;

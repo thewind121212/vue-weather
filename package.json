@@ -12,6 +12,7 @@
     "@primevue/themes": "^4.2.5",
     "@tanstack/vue-query": "^5.62.2",
     "axios": "^1.7.9",
+    "chart.js": "^4.4.7",
     "country-flag-icons": "^1.5.13",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
@@ -20,6 +21,7 @@
     "primevue": "^4.2.5",
     "swiper": "^11.2.0",
     "vue": "^3.5.13",
+    "vue-chartjs": "^5.3.2",
     "vue3-lottie": "^3.3.1"
   },
   "devDependencies": {

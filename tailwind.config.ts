@@ -19,6 +19,9 @@ export default {
       },
       animation: {
         'spin-slow': 'spin 5s linear infinite',
+      },
+      backgroundImage: {
+        'main-gradient': 'radial-gradient(circle, #162850 0%, #121a2d 100%)',
       }
     },
   },
