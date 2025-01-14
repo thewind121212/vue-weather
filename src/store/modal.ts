@@ -1,7 +1,7 @@
 
 
 import { defineStore } from 'pinia'
-import { ModalName } from '../components/Today/TodayHightLight.vue'
+import { ModalName } from '../types/appTypes'
 
 
 

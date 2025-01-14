@@ -3,7 +3,7 @@
 import { AxiosCLient } from '../../lib/axios';
 import { useModalStore } from '../../store/modal';
 import { useQuery } from '@tanstack/vue-query';
-import { ModalName } from './TodayHightLight.vue';
+import { ModalName } from '../../types/appTypes';
 import { useLocationStore } from '../../store/location';
 import { Location } from '../../types/geoTypes';
 import { MoonResponse } from '../../types/moon';

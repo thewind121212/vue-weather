@@ -1,5 +1,5 @@
-import { ModalName } from "../components/Today/TodayHightLight.vue";
 import gsap from 'gsap'
+import { ModalName } from '../types/appTypes'
 
 export const mountModalHander = (id: ModalName, gsapTLref: GSAPTimeline, isResize: boolean, modalID: '#modal-today-hr' | '#forcast-today-hr' | '#modal-moon' = '#modal-today-hr') => {
 

@@ -11,7 +11,6 @@ import { useModalStore } from '../../store/modal';
 
 const HrModal = defineAsyncComponent(() => import('../HourReport/ModalHr.vue'))
 
-export type ModalName = 'uv' | 'rain' | 'cloud' | 'humidity' | 'weatherCard' | 'moon' | 'air' | 'pm2_5' | null
 
 const sortedInfo = useSortedInfo()
 

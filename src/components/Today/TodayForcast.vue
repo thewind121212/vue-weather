@@ -12,8 +12,8 @@ import { useAirQualityInfo } from '../../store/airInfo';
 import weatherCodeJson from '../../data/wmoMap.json';
 import { useTempUnitStore } from '../../store/tempUnit';
 import { mountModalHander } from '../../utils/modal';
-import { ModalName } from './TodayHightLight.vue';
 import { useModalStore } from '../../store/modal';
+import { ModalName } from '../../types/appTypes';
 
 const ForcastModalHr = defineAsyncComponent(() => import('../HourReport/ForcastModalHr.vue'))
 const MoonPhaseModal = defineAsyncComponent(() => import('../../moon/MoonPhaseModal.vue'))
