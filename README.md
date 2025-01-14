@@ -64,7 +64,7 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
 
    - The backend fetches hourly weather data from the Open Meteo S3 Open Data repository. Refer to the [Open Meteo Open Data Repository](https://github.com/open-meteo/open-data) for more details.
    - It stores data on a self-hosted server and compares it with the official Open Meteo API for discrepancies.
-   - The API server [Open Meteo Open Data Repository](https://github.com/open-meteo/open-data](https://github.com/thewind121212/weather_api_services))
+   - The API server [self host API service repo](https://github.com/thewind121212/weather_api_services)
    - This ensures that the dashboard provides corrected, high-accuracy weather insights.
    - **Note**: The backend server only operates with a complete self-server setup.
 
