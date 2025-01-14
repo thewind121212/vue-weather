@@ -121,7 +121,7 @@ watch(() => [props.day, props.weatherDaily, unit.tempUnit, chartFilter.filters, 
                 isLoading.value = false
                 break
             case 'precipitation':
-                const precipitationChartDate = rainChartBuilder(props.weatherDaily, unit.tempUnit, chartFilter.scope, props.weatherHourly)
+                const precipitationChartDate = rainChartBuilder(props.weatherDaily, chartFilter.scope, props.weatherHourly)
                 chartFilter.data = precipitationChartDate.data
                 chartFilter.options = precipitationChartDate.options
                 isLoading.value = false

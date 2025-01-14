@@ -7,7 +7,7 @@ import { chartOption } from "./config"
 
 
 
-export const rainChartBuilder = (weatherDaily: WeatherDailyData, tempUnit: "C" | "F", scope: number, weatherHourly: WeatherHourlyData): {
+export const rainChartBuilder = (weatherDaily: WeatherDailyData, scope: number, weatherHourly: WeatherHourlyData): {
     data: ChartData<'line'>,
     options: ChartOptions<'line'>,
 } => {
