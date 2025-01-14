@@ -25,7 +25,7 @@ const sortInfo = useSortedInfo()
 const unit = useTempUnitStore()
 
 
-const intervalRef = ref<NodeJS.Timeout | null>(null)
+const intervalRef = ref<ReturnType<typeof setTimeout> | null>(null)
 
 const modalStore = useModalStore()
 

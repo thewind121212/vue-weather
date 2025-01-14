@@ -62,7 +62,7 @@ const filters: {
     ]
 
 const unit = useTempUnitStore()
-const timeOutRef = ref<NodeJS.Timeout | null>(null)
+const timeOutRef = ref<ReturnType<typeof setTimeout> | null>(null)
 const chartFilter = reactive<{
     data: ChartData<'line'>,
     options: ChartOptions<'line'>,
