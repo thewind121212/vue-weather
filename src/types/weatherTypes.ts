@@ -40,6 +40,7 @@ interface HourWeatherUnits {
   rain: Unit.Millimeters;
   weather_code: Unit.WMOCode;
   cloud_cover: Unit.Percent;
+  showers: Unit.Millimeters;
 }
 
 interface DailyWeatherUnits {
@@ -58,6 +59,8 @@ interface DailyWeatherUnits {
   wind_speed_10m: Unit.KilometersPerHour
   wind_direction_10m: Unit.Degree,
   wind_gusts_10m: Unit.KilometersPerHour
+  showers_sum: Unit.Millimeters;
+  snowfall_sum: Unit.Centimeters;
 }
 
 interface CurrentWeatherData {
@@ -89,7 +92,9 @@ interface WeatherHourlyData {
   snowfall: number[];
   weather_code: number[];
   wind_speed_10m: number[];
+  wind_gusts_10m: number[];
   cloud_cover: number[];
+  showers: number[];
 }
 
 
@@ -105,7 +110,10 @@ interface WeatherDailyData {
   uv_index_max: number[];
   precipitation_sum: number[];
   rain_sum: number[];
-  wind_speed_10m: number[];
+  wind_speed_10m_max: number[];
+  wind_gusts_10m_max: number[];
+  showers_sum: number[];
+  snowfall_sum: number[];
   precipitation_hours: number[];
   precipitation_probability_max: number[];
 }

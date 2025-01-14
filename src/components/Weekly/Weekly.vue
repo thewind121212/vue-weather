@@ -17,6 +17,10 @@ import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes.js
 import { HourlyAirData } from '../../types/airTypes.js'
 import { onMounted, reactive, ref, watch } from 'vue'
 import { useTempUnitStore } from '../../store/tempUnit.js'
+import { tempatureChartBuilder } from '../../chart/tempature.js'
+import { windSpeedChartBuilder } from '../../chart/windSpeed.js'
+import { uvChartBuilder } from '../../chart/uv.js'
+import { rainChartBuilder } from '../../chart/rain.js'
 
 
 
@@ -32,7 +36,7 @@ ChartJS.register(
     Legend
 )
 
-export type filterType = 'temp' | 'wind_speed' | 'uv'
+export type filterType = 'temp' | 'wind_speed' | 'uv' | 'precipitation'
 
 
 const filters: {
@@ -51,6 +55,10 @@ const filters: {
             id: 'wind_speed',
             name: 'Wind Speed'
         },
+        {
+            id: 'precipitation',
+            name: 'Rain & Snow'
+        },
     ]
 
 const unit = useTempUnitStore()
@@ -58,7 +66,7 @@ const timeOutRef = ref<NodeJS.Timeout | null>(null)
 const chartFilter = reactive<{
     data: ChartData<'line'>,
     options: ChartOptions<'line'>,
-    scope: '7 Days' | string
+    scope: number,
     filters: filterType
 }>({
     data: {
@@ -66,7 +74,7 @@ const chartFilter = reactive<{
         datasets: [],
     },
     options: {},
-    scope: '7 Days',
+    scope: 0,
     filters: 'temp'
 })
 
@@ -86,118 +94,39 @@ const isLoading = ref<boolean>(true)
 
 
 
-const daysRender = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const unitConvert = (value: number, unit: 'C' | 'F') => {
-    if (unit === 'C') {
-        return value
-    } else {
-        return Number(((value * 9 / 5) + 32).toFixed(1))
-    }
-}
 
-watch(() => [props.day, props.weatherDaily, unit.tempUnit, chartFilter.filters, chartFilter.scope], () => {
-    if (props.day && props.weatherDaily) {
-        dateRender.value = []
-        let labels = []
-        let maxTemp = []
-        let minTemp = []
-        let maxApparent = []
-        let minApparent = []
-        let maxAxisY = -Infinity
-        let minAxisY = Infinity
-        for (const [index, day] of props.weatherDaily.time.entries()) {
-            const date = new Date(day)
-            const dateFormat = date.toLocaleDateString('en-US', {
-                weekday: 'short',
-                day: '2-digit',
-                month: 'short'
-            }).replace(',', '');
-            dateRender.value.push(dateFormat)
-            labels.push(daysRender[date.getDay()])
-            const maxTempToUnit = unitConvert(props.weatherDaily.temperature_2m_max[index], unit.tempUnit)
-            const minTempToUnit = unitConvert(props.weatherDaily.temperature_2m_min[index], unit.tempUnit)
-            const minApparentToUnit = unitConvert(props.weatherDaily.apparent_temperature_min[index], unit.tempUnit)
-            const maxApparentToUnit = unitConvert(props.weatherDaily.apparent_temperature_max[index], unit.tempUnit)
-            maxTemp.push(maxTempToUnit)
-            minTemp.push(minTempToUnit)
-            minApparent.push(minApparentToUnit)
-            maxApparent.push(maxApparentToUnit)
-            maxAxisY = Math.max(maxAxisY, maxTempToUnit, maxApparentToUnit, minTempToUnit, minApparentToUnit)
-            minAxisY = Math.min(minAxisY, minTempToUnit, minApparentToUnit, maxTempToUnit, maxApparentToUnit)
+watch(() => [props.day, props.weatherDaily, unit.tempUnit, chartFilter.filters, chartFilter.scope, props.weatherHourly, props.airQualityHourly], () => {
+
+    if (props.day && props.weatherDaily && props.weatherHourly && props.airQualityHourly) {
+        isLoading.value = true
+        switch (chartFilter.filters) {
+            case 'temp':
+                const tempatureChartDate = tempatureChartBuilder(props.weatherDaily, unit.tempUnit, chartFilter.scope, props.weatherHourly)
+                chartFilter.data = tempatureChartDate.data
+                chartFilter.options = tempatureChartDate.options
+                isLoading.value = false
+                break;
+            case 'wind_speed':
+                const windSpeedDate = windSpeedChartBuilder(props.weatherDaily, chartFilter.scope, props.weatherHourly)
+                chartFilter.data = windSpeedDate.data
+                chartFilter.options = windSpeedDate.options
+                isLoading.value = false
+                break;
+            case 'uv':
+                const uvChartDate = uvChartBuilder(props.weatherDaily, chartFilter.scope > 4 ? 0 : chartFilter.scope, props.airQualityHourly)
+                chartFilter.data = uvChartDate.data
+                chartFilter.options = uvChartDate.options
+                chartFilter.scope = chartFilter.scope > 4 ? 0 : chartFilter.scope
+                isLoading.value = false
+                break
+            case 'precipitation':
+                const precipitationChartDate = rainChartBuilder(props.weatherDaily, unit.tempUnit, chartFilter.scope, props.weatherHourly)
+                chartFilter.data = precipitationChartDate.data
+                chartFilter.options = precipitationChartDate.options
+                isLoading.value = false
+                break
         }
-
-
-        const options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    ticks: {
-                        padding: 10,
-                        color: '#ffffff',
-                        font: {
-                            size: 12,
-                        }
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#ffffff',
-                        font: {
-                            size: 12,
-                        },
-                        padding: 10,
-                    },
-                    min: Math.trunc(minAxisY - 1),
-                    max: Math.trunc(maxAxisY + 1),
-                }
-            }
-        }
-
-        dateRender.value.unshift('7 Days')
-
-
-        chartFilter.data = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Tempature Max',
-                    backgroundColor: '#f87171CC',
-                    borderColor: '#f87171CC',
-                    pointBackgroundColor: '#fef2f2',
-                    data: maxTemp,
-                    tension: 0.3
-                },
-                {
-                    label: 'Tempature Min',
-                    backgroundColor: '#60a5faCC',
-                    borderColor: '#60a5faCC',
-                    pointBackgroundColor: '#dbeafe',
-                    data: minTemp,
-                    tension: 0.3
-                },
-                {
-                    label: 'Apparent Min',
-                    backgroundColor: '#38bdf8CC',
-                    borderColor: '#38bdf8CC',
-                    pointBackgroundColor: '#e0f2fe',
-                    data: minApparent,
-                    tension: 0.3
-                },
-                {
-                    label: 'Apparent Max',
-                    backgroundColor: '#f472b6CC',
-                    borderColor: '#f472b6CC',
-                    pointBackgroundColor: '#fce7f3',
-                    data: maxApparent,
-                    tension: 0.3
-                }
-            ]
-        }
-
-        chartFilter.options = options
-
     }
 
 })
@@ -222,6 +151,30 @@ onMounted(() => {
     resize()
 
     window.addEventListener('load', resize)
+
+
+
+})
+
+
+watch(() => [props.weatherDaily, chartFilter.filters], () => {
+
+    if (props.weatherDaily) {
+        dateRender.value = []
+        props.weatherDaily.time.map((item, index) => {
+            if (chartFilter.filters == 'uv' && index > 3) {
+                return
+            }
+            const date = new Date(item)
+            const dateFormat = date.toLocaleDateString('en-US', {
+                weekday: 'short',
+                day: '2-digit',
+                month: 'short'
+            }).replace(',', '');
+            dateRender.value.push(dateFormat)
+        })
+        dateRender.value.unshift('7 Days')
+    }
 
 })
 
@@ -251,14 +204,15 @@ onMounted(() => {
 
                 <div v-for="(item, index) in dateRender" :key="item + index"
                     class="w-full h-auto border border-[#7068ff6e]  rounded-xl flex justify-center text-[#cdcdcd] items-center px-2 py-1 text-nowrap cursor-pointer duration-300"
-                    v-on:click="chartFilter.scope = item"
-                    :class="{ '!bg-[#7068FF] !text-white': chartFilter.scope === item }">
+                    v-on:click="chartFilter.scope = index"
+                    :class="{ '!bg-[#7068FF] !text-white': chartFilter.scope === index }">
                     {{ item }}
                 </div>
             </div>
-            <div class="flex justify-center items-center flex-auto  h-full" id="chart-container">
+            <div class="flex relative justify-center items-center flex-auto  h-full overflow-hidden"
+                id="chart-container">
                 <div v-if="isLoading"
-                    class="w-full h-full bg-transparent flex gap-2 px-4 cursor-default select-none justify-center items-center absolute top-0 left-0">
+                    class="w-full h-full bg-transparent flex gap-2 px-4 cursor-default justify-center items-center absolute top-0 left-0 select-none">
                     <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-white"
                         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

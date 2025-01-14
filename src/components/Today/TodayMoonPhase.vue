@@ -137,7 +137,7 @@ const moonPhase = computed<
 
 <template>
     <div
-        class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-[url('/image.png')] bg-cover bg-center overflow-hidden">
+        class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-[url('/image.webp')] bg-cover bg-center overflow-hidden">
         <div class="bg-transparent w-full h-full absolute left-0 top-0 z-10 rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0 pointer-events-none"
             :class="{ '!pointer-events-auto': modalStore.modalMounted === 'moon' }" v-on:click="startTimeLine('moon')"
             id="moon-placeholder">

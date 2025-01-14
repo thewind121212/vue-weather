@@ -155,7 +155,7 @@ watch(data, () => {
 <template>
   <KeepAlive>
     <div
-      class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.png')] bg-cover bg-center overflow-hidden">
+      class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center overflow-hidden">
       <div class="w-full h-full backdrop-blur-lg p-10">
         <LoadingHome v-if="(isLoading || isFetching)" />
 
@@ -254,7 +254,9 @@ watch(data, () => {
                   :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
                   :weatherCurrent="data?.weather.data.current" :day="time.day" />
                 <Weekly :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
-                  :hr="time.hr" :day="time.day" />
+                  :hr="time.hr" :day="time.day"
+                 :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" /> 
+                  />
                 <More />
               </div>
 

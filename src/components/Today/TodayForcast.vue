@@ -168,7 +168,7 @@ const faceRender = computed(() => {
             </div>
 
             <div class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-cover bg-center overflow-hidden"
-                :class="isHaveRain ? `bg-[url('/image-rain.png')]` : `bg-[url('/image-day.png')]`">
+                :class="isHaveRain ? `bg-[url('/image-rain.webp')]` : `bg-[url('/image-day.webp')]`">
                 <div class="bg-transparent w-full h-full absolute left-0 top-0 z-10 rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0 pointer-events-none"
                     :class="{ '!pointer-events-auto': modalStore.modalMounted === 'weatherCard' }"
                     v-on:click="startTimeLine('weatherCard')" id="weatherCard-placeholder">
@@ -227,7 +227,7 @@ const faceRender = computed(() => {
             <TodayMoonPhase :startTimeLine="startTimeLine" :day="day!" />
             <div class="rounded-xl flex w-full h-full gap-2">
                 <div
-                    class="bg-[#0D1321] rounded-xl bg-[url('/air.png')] bg-cover bg-center h-full overflow-hidden flex-auto">
+                    class="bg-[#0D1321] rounded-xl bg-[url('/air.webp')] bg-cover bg-center h-full overflow-hidden flex-auto">
                     <div class="bg-transparent w-full h-full absolute left-0 top-0 z-10 rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0 pointer-events-none"
                         :class="{ '!pointer-events-auto': modalStore.modalMounted === 'air' }"
                         v-on:click="startTimeLine('air')" id="air-placeholder">
