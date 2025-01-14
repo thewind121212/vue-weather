@@ -1,3 +1,4 @@
+
 # Weather Dashboard Application Documentation
 
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -6,7 +7,7 @@
 ## Overview
 
 The Weather Dashboard application is a web-based tool designed to provide weather insights in an interactive and visually appealing way. Built using Vue.js, it is in Phase 1 of development and focuses on core functionality without responsive design.
-
+![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.14.42.gif)
 ## Key Features
 
 - **Current Weather**: View temperature, humidity, cloud cover, and more.
@@ -74,10 +75,14 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
      - Smoothly transition between UI elements (e.g., page navigation).
      - Visualize key weather data (e.g., temperature, wind).
      - Add micro-interactions to enhance usability.
+![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.37.35.gif)
+
 
 11. **Data Querying**:
 
    - Leverages TanStack Query (useQuery) for efficient and optimized data fetching and caching.
+
+![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.37.35-2.gif)
 
 ## Technology Stack
 
@@ -156,7 +161,14 @@ vue-weather/
 - **Static Data**:
 
   - Relies on predefined API and server setup for data retrieval.
+  
+- **Some Gallery Phase 1**:
 
+   ![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2020.52.51.png)
+- ![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2020.51.45.png)
+![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2020.52.07.png)
+
+  ![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2020.52.25.png)
 ## Future Enhancements (Planned for Phase 2 and Beyond)
 
 1. **Responsive Design**:
