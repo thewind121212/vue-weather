@@ -75,7 +75,6 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
      - Smoothly transition between UI elements (e.g., page navigation).
      - Visualize key weather data (e.g., temperature, wind).
      - Add micro-interactions to enhance usability.
-![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.37.35.gif)
 
 
 11. **Data Querying**:
