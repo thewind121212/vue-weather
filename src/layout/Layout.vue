@@ -1,30 +1,30 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query';
 import { AxiosResponse } from 'axios';
-import { type WeatherDataRes } from './types/weatherTypes';
-import CurrentWeatherReport from './components/CurrentWeather/CurrentWeatherReport.vue';
-import { AxiosCLient } from './lib/axios';
+import { type WeatherDataRes } from '../types/weatherTypes';
+import CurrentWeatherReport from '../components/CurrentWeather/CurrentWeatherReport.vue';
+import { AxiosCLient } from '../lib/axios';
 import { defineAsyncComponent, onBeforeMount, reactive, watch } from 'vue';
-import { useTempUnitStore } from './store/tempUnit';
-import { useSortedInfo } from './store/sortInfo';
+import { useTempUnitStore } from '../store/tempUnit';
+import { useSortedInfo } from '../store/sortInfo';
 import 'swiper/swiper-bundle.css';
 
 
-import { Location } from './types/geoTypes';
-import { useLocationStore } from './store/location';
+import { Location } from '../types/geoTypes';
+import { useLocationStore } from '../store/location';
 import { throttle } from 'lodash';
-import { AirQualityRes } from './types/airTypes';
-import CurrentWeatherInfo from './components/CurrentWeather/CurrentWeatherInfo.vue';
-import { timeImgGen } from './utils/utils';
-import CurrentAirStatistics from './components/CurrentWeather/CurrentAirStatistics.vue';
-import TodayHightLight from './components/Today/TodayHightLight.vue';
-import TodayForcast from './components/Today/TodayForcast.vue';
-import More from './components/More/More.vue';
-import Weekly from './components/Weekly/Weekly.vue';
+import { AirQualityRes } from '../types/airTypes';
+import CurrentWeatherInfo from '../components/CurrentWeather/CurrentWeatherInfo.vue';
+import { timeImgGen } from '../utils/utils';
+import CurrentAirStatistics from '../components/CurrentWeather/CurrentAirStatistics.vue';
+import TodayHightLight from '../components/Today/TodayHightLight.vue';
+import TodayForcast from '../components/Today/TodayForcast.vue';
+import More from '../components/More/More.vue';
+import Weekly from '../components/Weekly/Weekly.vue';
 
 
-const LoadingHome = defineAsyncComponent(() => import('./components/Loading/HomeLoading.vue'))
-const SearchModal = defineAsyncComponent(() => import('./components/SearchModal.vue'))
+const LoadingHome = defineAsyncComponent(() => import('../components/Loading/HomeLoading.vue'))
+const SearchModal = defineAsyncComponent(() => import('../components/SearchModal.vue'))
 
 
 const time = reactive<{
