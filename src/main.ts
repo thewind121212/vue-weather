@@ -7,7 +7,7 @@ import Vue3Lottie from 'vue3-lottie'
 
 import './style.css'
 import 'primeicons/primeicons.css'
-import App from './Layout.vue'
+import App from './layout.vue'
 
 const pinia = createPinia()
 
