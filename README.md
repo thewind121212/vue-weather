@@ -1,8 +1,20 @@
 # Weather Dashboard Application Documentation
 
+![License](https://img.shields.io/badge/license-MIT-green)
+![Dependencies](https://img.shields.io/david/thewind121212/vue-weather)
+![Vue](https://img.shields.io/badge/vue-3.x-brightgreen)
+
 ## Overview
 
 The Weather Dashboard application is a web-based tool designed to provide weather insights in an interactive and visually appealing way. Built using Vue.js, it is in Phase 1 of development and focuses on core functionality without responsive design.
+
+## Key Features
+
+- **Current Weather**: View temperature, humidity, cloud cover, and more.
+- **7-Day Forecast**: Stay informed about future weather conditions.
+- **Air Quality Monitoring**: Includes AQI, PM2.5, CO2, and other pollutants.
+- **Interactive Graphs**: Visualize weather and air quality trends.
+- **Modern Design**: Notifications, animations, and navigation with Swiper.
 
 ## Current Features (Phase 1)
 
@@ -49,15 +61,19 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
 
    - Incorporates a utility-first CSS framework for rapid UI development.
 
-9. **Data Fetching**:
+9. **Backend Functionality**:
 
-   - **Retrieves weather data from both the Open Meteo API and a custom-built server.** Refer to the [Weather API Services Repository](https://github.com/thewind121212/weather_api_services) for details on the custom server.
-
-   - **The backend fetches hourly data from the Open Meteo API to a self-hosted server and compares it with official Open Meteo data for accuracy and correction.** This API server only functions if the self-server setup is complete using Open Meteo.
+   - The backend fetches hourly weather data from the Open Meteo S3 Open Data repository. Refer to the [Open Meteo Open Data Repository](https://github.com/open-meteo/open-data) for more details.
+   - It stores data on a self-hosted server and compares it with the official Open Meteo API for discrepancies.
+   - This ensures that the dashboard provides corrected, high-accuracy weather insights.
+   - **Note**: The backend server only operates with a complete self-server setup.
 
 10. **Animations**:
 
-   - Uses GSAP and Lottie for creating smooth and engaging animations throughout the application.
+   - GSAP and Lottie animations are used to:
+     - Smoothly transition between UI elements (e.g., page navigation).
+     - Visualize key weather data (e.g., temperature, wind).
+     - Add micro-interactions to enhance usability.
 
 11. **Data Querying**:
 
@@ -102,7 +118,7 @@ To set up the application locally, follow these steps:
    npm run preview
    ```
 
-   **The application will be available at `http://localhost:3000/` by default.**
+   **The application will be available at ****`http://localhost:3000/`**** by default.**
 
 ## Project Structure
 
