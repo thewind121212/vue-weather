@@ -81,7 +81,9 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
 
    - Leverages TanStack Query (useQuery) for efficient and optimized data fetching and caching.
 
-![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.37.35-2.gif)
+![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2021.01.45.png)
+
+![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2021.02.03.png)
 
 ## Technology Stack
 
