@@ -1,7 +1,6 @@
 # Weather Dashboard Application Documentation
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Dependencies](https://img.shields.io/david/thewind121212/vue-weather)
 ![Vue](https://img.shields.io/badge/vue-3.x-brightgreen)
 
 ## Overview
