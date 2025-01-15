@@ -16,6 +16,17 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
 - **Interactive Graphs**: Visualize weather and air quality trends.
 - **Modern Design**: Notifications, animations, and navigation with Swiper.
 
+## Technology Stack
+
+- **Frontend Framework**: Vue.js
+- **Charting Library**: Chart.js
+- **Swiper**: Swiper.js
+- **Icons**: Vue Prime Icons
+- **Notifications**: Pianita
+- **CSS Framework**: Tailwind CSS
+- **Animations**: GSAP, Lottie
+- **Data Querying**: TanStack Query (useQuery)
+
 ## Current Features (Phase 1)
 
 1. **Weather Data Display**:
@@ -84,17 +95,6 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
 ![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2021.01.45.png)
 
 ![enter image description here](https://admin.wliafdew.dev/api/media/file/Screenshot%202025-01-14%20at%2021.02.03.png)
-
-## Technology Stack
-
-- **Frontend Framework**: Vue.js
-- **Charting Library**: Chart.js
-- **Swiper**: Swiper.js
-- **Icons**: Vue Prime Icons
-- **Notifications**: Pianita
-- **CSS Framework**: Tailwind CSS
-- **Animations**: GSAP, Lottie
-- **Data Querying**: TanStack Query (useQuery)
 
 ## Installation
 
