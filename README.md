@@ -174,7 +174,7 @@ vue-weather/
 
 1. **Responsive Design**:
 
-   - Optimize the application for mobile and tablet screens.
+   - Optimize the application for mobile and tablet screens. (urgent)
 
 2. **Advanced Weather Features**:
 
