@@ -10,7 +10,7 @@ The Weather Dashboard application is a web-based tool designed to provide weathe
 ![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.14.42.gif)
 ## Key Features
 
-- **Current Weather**: View temperature, humidity, cloud cover, and more.
+- **Current Weather**: View temperature, humidity, cloud cover, and more
 - **7-Day Forecast**: Stay informed about future weather conditions.
 - **Air Quality Monitoring**: Includes AQI, PM2.5, CO2, and other pollutants.
 - **Interactive Graphs**: Visualize weather and air quality trends.
