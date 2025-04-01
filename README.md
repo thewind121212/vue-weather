@@ -6,7 +6,7 @@
 
 ## Overview
 
-The Weather Dashboard application is a web-based tool designed to provide weather insights in an interactive and visually appealing way. Built using Vue.js, it is in Phase 1 of development and focuses on core functionality without responsive design.
+The Weather Dashboard application is a web-based tool designed to provide weather insights in an interactive and visually appealing way. Built using Vue.js, it is in Phase 1 of development and focuses on core functionality without responsive design and notification function.
 ![enter image description here](https://admin.wliafdew.dev/api/media/file/2025-01-14%2020.14.42.gif)
 ## Key Features
 
