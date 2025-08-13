@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed, ComputedRef, defineAsyncComponent, onBeforeMount, onMounted, onRenderTriggered, ref } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount, onMounted, onRenderTriggered, ref } from 'vue';
 import { HourlyAirData } from '../../types/airTypes';
 import TodayMoonPhase from './TodayMoonPhase.vue';
+import WeatherCard from './WeatherCard.vue';
+import AirQualityCard from './AirQualityCard.vue';
+import PressureCard from './PressureCard.vue';
 import { CurrentWeatherData, WeatherCodeType, WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import { useSortedInfo } from '../../store/sortInfo';
 import gsap from 'gsap';
-import { convertFromCelciusToFahrenheit, genTheAirImage } from '../../utils/utils';
+import { genTheAirImage } from '../../utils/utils';
 import { useAirQualityInfo } from '../../store/airInfo';
 
 
@@ -95,11 +98,7 @@ onRenderTriggered(() => {
     }
 })
 
-const weatherCodeFetch: ComputedRef<string> = computed(() => {
-    return props.weatherDaily && props.weatherDaily.weather_code[0] ? props.weatherDaily.weather_code[0].toString() : "0"
-})
-
-
+// Computed properties for weather data
 const isHaveRain = computed(() => {
     if (props.hr && props.weatherHourly) {
         const hr = props.hr.split(":")[0]
@@ -107,7 +106,6 @@ const isHaveRain = computed(() => {
     }
     return false
 })
-
 
 const isDay = computed(() => {
     const timeBaseOnTimeZone = new Date().toLocaleString("en-US", {
@@ -117,6 +115,19 @@ const isDay = computed(() => {
     const hr = Number(timeBaseOnTimeZone.split(':')[0])
     return (6 < hr && hr < 18)
 })
+
+// Computed properties for child components
+const humidityRange = computed(() => ({
+    min: sortInfo.humiditySort[0],
+    max: sortInfo.humiditySort[23]
+}))
+
+const cloudCoverRange = computed(() => ({
+    min: sortInfo.cloudCoverSort[0],
+    max: sortInfo.cloudCoverSort[23]
+}))
+
+const uvIndex = computed(() => sortInfo.uvIndexSort[23])
 
 
 
@@ -130,19 +141,18 @@ const faceRender = computed(() => {
     if (airQuailtyInfo.curentAQI) {
         const { color, type, imgSource } = genTheAirImage(airQuailtyInfo.curentAQI ?? 10)
         return {
-            color,
-            type,
-            imgSource
+            color: color || '#000000',
+            type: type || 'unknown',
+            imgSource: imgSource || ''
         }
     } else {
         const { color, type, imgSource } = genTheAirImage(0)
         return {
-            color,
-            type,
-            imgSource
+            color: color || '#000000',
+            type: type || 'unknown',
+            imgSource: imgSource || ''
         }
     }
-
 })
 
 </script>
@@ -152,7 +162,7 @@ const faceRender = computed(() => {
 <template>
 
     <div class="gradient-bg flex-auto rounded-2xl p-6 basis-3/5 max-w-[25.625rem] h-full flex flex-col">
-        <div class="flex gap-2 justify-start items-center ml-1 mb-4">
+        <div class="flex gap-[1.25rem] justify-start items-center ml-1 mb-4">
             <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
             <p class="text-[1rem] font-bold text-white">Today Forcast</p>
         </div>
@@ -167,97 +177,30 @@ const faceRender = computed(() => {
                 <MoonPhaseModal :timeZone="timeZone" :hr="hr" :day="day" />
             </div>
 
-            <div class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-cover bg-center overflow-hidden"
-                :class="isHaveRain ? `bg-[url('/image-rain.webp')]` : `bg-[url('/image-day.webp')]`">
-                <div class="bg-transparent w-full h-full absolute left-0 top-0 z-10 rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0 pointer-events-none"
-                    :class="{ '!pointer-events-auto': modalStore.modalMounted === 'weatherCard' }"
-                    v-on:click="startTimeLine('weatherCard')" id="weatherCard-placeholder">
-                </div>
-                <div
-                    class="w-full h-full bg-[#0d132180] grid grid-cols-2 gap-2 px-4 backdrop-blur-[1px] cursor-default select-none">
-                    <div class="flex justify-center items-start flex-col">
-                        <div class="w-full h-[1.3125rem] duration-500 flip-content" id="flip-card-weather">
-                            <div class="font-light text-white text-[0.875rem] block front top-0 left-0 absolute">
-                                Tempature:
-                                {{ `${convertFromCelciusToFahrenheit(weatherDaily?.temperature_2m_min[0]!,
-                                    unit.tempUnit)}
-                                to
-                                ${convertFromCelciusToFahrenheit(weatherDaily?.temperature_2m_max[0]!, unit.tempUnit)}`
-                                }}
-                            </div>
-                            <div class="font-light text-white text-[0.875rem] block back top-0 left-0 absolute">Feel
-                                Like:
-                                {{ `${convertFromCelciusToFahrenheit(weatherDaily?.apparent_temperature_min[0]!,
-                                    unit.tempUnit)} to
-                                ${convertFromCelciusToFahrenheit(weatherDaily?.apparent_temperature_max[0]!,
-                                        unit.tempUnit)}` }} </div>
-                        </div>
-                        <div class="w-full h-[1.3125rem] duration-500 flip-content" id="flip-card-weather">
-                            <div class="font-light text-white text-[0.875rem] block front top-0 left-0 absolute">
-                                Humidity:
-                                {{ `${sortInfo.humiditySort[0]}% - ${sortInfo.humiditySort[23]}%` }}
-                            </div>
-                            <div class="font-light text-white text-[0.875rem] block back top-0 left-0 absolute">
-                                RainChance:
-                                {{ weatherDaily?.precipitation_probability_max[0] }}%
-                            </div>
-                        </div>
-                        <div class="w-full h-[1.3125rem] duration-500 flip-content" id="flip-card-weather">
-                            <div class="font-light text-white text-[0.875rem] block front top-0 left-0 absolute">UV
-                                index:
-                                {{ `${sortInfo.uvIndexSort[23]}` }}
-                            </div>
-                            <div class="font-light text-white text-[0.875rem] block back top-0 left-0 absolute">Cloud
-                                Cover:
-                                {{ `${sortInfo.cloudCoverSort[0]}% - ${sortInfo.cloudCoverSort[23]}%` }}
-                            </div>
-                        </div>
-
-                        <p class="font-light text-gray-300 text-[0.875rem] underline cursor-pointer pointer-events-none"
-                            :class="{ '!pointer-events-auto': !modalStore.modalMounted }"
-                            v-on:click="startTimeLine('weatherCard')">See More</p>
-                    </div>
-                    <div class="relative flex justify-center items-center">
-                        <img class="w-[8.5rem] h-[8.5rem] absolute"
-                            :src="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`"
-                            :alt="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`" />
-                    </div>
-                </div>
-            </div>
+            <WeatherCard 
+                :weather-daily="weatherDaily"
+                :weather-hourly="weatherHourly"
+                :weather-code="weatherCode"
+                :temp-unit="unit.tempUnit"
+                :humidity-range="humidityRange"
+                :cloud-cover-range="cloudCoverRange"
+                :uv-index="uvIndex"
+                :is-have-rain="isHaveRain"
+                :is-day="isDay"
+                :modal-mounted="modalStore.modalMounted"
+                :time-zone="timeZone"
+                :hr="hr"
+                @open-modal="startTimeLine" />
             <TodayMoonPhase :startTimeLine="startTimeLine" :day="day!" />
             <div class="rounded-xl flex w-full h-full gap-2">
-                <div
-                    class="bg-[#0D1321] rounded-xl bg-[url('/air.webp')] bg-cover bg-center h-full overflow-hidden flex-auto">
-                    <div class="bg-transparent w-full h-full absolute left-0 top-0 z-10 rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0 pointer-events-none"
-                        :class="{ '!pointer-events-auto': modalStore.modalMounted === 'air' }"
-                        v-on:click="startTimeLine('air')" id="air-placeholder">
-                    </div>
-                    <div class="bg-[#0d132163] w-full h-full flex px-4 justify-between items-center">
-                        <div class="w-auto leading-[1.3125rem]">
-                            <div class="text-white text-[0.875rem] font-light">{{ airQuailtyInfo.curentAQI }} AQI</div>
-                            <div class="text-white text-[0.875rem] font-light">pm2.5: {{ airQuailtyInfo.currentPm2_5 }}
-                                μg/m³</div>
-                            <div class="text-white text-[0.875rem] font-light">pm10: {{ airQuailtyInfo.currentPm10 }}
-                                μg/m³
-                            </div>
-                            <p class="font-light text-gray-300 text-[0.875rem] underline cursor-pointer pointer-events-none"
-                                :class="{ '!pointer-events-auto': !modalStore.modalMounted }"
-                                v-on:click="startTimeLine('air')">See More</p>
-                        </div>
-
-                        <div class="w-[3.5rem] h-[3.5rem] rounded-full flex justify-center items-center"
-                            :style="`background:${faceRender.color}`">
-                            <img v-if="faceRender.imgSource" :src="faceRender.imgSource" :alt="faceRender.imgSource"
-                                class="w-[2.8rem] h-[2.8rem]">
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="bg-[#0D1321] rounded-xl aspect-square flex-1 flex justify-center items-center flex-col relative">
-                    <div class="text-white text-[0.875rem] font-light absolute top-3">{{
-                        weatherCurrent?.surface_pressure }} hPa</div>
-                    <img src="/weather_icons/barometer.svg" alt="presure-sunface" class="w-20 h-full mt-5" />
-                </div>
+                <AirQualityCard 
+                    :current-a-q-i="airQuailtyInfo.curentAQI"
+                    :current-pm2_5="airQuailtyInfo.currentPm2_5"
+                    :current-pm10="airQuailtyInfo.currentPm10"
+                    :face-render="faceRender"
+                    :modal-mounted="modalStore.modalMounted"
+                    @open-modal="startTimeLine" />
+                <PressureCard :surface-pressure="weatherCurrent?.surface_pressure || 0" />
             </div>
         </div>
     </div>

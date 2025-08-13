@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from '../types/weatherTypes';
 import CurrentWeatherReport from '../components/CurrentWeather/CurrentWeatherReport.vue';
 import { AxiosCLient } from '../lib/axios';
-import { defineAsyncComponent, onBeforeMount, reactive, watch } from 'vue';
+import { defineAsyncComponent, onBeforeMount, onMounted, onUnmounted, reactive, watch } from 'vue';
 import { useTempUnitStore } from '../store/tempUnit';
 import { useSortedInfo } from '../store/sortInfo';
 import 'swiper/swiper-bundle.css';
@@ -150,13 +150,48 @@ watch(data, () => {
   }
 })
 
+
+  const resizeMainLayout = () => {
+    const mainAppRender = document.getElementById('main-app-render')
+    const mainLayout = document.getElementById('main-layout')
+    const windowHeight = window.innerHeight
+
+  
+    //get the react height of the main app render
+    if (!mainAppRender || !mainLayout) return
+    const { height } = mainAppRender.getBoundingClientRect() 
+
+    if (height < windowHeight) {
+      mainLayout.style.height = `100vh`
+      return
+    }
+    if (height && mainLayout) {
+      mainLayout.style.height = `${height}px`
+    }
+  }
+
+onMounted(() => {
+
+  resizeMainLayout()
+  window.addEventListener('resize', () => {
+    resizeMainLayout()
+  })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', () => {
+    resizeMainLayout()
+  })
+})
+
 </script>
 
 <template>
   <KeepAlive>
     <div
-      class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center overflow-hidden">
-      <div class="w-full h-full backdrop-blur-lg p-10">
+      class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center relative overflow-x-hidden" id="main-layout">
+      <div class="w-full h-full backdrop-blur-lg p-10 relative z-10"> </div>
+      <div class="w-full h-auto p-10 absolute z-20 top-0 left-0" id="main-app-render">
         <LoadingHome v-if="(isLoading || isFetching)" />
 
         <div class="top-bar p-2 flex justify-start items-center">
@@ -203,7 +238,7 @@ watch(data, () => {
             </div>
           </div>
         </div>
-        <div class="h-[calc(100vh-11.5rem)] w-full gap-4 flex flex-col">
+        <div class="h-auto w-full gap-4 flex flex-col">
 
           <!-- row 1 -->
           <div class="flex h-auto items-start justify-center">
