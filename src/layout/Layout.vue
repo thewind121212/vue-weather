@@ -145,10 +145,8 @@ watch(data, () => {
     const mainLayout = document.getElementById('main-layout')
     const windowHeight = window.innerHeight
 
-  
-    //get the react height of the main app render
     if (!mainAppRender || !mainLayout) return
-    const { height } = mainAppRender.getBoundingClientRect() 
+    const { height } = mainAppRender.getBoundingClientRect()
 
     if (height < windowHeight) {
       mainLayout.style.height = `100vh`
@@ -160,17 +158,12 @@ watch(data, () => {
   }
 
 onMounted(() => {
-
   resizeMainLayout()
-  window.addEventListener('resize', () => {
-    resizeMainLayout()
-  })
+  window.addEventListener('resize', resizeMainLayout)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', () => {
-    resizeMainLayout()
-  })
+  window.removeEventListener('resize', resizeMainLayout)
 })
 
 </script>
