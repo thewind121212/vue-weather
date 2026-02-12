@@ -121,7 +121,7 @@ const handerChangeTempUnitDebounce = throttle((payload: "C" | "F",) => {
 
 
 
-onBeforeMount(() => {
+onUnmounted(() => {
   handerChangeTempUnitDebounce.cancel()
 })
 
