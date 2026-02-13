@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onBeforeMount, onMounted, onRenderTriggered, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, onRenderTriggered, onUnmounted, ref } from 'vue';
 import { HourlyAirData } from '../../types/airTypes';
 import TodayMoonPhase from './TodayMoonPhase.vue';
 import WeatherCard from './WeatherCard.vue';
@@ -64,38 +64,36 @@ const startTimeLine = (id: ModalName) => {
 }
 
 
-//clerat timeline on resize keep unchange
-onMounted(() => {
-    window.addEventListener("resize", () => {
-        isResize.value = true
-    })
-    window.addEventListener("keydown", (e) => {
-        if (e.code === 'Escape') {
-            if (!gsapTLref.isActive()) {
-                gsapTLref.reverse()
-            }
+const onResize = () => {
+    isResize.value = true
+}
+
+const onKeydown = (e: KeyboardEvent) => {
+    if (e.code === 'Escape') {
+        if (!gsapTLref.isActive()) {
+            gsapTLref.reverse()
         }
-    })
+    }
+}
 
+const startFlipInterval = () => {
+    if (intervalRef.value) return
     const flipCard = document.querySelectorAll('#flip-card-weather') as NodeListOf<HTMLElement>
-
     intervalRef.value = setInterval(() => {
         flipCard.forEach((card) => {
             card.classList.toggle('fliped')
         })
     }, 2500)
+}
 
+onMounted(() => {
+    window.addEventListener("resize", onResize)
+    window.addEventListener("keydown", onKeydown)
+    startFlipInterval()
 })
 
 onRenderTriggered(() => {
-    if (!intervalRef.value) {
-        const flipCard = document.querySelectorAll('#flip-card-weather') as NodeListOf<HTMLElement>
-        intervalRef.value = setInterval(() => {
-            flipCard.forEach((card) => {
-                card.classList.toggle('fliped')
-            })
-        }, 2500)
-    }
+    startFlipInterval()
 })
 
 // Computed properties for weather data
@@ -131,10 +129,12 @@ const uvIndex = computed(() => sortInfo.uvIndexSort[23])
 
 
 
-onBeforeMount(() => {
+onUnmounted(() => {
     if (intervalRef.value) {
         clearInterval(intervalRef.value)
     }
+    window.removeEventListener("resize", onResize)
+    window.removeEventListener("keydown", onKeydown)
 })
 
 const faceRender = computed(() => {
