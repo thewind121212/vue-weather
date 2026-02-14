@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
 import { HourlyAirData } from '../../types/airTypes';
 import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import ProgressCircle from '../svg/ProgressCircle.vue';
@@ -117,17 +117,26 @@ const startTimeLine = (id: 'uv' | 'rain' | 'cloud' | 'humidity') => {
 }
 
 
-onMounted(() => {
-    window.addEventListener("resize", () => {
-        isResize.value = true
-    })
-    window.addEventListener("keydown", (e) => {
-        if (e.code === 'Escape') {
-            if (!gsapTLref.isActive()) {
-                gsapTLref.reverse()
-            }
+const onResize = () => {
+    isResize.value = true
+}
+
+const onKeydown = (e: KeyboardEvent) => {
+    if (e.code === 'Escape') {
+        if (!gsapTLref.isActive()) {
+            gsapTLref.reverse()
         }
-    })
+    }
+}
+
+onMounted(() => {
+    window.addEventListener("resize", onResize)
+    window.addEventListener("keydown", onKeydown)
+})
+
+onUnmounted(() => {
+    window.removeEventListener("resize", onResize)
+    window.removeEventListener("keydown", onKeydown)
 })
 
 const modalMountObject = computed<
