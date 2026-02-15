@@ -15,7 +15,7 @@ import {
 import { Line } from 'vue-chartjs'
 import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes.js'
 import { HourlyAirData } from '../../types/airTypes.js'
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useTempUnitStore } from '../../store/tempUnit.js'
 import { tempatureChartBuilder } from '../../chart/tempature.js'
 import { windSpeedChartBuilder } from '../../chart/windSpeed.js'
@@ -133,27 +133,28 @@ watch(() => [props.day, props.weatherDaily, unit.tempUnit, chartFilter.filters, 
 
 
 
-onMounted(() => {
-    const resize = () => {
-        if (timeOutRef.value) {
-            clearTimeout(timeOutRef.value)
-        }
-        isLoading.value = true
-        timeOutRef.value = setTimeout(() => {
-            isLoading.value = false
-        }, 100)
-
+const onChartResize = () => {
+    if (timeOutRef.value) {
+        clearTimeout(timeOutRef.value)
     }
+    isLoading.value = true
+    timeOutRef.value = setTimeout(() => {
+        isLoading.value = false
+    }, 100)
+}
 
+onMounted(() => {
+    window.addEventListener('resize', onChartResize)
+    window.addEventListener('load', onChartResize)
+    onChartResize()
+})
 
-    window.addEventListener('resize', resize)
-
-    resize()
-
-    window.addEventListener('load', resize)
-
-
-
+onUnmounted(() => {
+    window.removeEventListener('resize', onChartResize)
+    window.removeEventListener('load', onChartResize)
+    if (timeOutRef.value) {
+        clearTimeout(timeOutRef.value)
+    }
 })
 
 
