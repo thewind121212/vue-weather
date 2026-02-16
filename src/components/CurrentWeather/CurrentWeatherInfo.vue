@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { watch } from 'vue';
+import { computed } from 'vue';
 import { CurrentAirData } from '../../types/airTypes';
 import { CurrentWeatherData, WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 
@@ -10,28 +10,14 @@ const props = defineProps({
     weatherHourly: Object as () => WeatherHourlyData,
 })
 
-
-
-let renderList: {
-    staticName: string,
-    dynamicValue: string | number,
-    iconSrc: string,
-    alt: string,
-    imgElementClasss: string
-}[] = []
-
-watch(() => props.weatherCurrent, () => {
-
+const renderList = computed(() => {
     const currentHr = props.weatherCurrent?.time ? Number(props.weatherCurrent?.time.split("T")[1].split(":")[0]) : 0
-
-
 
     const maxPrecipitaionHr = props.weatherHourly ? props.weatherHourly.precipitation_probability[currentHr] : 0
     const snowFallHr = props.weatherHourly ? props.weatherHourly.snowfall[currentHr] : 0
     const rain = props.weatherHourly ? props.weatherHourly.rain[currentHr] : 0
 
-
-    renderList = [{
+    return [{
         staticName: 'Now Humidity',
         dynamicValue: (props.weatherCurrent?.relative_humidity_2m ?? '') + '%',
         iconSrc: '/weather_icons/humidity.svg',
@@ -72,13 +58,8 @@ watch(() => props.weatherCurrent, () => {
         iconSrc: `/weather_icons/raindrops.svg`,
         imgElementClasss: 'w-[2.5rem] h-[2.5rem] absolute left-[-0.375rem] top-[-0.375rem]',
         alt: 'rain_icon'
-    }
-    ]
-
-
-
-
-}, { immediate: true })
+    }]
+})
 
 
 
