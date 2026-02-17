@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import { computed, reactive, watch } from 'vue';
-import { HourlyAirData, FaceType } from '../../types/airTypes';
+import { computed } from 'vue';
+import { HourlyAirData } from '../../types/airTypes';
 import { genTheAirImage } from '../../utils/utils';
 
 const props = defineProps({
@@ -9,32 +9,10 @@ const props = defineProps({
     airHourly: Object as () => HourlyAirData,
 })
 
-
-
-
-const faceRender = reactive<
-    {
-        color: string | null,
-        type: FaceType
-        imgSource: string | null
-    }
->({
-    color: null,
-    type: "good",
-    imgSource: null
-})
-
-
-
-
-watch(() => props.usAqi, () => {
+const faceRender = computed(() => {
     const { color, type, imgSource } = genTheAirImage(props.usAqi ?? 0)
-
-    faceRender.color = color
-    faceRender.type = type as FaceType
-    faceRender.imgSource = imgSource
-
-}, { immediate: true })
+    return { color, type, imgSource }
+})
 
 
 const minMax = computed(() => {
