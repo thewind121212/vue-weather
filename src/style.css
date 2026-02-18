@@ -9,21 +9,8 @@
 @font-face {
   font-family: "SF Pro Display";
   font-style: normal;
-  font-weight: 100; /* Ultralight */
-  src: url("/fonts/SF-Pro-Display-Ultralight.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 200; /* Thin */
-  src: url("/fonts/SF-Pro-Display-Thin.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
   font-weight: 300; /* Light */
+  font-display: swap;
   src: url("/fonts/SF-Pro-Display-Light.woff2") format("woff2");
 }
 
@@ -31,6 +18,7 @@
   font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 400; /* Regular */
+  font-display: swap;
   src: url("/fonts/SF-Pro-Display-Regular.woff2") format("woff2");
 }
 
@@ -38,6 +26,7 @@
   font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 500; /* Medium */
+  font-display: swap;
   src: url("/fonts/SF-Pro-Display-Medium.woff2") format("woff2");
 }
 
@@ -45,21 +34,8 @@
   font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 600; /* Semibold */
+  font-display: swap;
   src: url("/fonts/SF-Pro-Display-Semibold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 700; /* Bold */
-  src: url("/fonts/SF-Pro-Display-Bold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "SF Pro Display";
-  font-style: normal;
-  font-weight: 800; /* Heavy */
-  src: url("/fonts/SF-Pro-Display-Heavy.woff2") format("woff2");
 }
 
 :root {
