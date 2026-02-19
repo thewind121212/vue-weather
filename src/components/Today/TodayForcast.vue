@@ -138,20 +138,12 @@ onUnmounted(() => {
 })
 
 const faceRender = computed(() => {
-    if (airQuailtyInfo.curentAQI) {
-        const { color, type, imgSource } = genTheAirImage(airQuailtyInfo.curentAQI ?? 10)
-        return {
-            color: color || '#000000',
-            type: type || 'unknown',
-            imgSource: imgSource || ''
-        }
-    } else {
-        const { color, type, imgSource } = genTheAirImage(0)
-        return {
-            color: color || '#000000',
-            type: type || 'unknown',
-            imgSource: imgSource || ''
-        }
+    const aqi = airQuailtyInfo.curentAQI || 0
+    const { color, type, imgSource } = genTheAirImage(aqi)
+    return {
+        color: color || '#000000',
+        type: type || 'unknown',
+        imgSource: imgSource || ''
     }
 })
 
