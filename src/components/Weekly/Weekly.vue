@@ -193,7 +193,7 @@ watch(() => [props.weatherDaily, chartFilter.filters], () => {
             </div>
             <div class="flex gap-2 text-white text-[0.875rem] h-auto justify-center items-center">
 
-                <div v-for="(item, index) in filters" :key="index + item.id"
+                <div v-for="item in filters" :key="item.id"
                     class="w-full h-auto rounded-md flex justify-center items-center text-nowrap px-2 py-1 text-gray-300 cursor-pointer duration-200"
                     v-on:click="chartFilter.filters = item.id"
                     :class="{ 'bg-pink-500 !text-white !px-6 !duration-300': chartFilter.filters === item.id }">
@@ -203,7 +203,7 @@ watch(() => [props.weatherDaily, chartFilter.filters], () => {
         <div class="flex-auto z-20 !h-[21.125rem] w-full flex gap-2">
             <div class="text-white text-[0.875rem] w-auto flex flex-col gap-2">
 
-                <div v-for="(item, index) in dateRender" :key="item + index"
+                <div v-for="(item, index) in dateRender" :key="'date-' + index"
                     class="w-full h-auto border border-[#7068ff6e]  rounded-xl flex justify-center text-[#cdcdcd] items-center px-2 py-1 text-nowrap cursor-pointer duration-300"
                     v-on:click="chartFilter.scope = index"
                     :class="{ '!bg-[#7068FF] !text-white': chartFilter.scope === index }">
