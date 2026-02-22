@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { debounce } from "lodash";
 import { useQuery } from '@tanstack/vue-query';
 import { AxiosCLient } from '../lib/axios';
@@ -120,7 +120,7 @@ const onSumbitHandler = (city: Location) => {
 }
 
 
-onBeforeMount(() => {
+onUnmounted(() => {
     debouncedHandler.cancel()
 })
 

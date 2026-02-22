@@ -167,7 +167,7 @@ const faceRender = computed(() => {
                     <swiper :slides-per-view="10" :centered-slides="false" :space-between="12" :grab-cursor="true"
                         @swiper="getRef" :free-mode="true" :pagination="{ clickable: true }"
                         class="mySwiper h-[11.5rem]">
-                        <swiper-slide v-for="(item, index) in dataHr?.slice(0, 24)" :key="index"
+                        <swiper-slide v-for="(item, index) in dataHr?.slice(0, 24)" :key="'hr-' + index"
                             class="h-[11.5rem] w-[2.9375rem] rounded-[1.2rem] p-[0.1rem]">
                             <div class="w-full h-[11.5rem]" v-on:click="hrSelected = index">
                                 <div class="rounded-[1.2rem] gradient-bg h-[11.3rem] relative flex flex-col justify-between items-center py-4 duration-200"
