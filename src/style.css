@@ -99,6 +99,18 @@ html {
   }
 }
 
+@media (max-width: 768px) {
+  html {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  html {
+    font-size: 13px !important;
+  }
+}
+
 @property --gradient-angle {
   syntax: "<angle>";
   initial-value: 0deg;
