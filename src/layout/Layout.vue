@@ -175,28 +175,28 @@ onUnmounted(() => {
       <div class="w-full h-auto p-3 sm:p-4 md:p-6 xl:p-10 absolute z-20 top-0 left-0" id="main-app-render">
         <LoadingHome v-if="(isLoading || isFetching)" />
 
-        <div class="top-bar p-2 flex justify-start items-center">
-          <img src="/logo.webp" alt="logo" class="w-20 h-20 scale-125 min-w-20 min-h-20 -translate-y-[0.03125rem]" />
-          <div class="w-auto h-[4rem] flex justify-center items-star flex-col">
+        <div class="top-bar p-2 flex flex-wrap justify-between items-center gap-2 md:gap-0 md:justify-start">
+          <img src="/logo.webp" alt="logo" class="w-12 h-12 md:w-20 md:h-20 scale-125 min-w-12 min-h-12 md:min-w-20 md:min-h-20 -translate-y-[0.03125rem]" />
+          <div class="w-auto h-auto md:h-[4rem] flex justify-center items-star flex-col">
             <div class="w-auto h-auto flex justify-start items-center text-[#dae2eb] relative">
-              <p class="text-2xl">
+              <p class="text-base md:text-2xl">
                 {{ time.hr }}
-                <span class="text-xl font-light text-[#dae2eba1] inline-block -translate-y-[0.1875rem]">
+                <span class="text-sm md:text-xl font-light text-[#dae2eba1] inline-block -translate-y-[0.1875rem]">
                   ({{ data?.weather.data.timezone }})
                 </span>
               </p>
             </div>
-            <p class="text-white text-4xl">
+            <p class="text-white text-xl md:text-4xl">
               {{ time.day }}
             </p>
           </div>
 
 
-          <div class="w-[8.75rem] h-24 relative">
+          <div class="hidden lg:block w-[8.75rem] h-24 relative">
             <img v-if="time.imgTime !== null" :src="time.imgTime" :alt="time.imgTime"
               class="w-24 h-auto absolute left-0 top-[-0.313rem]">
           </div>
-          <div class="w-[25rem] h-16 ml-auto flex justify-start items-center gap-6">
+          <div class="w-auto md:w-[25rem] h-auto md:h-16 ml-auto flex justify-end md:justify-start items-center gap-3 md:gap-6">
             <!-- location find  -->
             <SearchModal />
             <div
