@@ -223,7 +223,7 @@ onUnmounted(() => {
 
           <!-- row 1 -->
           <div class="flex h-auto items-start justify-center">
-            <div class="flex h-auto  w-full gap-4 p-2 rounded-lg max-h-[18.75rem]">
+            <div class="flex flex-col xl:flex-row h-auto w-full gap-4 p-2 rounded-lg max-h-none xl:max-h-[18.75rem]">
               <!-- col 1 -->
               <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isError="isError"
                 :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
