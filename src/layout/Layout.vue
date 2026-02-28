@@ -230,7 +230,7 @@ onUnmounted(() => {
                 :timeZone="data?.weather.data.timezone" :airHourly="data?.air.data.hourly"
                 :weatherHourly="data?.weather.data.hourly" :isFetching="isFetching" />
               <!-- col 2 -->
-              <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-6 flex-0 min-w-[20rem]">
+              <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-4 md:p-6 flex-0 min-w-0 xl:min-w-[20rem]">
                 <div class="flex gap-2 justify-center items-center ml-1 mb-4">
                   <span
                     class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
@@ -241,8 +241,8 @@ onUnmounted(() => {
                   :weatherHourly="data?.weather.data.hourly" />
               </div>
               <!-- col 3 -->
-              <div class="flex gap-4 flex-1 rounded-2xl">
-                <div class="gradient-bg h-full flex-1 rounded-2xl p-6 basis-2/5 flex-col min-w-[17.75rem]">
+              <div class="flex flex-col md:flex-row gap-4 flex-1 rounded-2xl">
+                <div class="gradient-bg h-full flex-1 rounded-2xl p-4 md:p-6 basis-full md:basis-2/5 flex-col min-w-0 xl:min-w-[17.75rem]">
                   <div class="flex gap-2 justify-start items-center mb-4">
                     <span
                       class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
@@ -250,7 +250,7 @@ onUnmounted(() => {
                   </div>
                   <CurrentAirStatistics :air-current="data?.air.data.current" />
                 </div>
-                <div class="gradient-bg h-full flex-1 rounded-2xl p-6 basis-3/5 min-w-[20.625rem]">
+                <div class="gradient-bg h-full flex-1 rounded-2xl p-4 md:p-6 basis-full md:basis-3/5 min-w-0 xl:min-w-[20.625rem]">
                   <div class="flex gap-2 justify-start items-center ml-1 mb-4">
                     <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
                     <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
