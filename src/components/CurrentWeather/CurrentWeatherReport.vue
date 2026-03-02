@@ -32,11 +32,11 @@ watch(() => props.weatherCurrent, () => {
 
 
 <template>
-    <div class="bg-secondary rounded-2xl p-6 text-white flex-0 min-w-[620px]">
+    <div class="bg-secondary rounded-2xl p-4 md:p-6 text-white flex-0 w-full min-w-0 xl:min-w-[620px]">
         <CurrentWeather :weatherCurrent="weatherCurrent" :time-zone="timeZone" />
         <div class="flex w-full h-auto mt-4">
             <div class="w-full flex flex-col justify-center items-start gap-1">
-                <div class="flex justify-between items-start w-full">
+                <div class="flex flex-col sm:flex-row justify-between items-start w-full gap-4 sm:gap-0">
                     <CurrentTempature :current-day="currentDay" :weather-current="weatherCurrent" />
                     <CurrentAirQuality :us-aqi="airCurrent?.us_aqi" :pm2_5="airCurrent?.pm2_5" :airHourly="airHourly" />
                 </div>
