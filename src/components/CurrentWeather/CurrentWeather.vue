@@ -40,16 +40,16 @@ const weatherCodeFetch: ComputedRef<string> = computed(() => {
 
 
 <template>
-    <div class="flex items-start justify-start relative w-full">
-        <img class="w-[10rem] h-[10rem] absolute left-[-1.25rem] top-[-1.875rem]"
+    <div class="flex flex-wrap md:flex-nowrap items-start justify-start relative w-full">
+        <img class="w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem] absolute left-[-0.5rem] top-[-1rem] md:left-[-1.25rem] md:top-[-1.875rem]"
             :src="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`"
             :alt="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`" />
-        <div class="w-[7.5rem] h-[6.25rem]"></div>
-        <div class="ml-3 h-[6.25rem] flex flex-col justify-center items-start gap-1">
-            <p class="text-3xl"> {{ weatherCode?.[weatherCodeFetch].category }}</p>
-            <p class="text-2xl font-light">Feel Like {{ weatherCurrent?.apparent_temperature }}</p>
+        <div class="w-[5rem] h-[4.5rem] md:w-[7.5rem] md:h-[6.25rem]"></div>
+        <div class="ml-2 md:ml-3 h-auto md:h-[6.25rem] flex flex-col justify-center items-start gap-1">
+            <p class="text-xl md:text-3xl"> {{ weatherCode?.[weatherCodeFetch].category }}</p>
+            <p class="text-base md:text-2xl font-light">Feel Like {{ weatherCurrent?.apparent_temperature }}</p>
         </div>
-        <div class="w-auto h-[5rem] flex flex-col justify-between items-end ml-auto">
+        <div class="w-auto h-auto md:h-[5rem] flex flex-col justify-between items-end ml-auto">
             <div class="flex gap-2 justify-center items-center">
                 <span
                     class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>

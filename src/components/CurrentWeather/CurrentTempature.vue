@@ -21,14 +21,14 @@ const props = defineProps({
 <template>
 
     <div class="flex flex-col gap-1">
-        <p class="font-sfPro font-[400] text-[#FFFF] text-6xl">
+        <p class="font-sfPro font-[400] text-[#FFFF] text-4xl md:text-6xl">
             {{ convertFromCelciusToFahrenheit(props.weatherCurrent?.temperature_2m!, unit.$state.tempUnit) }}
         </p>
-        <div class="w-full h-auto flex gap-6">
-            <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-[2.625rem]">
+        <div class="w-full h-auto flex gap-3 md:gap-6">
+            <p class="font-sfPro font-[300] text-[#FFFF] text-base md:text-xl w-auto">
                 Low {{ convertFromCelciusToFahrenheit(props.currentDay?.temperature_2m_min[0]!, unit.$state.tempUnit) }}
             </p>
-            <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-[2.625rem]">
+            <p class="font-sfPro font-[300] text-[#FFFF] text-base md:text-xl w-auto">
                 High {{ convertFromCelciusToFahrenheit(props.currentDay?.temperature_2m_max[0]!, unit.$state.tempUnit)
                 }}
             </p>
