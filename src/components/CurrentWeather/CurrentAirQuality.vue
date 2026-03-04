@@ -47,8 +47,8 @@ const minMax = computed(() => {
 
 <template>
 
-    <div class="flex flex-col gap-1 justify-end items-end">
-        <div class="w-[15rem] h-[3.75rem] rounded-md flex justify-end items-center gap-4">
+    <div class="flex flex-col gap-1 justify-end items-start sm:items-end">
+        <div class="w-auto sm:w-[15rem] h-[3.75rem] rounded-md flex justify-start sm:justify-end items-center gap-4">
 
             <div class="w-[3rem] h-[3rem] rounded-full flex justify-center items-center"
                 :style="`background:${faceRender.color}`">
@@ -56,7 +56,7 @@ const minMax = computed(() => {
                     class="w-[2.5rem] h-[2.5rem]">
             </div>
 
-            <p class="font-sfPro font-[400] text-[#FFF] text-6xl">
+            <p class="font-sfPro font-[400] text-[#FFF] text-4xl md:text-6xl">
                 {{ usAqi }}<span class="font-[200] text-xl inline-block -translate-y-[1.75rem]">AQI</span>
             </p>
         </div>
