@@ -153,7 +153,7 @@ const faceRender = computed(() => {
 
 <template>
 
-    <div class="gradient-bg flex-auto rounded-2xl p-6 basis-3/5 max-w-[25.625rem] h-full flex flex-col">
+    <div class="gradient-bg flex-auto rounded-2xl p-4 md:p-6 basis-full xl:basis-3/5 w-full xl:max-w-[25.625rem] h-auto xl:h-full flex flex-col">
         <div class="flex gap-[1.25rem] justify-start items-center ml-1 mb-4">
             <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
             <p class="text-[1rem] font-bold text-white">Today Forcast</p>
