@@ -184,9 +184,9 @@ watch(() => [props.weatherDaily, chartFilter.filters], () => {
 
 
 <template>
-    <div class="flex-auto rounded-2xl p-6 w-auto h-full flex flex-col relative overflow-hidden">
+    <div class="flex-auto rounded-2xl p-4 md:p-6 w-full xl:w-auto h-auto xl:h-full flex flex-col relative overflow-hidden min-h-[20rem]">
         <div class="bg-secondary absolute top-0 left-0 w-full h-full opacity-70"></div>
-        <div class="w-full flex gap-4 justify-start items-center relative z-10 mb-4">
+        <div class="w-full flex flex-wrap gap-2 md:gap-4 justify-start items-center relative z-10 mb-4">
             <div class="flex gap-2 justify-start items-center">
                 <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-red-400 -translate-y-[0.0313rem]"></span>
                 <p class="text-[1rem] font-bold text-white">Weekly Forcast</p>
@@ -200,8 +200,8 @@ watch(() => [props.weatherDaily, chartFilter.filters], () => {
                     {{ item.name }}</div>
             </div>
         </div>
-        <div class="flex-auto z-20 !h-[21.125rem] w-full flex gap-2">
-            <div class="text-white text-[0.875rem] w-auto flex flex-col gap-2">
+        <div class="flex-auto z-20 h-[16rem] md:!h-[21.125rem] w-full flex gap-2">
+            <div class="text-white text-[0.75rem] md:text-[0.875rem] w-auto flex flex-col gap-1 md:gap-2">
 
                 <div v-for="(item, index) in dateRender" :key="'date-' + index"
                     class="w-full h-auto border border-[#7068ff6e]  rounded-xl flex justify-center text-[#cdcdcd] items-center px-2 py-1 text-nowrap cursor-pointer duration-300"
