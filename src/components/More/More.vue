@@ -32,8 +32,8 @@ const handleClick = () => {
 
 
 <template>
-    <div class="bg-secondary flex-auto rounded-2xl p-4 basis-1/12 max-w-[5.5rem] h-auto flex flex-col mt-auto">
-        <div class="w-full h-auto flex flex-col gap-2">
+    <div class="bg-secondary flex-auto rounded-2xl p-4 basis-full xl:basis-1/12 max-w-none xl:max-w-[5.5rem] h-auto flex flex-row xl:flex-col mt-0 xl:mt-auto gap-2">
+        <div class="w-full h-auto flex flex-row xl:flex-col gap-2">
             <a href="https://github.com/thewind121212/vue-weather" target="_blank"
                 class="w-full aspect-square border-gray-600 border rounded-md text-white flex justify-center items-center group duration-200 bg-none hover:!bg-main-gradient hover:border-white cursor-pointer">
                 <i class="pi pi-github text-gray-400 duration-200 group-hover:!text-white" style="font-size: 2rem"></i>
