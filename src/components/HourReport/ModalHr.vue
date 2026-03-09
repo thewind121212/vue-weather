@@ -113,11 +113,11 @@ const faceRender = computed(() => {
 
 <template>
     <div
-        class="w-screen h-screen flex justify-center mt-[10rem] items-start fixed  top-0 left-0 z-[1001] select-none invisible opacity-1">
-        <div class="w-[60.25rem] rounded-2xl pt-2 flex-col gap-4  select-none" id="modal-today-hr">
+        class="w-screen h-screen flex justify-center mt-[2rem] md:mt-[10rem] items-start fixed top-0 left-0 z-[1001] select-none invisible opacity-1 px-3 md:px-0">
+        <div class="w-full max-w-[60.25rem] rounded-2xl pt-2 flex-col gap-4 select-none" id="modal-today-hr">
             <HeaderHr :day="day" :hr="hr" :timeZone="timeZone" />
             <div v-if="modalStore.modalMounted !== null"
-                class="w-full h-auto bg-primary rounded-2xl flex justify-start items-center p-12 pt-6 flex-col gap-6">
+                class="w-full h-auto bg-primary rounded-2xl flex justify-start items-center p-4 md:p-12 pt-4 md:pt-6 flex-col gap-4 md:gap-6">
                 <div class="w-full flex justify-between items-start gap-2">
                     <div class="header">
                         <div class="w-auto h-auto flex justify-start gap-2 items-center relative">

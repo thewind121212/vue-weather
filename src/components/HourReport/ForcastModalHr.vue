@@ -144,12 +144,12 @@ const renderList = computed(() => {
 
 <template>
 
-    <div class="w-screen h-screen flex justify-center mt-[20rem] items-start fixed top-0 left-0 z-[1001] select-none
-    invisible opacity-1">
-        <div class="w-auto rounded-2xl pt-2 flex-col gap-4 select-none" id="forcast-today-hr">
+    <div class="w-screen h-screen flex justify-center mt-[2rem] md:mt-[20rem] items-start fixed top-0 left-0 z-[1001] select-none
+    invisible opacity-1 px-3 md:px-0">
+        <div class="w-full max-w-[80rem] rounded-2xl pt-2 flex-col gap-4 select-none" id="forcast-today-hr">
             <HeaderHr :day="day" :hr="hr" :timeZone="timeZone" />
             <div v-if="modalStore.modalMounted === 'weatherCard'"
-                class="grid w-full grid-flow-col grid-rows-1 gap-4 overflow-hidden rounded-2xl -translate-y-1/2">
+                class="grid w-full grid-flow-row md:grid-flow-col grid-rows-none md:grid-rows-1 gap-4 overflow-hidden rounded-2xl -translate-y-1/2">
                 <div class="bg-primary rounded-2xl p-6  w-full h-auto flex-col aspect-square relative">
                     <div class="w-full flex justify-start items-center relative h-[3.7rem]">
                         <img :src="(hrSelected < 18 && hrSelected > 6) && weatherHourly?.weather_code[hrSelected ?? 0] ? weatherCode?.[weatherHourly?.weather_code[hrSelected ?? 0]]?.image_day : weatherCode?.[weatherHourly?.weather_code[hrSelected] ?? 0]?.image_night"
@@ -172,7 +172,7 @@ const renderList = computed(() => {
                     </div>
                 </div>
                 <div
-                    class="w-[60.25rem] h-auto bg-primary rounded-2xl flex justify-start items-center p-12 pt-6 flex-col gap-6">
+                    class="w-full max-w-[60.25rem] h-auto bg-primary rounded-2xl flex justify-start items-center p-4 md:p-12 pt-4 md:pt-6 flex-col gap-4 md:gap-6">
                     <div class="w-full flex justify-between items-start gap-2">
                         <div class="header">
                             <div class="w-auto h-auto flex justify-start gap-2 items-center relative">
