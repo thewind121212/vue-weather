@@ -129,7 +129,7 @@ onUnmounted(() => {
 
 
 <template>
-    <div class="w-[18.75rem] h-[3.1875rem] relative flex justify-end items-center">
+    <div class="w-auto md:w-[18.75rem] h-[3.1875rem] relative flex justify-end items-center">
         <i class="pi pi-map ml-4 text-white absolute right-0 top-1/2 -translate-y-1/2" style="font-size: 1.5rem;"
             v-on:click="toggleModalHandler"></i>
         <div class="fixed w-screen h-screen top-0 left-0 z-[40] hidden" ref="inputOverlay">
@@ -137,7 +137,7 @@ onUnmounted(() => {
                 <div class="w-full h-full bg-[#1E1E1Ebd] backdrop-blur-sm absolute left-0 top-0 z-10" id="searchModal"
                     v-on:click="toggleModalHandler">
                 </div>
-                <div class="w-[25rem] h-[3.1875rem] relative opacity-0 z-20" ref="inputSeach">
+                <div class="w-[90vw] max-w-[25rem] h-[3.1875rem] relative opacity-0 z-20" ref="inputSeach">
                     <i class="pi pi-map ml-4 text-white absolute left-0 top-1/2 -translate-y-1/2"
                         style="font-size: 1.5rem;"></i>
                     <i class="pi pi-times mr-4 text-white absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"
@@ -152,7 +152,7 @@ onUnmounted(() => {
                             style="font-size: 2.5rem"></i>
                         <div v-else class="w-full h-full flex justify-center items-center flex-col">
                             <div v-if="data?.results?.length! > 0 && inputValue" v-for="item in data?.results"
-                                class="w-full h-auto px-6 py-4 flex justify-between items-center border-b border-[#3A3A3A] cursor-pointer gap-8"
+                                class="w-full h-auto px-3 md:px-6 py-3 md:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#3A3A3A] cursor-pointer gap-1 sm:gap-8"
                                 v-on:click="onSumbitHandler(item)">
                                 <div class="w-auto h-auto flex justify-start items-start gap-2">
 
