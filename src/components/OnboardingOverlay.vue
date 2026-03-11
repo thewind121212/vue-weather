@@ -101,9 +101,9 @@ function onSearchInput() {
 </script>
 
 <template>
-  <div class="w-svw h-svh bg-primary font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center">
-    <div class="w-full h-full backdrop-blur-lg flex justify-center items-center">
-      <div class="flex flex-col items-center gap-6 w-[28rem]">
+  <div class="w-svw h-svh bg-primary font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center overflow-y-auto">
+    <div class="w-full min-h-full backdrop-blur-lg flex justify-center items-center py-8 px-4">
+      <div class="flex flex-col items-center gap-4 md:gap-6 w-full max-w-[28rem]">
         <!-- Logo + Title -->
         <div class="flex flex-col items-center gap-2">
           <img src="/logo.webp" alt="logo" class="w-24 h-24" />
