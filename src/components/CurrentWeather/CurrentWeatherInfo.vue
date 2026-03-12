@@ -78,7 +78,7 @@ const renderList = computed(() => {
         <div v-for="item of renderList" class="flex relative gap-2 justify-start items-center">
             <div class="flex relative gap-2 justify-start items-center">
                 <div class="w-[0.625rem] h-[1.75rem] pl-6"></div>
-                <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-fit">
+                <p class="font-sfPro font-[300] text-[#FFFF] text-base md:text-xl w-fit">
                     {{ item.staticName }} {{ item.dynamicValue }}
                 </p>
                 <img :class="item.imgElementClasss" :src="item.iconSrc" alt="Humidity_icon" />
