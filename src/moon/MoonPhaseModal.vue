@@ -71,8 +71,8 @@ const moonModalData = computed<
 <template>
 
     <div
-        class="w-screen h-screen flex justify-center items-center fixed  top-0 left-0 z-[1001] select-none invisible opacity-1">
-        <div class="w-[40.25rem]  rounded-2xl pt-2 flex-col gap-4" id="modal-moon">
+        class="w-screen h-screen flex justify-center items-start md:items-center fixed top-0 left-0 z-[1001] select-none invisible opacity-1 px-3 md:px-0 pt-4 md:pt-0">
+        <div class="w-full max-w-[40.25rem] rounded-2xl pt-2 flex-col gap-4" id="modal-moon">
             <div v-if="modalStore.modalMounted === 'moon'" class="flex justify-start items-center gap-2">
                 <div class="text-white flex justify-start items-center gap-2">
                     <span
@@ -85,7 +85,7 @@ const moonModalData = computed<
                     <h1 class="text-md">{{ day }}</h1>
                 </div>
             </div>
-            <div class="w-full h-auto bg-primary rounded-2xl flex justify-start items-center p-12 pt-6 flex-col gap-6">
+            <div class="w-full h-auto bg-primary rounded-2xl flex justify-start items-center p-4 md:p-12 pt-4 md:pt-6 flex-col gap-4 md:gap-6">
                 <div class="w-full flex justify-between items-center gap-2">
                     <div class="header">
                         <div class="w-auto h-auto flex justify-start gap-2 items-center relative">
