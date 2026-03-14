@@ -170,7 +170,7 @@ onUnmounted(() => {
 <template>
   <KeepAlive>
     <div
-      class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center relative overflow-x-hidden" id="main-layout">
+      class="w-svw min-h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center relative overflow-x-hidden" id="main-layout">
       <div class="w-full h-full backdrop-blur-lg p-3 sm:p-4 md:p-6 xl:p-10 relative z-10"> </div>
       <div class="w-full h-auto p-3 sm:p-4 md:p-6 xl:p-10 absolute z-20 top-0 left-0" id="main-app-render">
         <LoadingHome v-if="(isLoading || isFetching)" />
