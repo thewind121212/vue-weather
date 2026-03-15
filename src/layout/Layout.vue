@@ -49,18 +49,7 @@ const currentWeatherFetch = async (): Promise<{
 
 
   try {
-    const locationLocalStore = localStorage.getItem('location')
-
-    let locationParams: Location | null = locationStore.$state.location
-
-
-
-    locationParams = locationParams ? locationParams : locationLocalStore ? JSON.parse(locationLocalStore) : null
-
-
-    if (!locationParams) {
-      throw new Error('Location not found')
-    }
+    const locationParams: Location = locationStore.$state.location!
 
 
     const weatherFetch = AxiosCLient.get('/weather', {
