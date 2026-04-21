@@ -221,45 +221,43 @@ onUnmounted(() => {
         </div>
         <div class="h-auto w-full gap-4 flex flex-col">
 
-          <!-- row 1 -->
-          <div class="flex h-auto items-start justify-center">
-            <div class="flex flex-col xl:flex-row h-auto w-full gap-4 p-2 rounded-lg max-h-none xl:max-h-[18.75rem]">
-              <!-- col 1 -->
-              <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isError="isError"
-                :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
-                :timeZone="data?.weather.data.timezone" :airHourly="data?.air.data.hourly"
-                :weatherHourly="data?.weather.data.hourly" :isFetching="isFetching" />
-              <!-- col 2 -->
-              <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-4 md:p-6 flex-0 min-w-0 xl:min-w-[20rem]">
-                <div class="flex gap-2 justify-center items-center ml-1 mb-4">
-                  <span
-                    class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
-                  <p class="text-[1rem] font-bold text-white">Live Weather Statistics </p>
-                </div>
-                <CurrentWeatherInfo :weather-current="data?.weather.data.current"
-                  :current-day="data?.weather.data.daily" :air-current="data?.air.data.current"
-                  :weatherHourly="data?.weather.data.hourly" />
+          <!-- row 1a: weather report + weather stats -->
+          <div class="flex flex-col xl:flex-row h-auto w-full gap-4 p-2 rounded-lg">
+            <!-- col 1 -->
+            <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isError="isError"
+              :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
+              :timeZone="data?.weather.data.timezone" :airHourly="data?.air.data.hourly"
+              :weatherHourly="data?.weather.data.hourly" :isFetching="isFetching" />
+            <!-- col 2 -->
+            <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-4 md:p-6 flex-0 min-w-0 xl:min-w-[20rem]">
+              <div class="flex gap-2 justify-center items-center ml-1 mb-4">
+                <span
+                  class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
+                <p class="text-[1rem] font-bold text-white">Live Weather Statistics </p>
               </div>
-              <!-- col 3 -->
-              <div class="flex flex-col md:flex-row gap-4 flex-1 rounded-2xl">
-                <div class="gradient-bg h-full flex-1 rounded-2xl p-4 md:p-6 basis-full md:basis-2/5 flex-col min-w-0 xl:min-w-[17.75rem]">
-                  <div class="flex gap-2 justify-start items-center mb-4">
-                    <span
-                      class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
-                    <p class="text-[1rem] font-bold text-white">Live Air Statistics</p>
-                  </div>
-                  <CurrentAirStatistics :air-current="data?.air.data.current" />
-                </div>
-                <div class="gradient-bg h-full flex-1 rounded-2xl p-4 md:p-6 basis-full md:basis-3/5 min-w-0 xl:min-w-[20.625rem]">
-                  <div class="flex gap-2 justify-start items-center ml-1 mb-4">
-                    <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
-                    <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
-                  </div>
-                  <TodayHightLight :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
-                    :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
-                    :day="time.day" />
-                </div>
+              <CurrentWeatherInfo :weather-current="data?.weather.data.current"
+                :current-day="data?.weather.data.daily" :air-current="data?.air.data.current"
+                :weatherHourly="data?.weather.data.hourly" />
+            </div>
+          </div>
+          <!-- row 1b: air stats + today highlight -->
+          <div class="flex flex-col md:flex-row h-auto w-full gap-4 p-2 rounded-lg">
+            <div class="gradient-bg h-full flex-1 rounded-2xl p-4 md:p-6 basis-full md:basis-2/5 flex-col min-w-0">
+              <div class="flex gap-2 justify-start items-center mb-4">
+                <span
+                  class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
+                <p class="text-[1rem] font-bold text-white">Live Air Statistics</p>
               </div>
+              <CurrentAirStatistics :air-current="data?.air.data.current" />
+            </div>
+            <div class="gradient-bg h-full flex-1 rounded-2xl p-4 md:p-6 basis-full md:basis-3/5 min-w-0">
+              <div class="flex gap-2 justify-start items-center ml-1 mb-4">
+                <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
+                <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
+              </div>
+              <TodayHightLight :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
+                :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
+                :day="time.day" />
             </div>
           </div>
           <!-- row 2 -->
