@@ -20,7 +20,7 @@ const CurrentWeatherInfo = defineAsyncComponent(() => import('../components/Curr
 const CurrentAirStatistics = defineAsyncComponent(() => import('../components/CurrentWeather/CurrentAirStatistics.vue'))
 const TodayHightLight = defineAsyncComponent(() => import('../components/Today/TodayHightLight.vue'))
 const TodayForcast = defineAsyncComponent(() => import('../components/Today/TodayForcast.vue'))
-const Weekly = defineAsyncComponent(() => import('../components/Weekly/Weekly.vue'))
+import Weekly from '../components/Weekly/Weekly.vue'
 const More = defineAsyncComponent(() => import('../components/More/More.vue'))
 const LoadingHome = defineAsyncComponent(() => import('../components/Loading/HomeLoading.vue'))
 const SearchModal = defineAsyncComponent(() => import('../components/SearchModal.vue'))
