@@ -162,7 +162,7 @@ const modalMountObject = computed<
 
 
 <template>
-    <div class="grid grid-cols-2 md:grid-cols-3 grid-rows-2 h-auto md:h-[12.25rem] gap-2 max-[1870px]:grid-cols-2">
+    <div class="grid grid-cols-2 grid-rows-2 h-[12.25rem] gap-2 max-[1870px]:grid-cols-2 min-[1871px]:grid-cols-3">
 
         <div class="fixed top-0 left-0 z-[10002]">
             <HrModal :day="day" :hr="hr" :timeZone="timeZone" :dataHr="modalMountObject.dataHr"
@@ -170,7 +170,7 @@ const modalMountObject = computed<
                 :air-hourly="airQualityHourly" />
         </div>
         <div v-for="(item, index) in todayData" :key="index"
-            class="bg-[#0D1321] rounded-xl flex justify-center items-center flex-col relative overflow-hidden min-h-[6rem]"
+            class="bg-[#0D1321] rounded-xl flex justify-center items-center flex-col relative overflow-hidden"
             :class="item.order"
             :style="{ pointerEvents: (modalStore.modalMounted === item.id || modalStore.modalMounted === null) ? 'auto' : 'none' }">
 
