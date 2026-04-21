@@ -153,12 +153,12 @@ const faceRender = computed(() => {
 
 <template>
 
-    <div class="gradient-bg flex-auto rounded-2xl p-4 md:p-6 basis-full xl:basis-3/5 w-full xl:max-w-[25.625rem] h-auto xl:h-full flex flex-col">
-        <div class="flex gap-[1.25rem] justify-start items-center ml-1 mb-4">
+    <div class="gradient-bg flex-auto rounded-2xl p-4 md:p-6 basis-full xl:basis-3/5 w-full md:max-w-[25.625rem] h-auto xl:h-full flex flex-col max-h-[28rem] xl:max-h-none">
+        <div class="flex gap-[1.25rem] justify-start items-center ml-1 mb-2 md:mb-4">
             <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
             <p class="text-[1rem] font-bold text-white">Today Forcast</p>
         </div>
-        <div class="grid grid-rows-3 gap-2 flex-auto">
+        <div class="grid grid-rows-3 gap-1 md:gap-2 flex-auto">
 
             <div class="fixed top-0 left-0 z-[10002]">
                 <ForcastModalHr :day="day" :hr="hr" :timeZone="timeZone"
