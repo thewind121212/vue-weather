@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+.git
+.github
+.vscode
+.idea
+.DS_Store
+screenshots
+playwright-scan.mjs
+*.log
+.env
+.env.local
+.env.production
+.env.development
+README.md
+docs

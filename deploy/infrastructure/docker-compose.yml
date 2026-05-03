@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  vue-weather:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        VITE_WEATHER_API_URL: ${VITE_WEATHER_API_URL}
+        VITE_WEATHER_API_KEY: ${VITE_WEATHER_API_KEY}
+    image: vue-weather:local
+    container_name: vue-weather
+    restart: unless-stopped
+    ports:
+      - "4141:4141"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    external: true
