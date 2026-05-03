@@ -32,26 +32,17 @@ RUN printf "VITE_WEATHER_API_URL=%s\nVITE_WEATHER_API_KEY=%s\n" "${VITE_WEATHER_
 RUN npm run build
 
 # --- Runtime stage ---
-FROM node:20-alpine AS runner
+FROM oven/bun:1-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=4141
 
-ENV BUN_INSTALL=/usr/local/bun
-RUN apk add --no-cache curl bash && \
-  curl -fsSL https://bun.sh/install | bash && \
-  ln -sf /usr/local/bun/bin/bun /usr/local/bin/bun && \
-  ln -sf /usr/local/bun/bin/bunx /usr/local/bin/bunx && \
-  npm install -g pm2@5
-
 COPY --from=builder /app/dist ./dist
-COPY server.js ./server.js
-COPY ecosystem.config.cjs ./ecosystem.config.cjs
 
-RUN chown -R node:node /app
-USER node
+RUN chown -R bun:bun /app
+USER bun
 
 EXPOSE 4141
 
-CMD ["pm2-runtime", "ecosystem.config.cjs", "--only", "vue-weather"]
+CMD ["bunx", "serve", "-s", "dist", "-l", "4141"]
