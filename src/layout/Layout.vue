@@ -171,6 +171,10 @@ watch(data, () => {
               class="w-24 h-auto absolute left-0 top-[-0.313rem]">
           </div>
           <div class="w-auto h-12 sm:h-16 ml-auto flex flex-nowrap justify-end items-center gap-2 sm:gap-4 lg:gap-6">
+            <a href="https://github.com/thewind121212/vue-weather" target="_blank" rel="noopener noreferrer"
+              class="text-white flex justify-center items-center hover:text-[#7068FF] duration-200 shrink-0">
+              <i class="pi pi-github" style="font-size: 1.5rem"></i>
+            </a>
             <!-- location find  -->
             <SearchModal />
             <div
