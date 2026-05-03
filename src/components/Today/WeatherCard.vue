@@ -1,11 +1,11 @@
 <template>
-    <div class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-cover bg-center overflow-hidden"
+    <div class="bg-[#0D1321] rounded-xl flex justify-end items-center flex-col relative bg-cover bg-center overflow-hidden min-h-[8rem]"
         :class="isHaveRain ? `bg-[url('/image-rain.webp')]` : `bg-[url('/image-day.webp')]`">
         <div class="bg-transparent w-full h-full absolute left-0 top-0 z-10 rounded-xl opacity-1 backdrop-blur-[2px] cursor-pointer opacity-0 pointer-events-none"
             :class="{ '!pointer-events-auto': modalMounted === 'weatherCard' }"
             @click="$emit('openModal', 'weatherCard')" id="weatherCard-placeholder">
         </div>
-        <div class="w-full h-full bg-[#0d132180] grid grid-cols-2 gap-2 px-4 backdrop-blur-[1px] cursor-default select-none">
+        <div class="w-full h-full bg-[#0d132180] grid grid-cols-[1fr_auto] gap-2 px-3 sm:px-4 py-3 backdrop-blur-[1px] cursor-default select-none">
             <div class="flex justify-center items-start flex-col">
                 <FlipCard>
                     <template #front>
@@ -47,8 +47,8 @@
                     :class="{ '!pointer-events-auto': !modalMounted }"
                     @click="$emit('openModal', 'weatherCard')">See More</p>
             </div>
-            <div class="relative flex justify-center items-center">
-                <img class="w-[8.5rem] h-[8.5rem] absolute"
+            <div class="relative flex justify-center items-center min-w-[5rem] sm:min-w-[6rem]">
+                <img class="w-[5rem] h-[5rem] sm:w-[6.5rem] sm:h-[6.5rem] lg:w-[8.5rem] lg:h-[8.5rem] absolute"
                     :src="weatherIcon.src"
                     :alt="weatherIcon.alt" />
             </div>

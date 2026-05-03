@@ -47,8 +47,8 @@ const minMax = computed(() => {
 
 <template>
 
-    <div class="flex flex-col gap-1 justify-end items-end">
-        <div class="w-[15rem] h-[3.75rem] rounded-md flex justify-end items-center gap-4">
+    <div class="flex flex-col gap-1 justify-end items-start sm:items-end max-w-full">
+        <div class="w-auto sm:w-[15rem] h-[3.75rem] rounded-md flex justify-start sm:justify-end items-center gap-4">
 
             <div class="w-[3rem] h-[3rem] rounded-full flex justify-center items-center"
                 :style="`background:${faceRender.color}`">

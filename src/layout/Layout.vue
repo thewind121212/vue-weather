@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { AxiosResponse } from 'axios';
 import { type WeatherDataRes } from '../types/weatherTypes';
 import { AxiosCLient } from '../lib/axios';
-import { defineAsyncComponent, onMounted, onUnmounted, reactive, watch } from 'vue';
+import { defineAsyncComponent, onUnmounted, reactive, watch } from 'vue';
 import { useTempUnitStore } from '../store/tempUnit';
 import { useSortedInfo } from '../store/sortInfo';
 import 'swiper/swiper-bundle.css';
@@ -21,7 +21,6 @@ const CurrentAirStatistics = defineAsyncComponent(() => import('../components/Cu
 const TodayHightLight = defineAsyncComponent(() => import('../components/Today/TodayHightLight.vue'))
 const TodayForcast = defineAsyncComponent(() => import('../components/Today/TodayForcast.vue'))
 import Weekly from '../components/Weekly/Weekly.vue'
-const More = defineAsyncComponent(() => import('../components/More/More.vue'))
 const LoadingHome = defineAsyncComponent(() => import('../components/Loading/HomeLoading.vue'))
 const SearchModal = defineAsyncComponent(() => import('../components/SearchModal.vue'))
 
@@ -139,80 +138,55 @@ watch(data, () => {
 })
 
 
-  const resizeMainLayout = () => {
-    const mainAppRender = document.getElementById('main-app-render')
-    const mainLayout = document.getElementById('main-layout')
-    const windowHeight = window.innerHeight
-
-    if (!mainAppRender || !mainLayout) return
-    const { height } = mainAppRender.getBoundingClientRect()
-
-    if (height < windowHeight) {
-      mainLayout.style.height = `100vh`
-      return
-    }
-    if (height && mainLayout) {
-      mainLayout.style.height = `${height}px`
-    }
-  }
-
-onMounted(() => {
-  resizeMainLayout()
-  window.addEventListener('resize', resizeMainLayout)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', resizeMainLayout)
-})
 
 </script>
 
 <template>
   <KeepAlive>
     <div
-      class="w-svw h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center relative overflow-x-hidden" id="main-layout">
-      <div class="w-full h-full backdrop-blur-lg p-10 relative z-10"> </div>
-      <div class="w-full h-auto p-10 absolute z-20 top-0 left-0" id="main-app-render">
+      class="w-svw min-h-svh bg-primary dark font-sfPro font-[500] bg-[url('/bg.webp')] bg-cover bg-center bg-fixed relative overflow-x-hidden" id="main-layout">
+      <div class="fixed inset-0 backdrop-blur-lg z-0"></div>
+      <div class="w-full h-auto p-4 sm:p-6 lg:p-10 relative z-20" id="main-app-render">
         <LoadingHome v-if="(isLoading || isFetching)" />
 
-        <div class="top-bar p-2 flex justify-start items-center">
-          <img src="/logo.webp" alt="logo" class="w-20 h-20 scale-125 min-w-20 min-h-20 -translate-y-[0.03125rem]" />
-          <div class="w-auto h-[4rem] flex justify-center items-star flex-col">
+        <div class="top-bar p-2 flex flex-wrap gap-y-3 justify-start items-center">
+          <img src="/logo.webp" alt="logo" class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 lg:scale-125 -translate-y-[0.03125rem] shrink-0" />
+          <div class="w-auto h-auto sm:h-[4rem] flex justify-center items-start flex-col ml-2 lg:ml-0">
             <div class="w-auto h-auto flex justify-start items-center text-[#dae2eb] relative">
-              <p class="text-2xl">
+              <p class="text-sm sm:text-xl lg:text-2xl">
                 {{ time.hr }}
-                <span class="text-xl font-light text-[#dae2eba1] inline-block -translate-y-[0.1875rem]">
+                <span class="hidden sm:inline-block text-xs sm:text-base lg:text-xl font-light text-[#dae2eba1] lg:-translate-y-[0.1875rem]">
                   ({{ data?.weather.data.timezone }})
                 </span>
               </p>
             </div>
-            <p class="text-white text-4xl">
+            <p class="text-white text-base sm:text-2xl lg:text-4xl text-nowrap">
               {{ time.day }}
             </p>
           </div>
 
 
-          <div class="w-[8.75rem] h-24 relative">
+          <div class="hidden xl:block w-[8.75rem] h-24 relative">
             <img v-if="time.imgTime !== null" :src="time.imgTime" :alt="time.imgTime"
               class="w-24 h-auto absolute left-0 top-[-0.313rem]">
           </div>
-          <div class="w-[25rem] h-16 ml-auto flex justify-start items-center gap-6">
+          <div class="w-auto h-12 sm:h-16 ml-auto flex flex-nowrap justify-end items-center gap-2 sm:gap-4 lg:gap-6">
             <!-- location find  -->
             <SearchModal />
             <div
-              class="bg-secondary w-[6.6875rem] h-[3.1875rem] rounded-[1.6875rem] flex justify-center items-center relative"
+              class="bg-secondary w-[5rem] h-[2.5rem] sm:w-[6.6875rem] sm:h-[3.1875rem] rounded-[1.6875rem] flex justify-center items-center relative shrink-0"
               v-on:click="handerChangeTempUnitDebounce(unit.$state.tempUnit === 'C' ? 'F' : 'C')">
               <div
-                class="size-[2.625rem] aspect-square rounded-[1.3125rem] text-black flex justify-center items-center duration-300 bg-[#7068FF] absolute z-10"
-                :class="unit.$state.tempUnit === 'C' ? '!left-[0.5rem]' : 'left-[50%]'">
+                class="size-8 sm:size-[2.625rem] aspect-square rounded-full text-black flex justify-center items-center duration-300 bg-[#7068FF] absolute z-10"
+                :class="unit.$state.tempUnit === 'C' ? '!left-[0.375rem] sm:!left-[0.5rem]' : 'left-[50%]'">
               </div>
               <div
-                class="size-[2.625rem] aspect-square bg-transparent font-semibold rounded-[1.3125rem] flex justify-center items-center translate-x-[0.125rem] translate-y-[0.0625rem] relative z-20 cursor-pointer"
+                class="size-8 sm:size-[2.625rem] aspect-square bg-transparent font-semibold rounded-full flex justify-center items-center relative z-20 cursor-pointer leading-none text-sm sm:text-base"
                 :class="unit.$state.tempUnit === 'C' ? 'text-white' : 'text-[#676B73]'">
                 C°
               </div>
               <div
-                class="size-[2.625rem] aspect-square bg-transparent font-semibold rounded-[1.3125rem] flex justify-center items-center translate-x-[0.125rem] translate-y-[0.0625rem] relative z-20 cursor-pointer"
+                class="size-8 sm:size-[2.625rem] aspect-square bg-transparent font-semibold rounded-full flex justify-center items-center relative z-20 cursor-pointer leading-none text-sm sm:text-base"
                 :class="unit.$state.tempUnit === 'F' ? 'text-white' : 'text-[#676B73]'">
                 F°
               </div>
@@ -223,14 +197,14 @@ onUnmounted(() => {
 
           <!-- row 1 -->
           <div class="flex h-auto items-start justify-center">
-            <div class="flex h-auto  w-full gap-4 p-2 rounded-lg max-h-[18.75rem]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 2xl:flex h-auto w-full gap-4 p-2 rounded-lg 2xl:max-h-[18.75rem]">
               <!-- col 1 -->
               <CurrentWeatherReport :weatherCurrent="data?.weather.data.current" :isError="isError"
                 :airCurrent="data?.air.data.current" :currentDay="data?.weather.data.daily"
                 :timeZone="data?.weather.data.timezone" :airHourly="data?.air.data.hourly"
                 :weatherHourly="data?.weather.data.hourly" :isFetching="isFetching" />
               <!-- col 2 -->
-              <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-6 flex-0 min-w-[20rem]">
+              <div class="gradient-bg rounded-2xl flex flex-col items-start justify-start p-6 2xl:flex-0 2xl:min-w-[20rem]">
                 <div class="flex gap-2 justify-center items-center ml-1 mb-4">
                   <span
                     class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
@@ -241,8 +215,8 @@ onUnmounted(() => {
                   :weatherHourly="data?.weather.data.hourly" />
               </div>
               <!-- col 3 -->
-              <div class="flex gap-4 flex-1 rounded-2xl">
-                <div class="gradient-bg h-full flex-1 rounded-2xl p-6 basis-2/5 flex-col min-w-[17.75rem]">
+              <div class="grid grid-cols-1 sm:grid-cols-2 2xl:flex gap-4 2xl:flex-1 rounded-2xl lg:col-span-2 2xl:col-auto">
+                <div class="gradient-bg h-full 2xl:flex-1 rounded-2xl p-6 2xl:basis-2/5 flex-col 2xl:min-w-[17.75rem]">
                   <div class="flex gap-2 justify-start items-center mb-4">
                     <span
                       class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
@@ -250,7 +224,7 @@ onUnmounted(() => {
                   </div>
                   <CurrentAirStatistics :air-current="data?.air.data.current" />
                 </div>
-                <div class="gradient-bg h-full flex-1 rounded-2xl p-6 basis-3/5 min-w-[20.625rem]">
+                <div class="gradient-bg h-full 2xl:flex-1 rounded-2xl p-6 2xl:basis-3/5 2xl:min-w-[20.625rem]">
                   <div class="flex gap-2 justify-start items-center ml-1 mb-4">
                     <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
                     <p class="text-[1rem] font-bold text-white">Today Hightlight</p>
@@ -264,16 +238,14 @@ onUnmounted(() => {
           </div>
           <!-- row 2 -->
           <div class="flex w-full gap-4 p-2 rounded-lg flex-auto pt-0">
-            <div class="w-full h-full min-h-[26.625rem] max-h-[26.625rem]">
-              <div class="flex gap-4 rounded-2xl h-full justify-between">
+            <div class="w-full h-full 2xl:min-h-[26.625rem] 2xl:max-h-[26.625rem]">
+              <div class="grid grid-cols-1 lg:flex gap-4 rounded-2xl h-full justify-between">
                 <TodayForcast :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
                   :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
                   :weatherCurrent="data?.weather.data.current" :day="time.day" />
                 <Weekly :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
                   :hr="time.hr" :day="time.day"
-                 :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" /> 
-                  />
-                <More />
+                 :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" />
               </div>
 
             </div>

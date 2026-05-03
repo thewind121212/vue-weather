@@ -3,6 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* hide scrollbars globally */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
 /* main.css */
 
 

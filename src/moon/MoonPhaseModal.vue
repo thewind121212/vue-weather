@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useMoonStore } from '../store/moon';
 import { genMoonPhaseImage } from '../utils/utils';
 import { useModalStore } from '../store/modal';
@@ -63,6 +63,28 @@ const moonModalData = computed<
     }
 })
 
+const closeModal = () => {
+    const placeholder = document.getElementById('moon-placeholder') as HTMLElement | null
+    placeholder?.click()
+}
+
+const onPopState = () => {
+    if (modalStore.modalMounted === 'moon') closeModal()
+}
+
+watch(() => modalStore.modalMounted, (val) => {
+    if (val === 'moon' && history.state?.modal !== 'moon') {
+        history.pushState({ modal: 'moon' }, '')
+    }
+})
+
+onMounted(() => {
+    window.addEventListener('popstate', onPopState)
+})
+onUnmounted(() => {
+    window.removeEventListener('popstate', onPopState)
+})
+
 </script>
 
 
@@ -71,8 +93,13 @@ const moonModalData = computed<
 <template>
 
     <div
-        class="w-screen h-screen flex justify-center items-center fixed  top-0 left-0 z-[1001] select-none invisible opacity-1">
-        <div class="w-[40.25rem]  rounded-2xl pt-2 flex-col gap-4" id="modal-moon">
+        class="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-[1001] select-none invisible opacity-1 p-3 sm:p-6">
+        <button v-if="modalStore.modalMounted === 'moon'"
+            class="lg:hidden fixed top-3 right-3 z-[1100] w-10 h-10 rounded-full bg-secondary flex justify-center items-center text-white"
+            @click="closeModal">
+            <i class="pi pi-times" style="font-size: 1.1rem"></i>
+        </button>
+        <div class="w-full max-w-[40.25rem] max-h-full overflow-y-auto rounded-2xl pt-2 flex-col gap-4" id="modal-moon">
             <div v-if="modalStore.modalMounted === 'moon'" class="flex justify-start items-center gap-2">
                 <div class="text-white flex justify-start items-center gap-2">
                     <span
@@ -85,7 +112,7 @@ const moonModalData = computed<
                     <h1 class="text-md">{{ day }}</h1>
                 </div>
             </div>
-            <div class="w-full h-auto bg-primary rounded-2xl flex justify-start items-center p-12 pt-6 flex-col gap-6">
+            <div class="w-full h-auto bg-primary rounded-2xl flex justify-start items-center p-4 sm:p-8 lg:p-12 pt-6 flex-col gap-6">
                 <div class="w-full flex justify-between items-center gap-2">
                     <div class="header">
                         <div class="w-auto h-auto flex justify-start gap-2 items-center relative">
@@ -105,13 +132,13 @@ const moonModalData = computed<
 
                     </div>
                 </div>
-                <div class="w-full h-auto p-6 flex justify-center flex-col items-center">
-                    <div class="w-full grid grid-cols-7 text-white text-xl border-b border-[#6b6a6a]">
+                <div class="w-full h-auto p-2 sm:p-6 flex justify-center flex-col items-center">
+                    <div class="w-full grid grid-cols-7 text-white text-base sm:text-xl border-b border-[#6b6a6a]">
                         <div v-for="item in daysRender" class="w-auto aspect-square flex justify-center items-center">
                             <p>{{ item }}</p>
                         </div>
                     </div>
-                    <div class="w-full grid grid-cols-7 text-white text-[0.875rem] gap-2 pt-2">
+                    <div class="w-full grid grid-cols-7 text-white text-xs sm:text-[0.875rem] gap-1 sm:gap-2 pt-2">
                         <div v-for=" _ in (dayIndex ? dayIndex - 1 : 0)"
                             class="w-auto aspect-square flex justify-center items-center border-[#6b6a6a] ">
                         </div>
@@ -119,10 +146,10 @@ const moonModalData = computed<
                             class="w-auto aspect-square flex justify-center items-center border-[#494949] border p-1 rounded-md text-[#777b84] relative cursor-pointer duration-200"
                             :class="{ 'bg-[#49494977] border-yellow-200 !text-yellow-200': index === moonPhaseSelected }"
                             @click="moonPhaseSelected = index">
-                            <p class="block absolute top-1 left-1 font-light">{{ index + 1 }}</p>
-                            <div class="ml-2 mt-2 relative">
+                            <p class="block absolute top-1 left-1 font-light text-[0.65rem] sm:text-base">{{ index + 1 }}</p>
+                            <div class="mt-1 sm:ml-2 sm:mt-2 relative">
                                 <img :src="genMoonPhaseImage(item.moonPhase)" alt="moon-phase"
-                                    class="w-[2.45rem] h-auto">
+                                    class="w-6 sm:w-[2.45rem] h-auto">
                             </div>
                         </div>
                     </div>

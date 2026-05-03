@@ -74,11 +74,11 @@ const renderList = computed(() => {
 
 <template>
 
-    <div class="flex justify-start items-start flex-col gap-1 flex-wrap">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 2xl:grid-cols-1 gap-x-4 gap-y-1 w-full">
         <div v-for="item of renderList" class="flex relative gap-2 justify-start items-center">
             <div class="flex relative gap-2 justify-start items-center">
                 <div class="w-[0.625rem] h-[1.75rem] pl-6"></div>
-                <p class="font-sfPro font-[300] text-[#FFFF] text-xl w-fit">
+                <p class="font-sfPro font-[300] text-[#FFFF] text-base lg:text-xl w-fit">
                     {{ item.staticName }} {{ item.dynamicValue }}
                 </p>
                 <img :class="item.imgElementClasss" :src="item.iconSrc" alt="Humidity_icon" />

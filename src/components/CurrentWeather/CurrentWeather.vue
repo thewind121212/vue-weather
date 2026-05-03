@@ -40,25 +40,25 @@ const weatherCodeFetch: ComputedRef<string> = computed(() => {
 
 
 <template>
-    <div class="flex items-start justify-start relative w-full">
-        <img class="w-[10rem] h-[10rem] absolute left-[-1.25rem] top-[-1.875rem]"
+    <div class="flex flex-wrap sm:flex-nowrap items-start justify-start relative w-full gap-y-3">
+        <img class="w-[8rem] h-[8rem] sm:w-[10rem] sm:h-[10rem] absolute left-[-1rem] sm:left-[-1.25rem] top-[-1.5rem] sm:top-[-1.875rem]"
             :src="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`"
             :alt="`${weatherCode?.[weatherCodeFetch][isDay ? 'image_day' : 'image_night']}`" />
-        <div class="w-[7.5rem] h-[6.25rem]"></div>
-        <div class="ml-3 h-[6.25rem] flex flex-col justify-center items-start gap-1">
-            <p class="text-3xl"> {{ weatherCode?.[weatherCodeFetch].category }}</p>
-            <p class="text-2xl font-light">Feel Like {{ weatherCurrent?.apparent_temperature }}</p>
+        <div class="w-[6rem] h-[5rem] sm:w-[7.5rem] sm:h-[6.25rem] shrink-0"></div>
+        <div class="ml-2 sm:ml-3 h-auto sm:h-[6.25rem] flex flex-col justify-center items-start gap-1 min-w-0">
+            <p class="text-2xl sm:text-3xl"> {{ weatherCode?.[weatherCodeFetch].category }}</p>
+            <p class="text-lg sm:text-2xl font-light">Feel Like {{ weatherCurrent?.apparent_temperature }}</p>
         </div>
-        <div class="w-auto h-[5rem] flex flex-col justify-between items-end ml-auto">
+        <div class="w-full sm:w-auto h-auto sm:h-[5rem] flex flex-col justify-between items-start sm:items-end sm:ml-auto gap-2">
             <div class="flex gap-2 justify-center items-center">
                 <span
                     class="animate-pulse w-4 h-4 min-w-4 min-h-4 rounded-full bg-green-400 -translate-y-[0.0313rem]"></span>
                 <p class="text-[1rem] font-bold">Live Report</p>
             </div>
             <div
-                class="w-auto h-[2.5rem] rounded-[1.5625rem] bg-primary-h-color px-6 text-white flex justify-start items-center gap-2 ml-auto">
-                <i class="pi pi-map-marker" style="font-size: 1.2rem"></i>
-                <p class="text-[0.875rem] cursor-default">{{ locationStore.$state.location?.name &&
+                class="w-auto max-w-full h-[2.5rem] rounded-[1.5625rem] bg-primary-h-color px-4 sm:px-6 text-white flex justify-start items-center gap-2 sm:ml-auto">
+                <i class="pi pi-map-marker shrink-0" style="font-size: 1.2rem"></i>
+                <p class="text-[0.875rem] cursor-default truncate">{{ locationStore.$state.location?.name &&
                     locationStore.$state.location?.name + ", " }}
                     {{ locationStore.$state.location?.country }}</p>
             </div>

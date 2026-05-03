@@ -153,12 +153,12 @@ const faceRender = computed(() => {
 
 <template>
 
-    <div class="gradient-bg flex-auto rounded-2xl p-6 basis-3/5 max-w-[25.625rem] h-full flex flex-col">
+    <div class="gradient-bg flex-auto rounded-2xl p-6 max-w-full lg:max-w-[28rem] 2xl:basis-3/5 2xl:max-w-[25.625rem] h-full min-h-[26rem] flex flex-col mr-0">
         <div class="flex gap-[1.25rem] justify-start items-center ml-1 mb-4">
             <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-blue-400 -translate-y-[0.0313rem]"></span>
             <p class="text-[1rem] font-bold text-white">Today Forcast</p>
         </div>
-        <div class="grid grid-rows-3 gap-2 flex-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:grid-rows-3 gap-2 flex-auto">
 
             <div class="fixed top-0 left-0 z-[10002]">
                 <ForcastModalHr :day="day" :hr="hr" :timeZone="timeZone"
@@ -184,8 +184,8 @@ const faceRender = computed(() => {
                 :hr="hr"
                 @open-modal="startTimeLine" />
             <TodayMoonPhase :startTimeLine="startTimeLine" :day="day!" />
-            <div class="rounded-xl flex w-full h-full gap-2">
-                <AirQualityCard 
+            <div class="contents lg:flex rounded-xl lg:w-full lg:h-full lg:gap-2">
+                <AirQualityCard
                     :current-a-q-i="airQuailtyInfo.curentAQI"
                     :current-pm2_5="airQuailtyInfo.currentPm2_5"
                     :current-pm10="airQuailtyInfo.currentPm10"

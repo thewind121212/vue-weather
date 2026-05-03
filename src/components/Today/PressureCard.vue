@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-[#0D1321] rounded-xl aspect-square flex-1 flex justify-center items-center flex-col relative">
+    <div class="bg-[#0D1321] rounded-xl lg:aspect-square flex-1 flex justify-center items-center flex-col relative h-full min-h-[8rem]">
         <div class="text-white text-[0.875rem] font-light absolute top-3">
             {{ surfacePressure }} hPa
         </div>

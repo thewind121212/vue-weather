@@ -129,8 +129,8 @@ onUnmounted(() => {
 
 
 <template>
-    <div class="w-[18.75rem] h-[3.1875rem] relative flex justify-end items-center">
-        <i class="pi pi-map ml-4 text-white absolute right-0 top-1/2 -translate-y-1/2" style="font-size: 1.5rem;"
+    <div class="w-auto lg:w-[12rem] h-[3.1875rem] relative flex justify-end items-center">
+        <i class="pi pi-map text-white relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 cursor-pointer" style="font-size: 1.5rem;"
             v-on:click="toggleModalHandler"></i>
         <div class="fixed w-screen h-screen top-0 left-0 z-[40] hidden" ref="inputOverlay">
             <div class="w-full h-full relative flex justify-center items-start pt-[12%]">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, watch, } from 'vue';
+import { watch } from 'vue';
 import { CurrentWeatherData, WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes';
 import { CurrentAirData, HourlyAirData } from '../../types/airTypes';
 import CurrentWeather from './CurrentWeather.vue';
@@ -32,11 +32,11 @@ watch(() => props.weatherCurrent, () => {
 
 
 <template>
-    <div class="bg-secondary rounded-2xl p-6 text-white flex-0 min-w-[620px]">
+    <div class="bg-secondary rounded-2xl p-6 text-white w-full 2xl:flex-0 2xl:w-auto 2xl:min-w-[620px]">
         <CurrentWeather :weatherCurrent="weatherCurrent" :time-zone="timeZone" />
         <div class="flex w-full h-auto mt-4">
             <div class="w-full flex flex-col justify-center items-start gap-1">
-                <div class="flex justify-between items-start w-full">
+                <div class="flex flex-wrap sm:flex-nowrap gap-y-4 justify-between items-start w-full">
                     <CurrentTempature :current-day="currentDay" :weather-current="weatherCurrent" />
                     <CurrentAirQuality :us-aqi="airCurrent?.us_aqi" :pm2_5="airCurrent?.pm2_5" :airHourly="airHourly" />
                 </div>

@@ -15,7 +15,7 @@ import {
 import { Line } from 'vue-chartjs'
 import { WeatherDailyData, WeatherHourlyData } from '../../types/weatherTypes.js'
 import { HourlyAirData } from '../../types/airTypes.js'
-import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { onUnmounted, reactive, ref, watch } from 'vue'
 import { useTempUnitStore } from '../../store/tempUnit.js'
 import { tempatureChartBuilder } from '../../chart/tempature.js'
 import { windSpeedChartBuilder } from '../../chart/windSpeed.js'
@@ -133,25 +133,7 @@ watch(() => [props.day, props.weatherDaily, unit.tempUnit, chartFilter.filters, 
 
 
 
-const onChartResize = () => {
-    if (timeOutRef.value) {
-        clearTimeout(timeOutRef.value)
-    }
-    isLoading.value = true
-    timeOutRef.value = setTimeout(() => {
-        isLoading.value = false
-    }, 100)
-}
-
-onMounted(() => {
-    window.addEventListener('resize', onChartResize)
-    window.addEventListener('load', onChartResize)
-    onChartResize()
-})
-
 onUnmounted(() => {
-    window.removeEventListener('resize', onChartResize)
-    window.removeEventListener('load', onChartResize)
     if (timeOutRef.value) {
         clearTimeout(timeOutRef.value)
     }
@@ -186,31 +168,31 @@ watch(() => [props.weatherDaily, chartFilter.filters], () => {
 <template>
     <div class="flex-auto rounded-2xl p-6 w-auto h-full flex flex-col relative overflow-hidden">
         <div class="bg-secondary absolute top-0 left-0 w-full h-full opacity-70"></div>
-        <div class="w-full flex gap-4 justify-start items-center relative z-10 mb-4">
+        <div class="w-full flex flex-wrap gap-2 sm:gap-4 justify-start items-center relative z-10 mb-4">
             <div class="flex gap-2 justify-start items-center">
                 <span class="w-4 h-4 min-w-4 min-h-4 rounded-full bg-red-400 -translate-y-[0.0313rem]"></span>
                 <p class="text-[1rem] font-bold text-white">Weekly Forcast</p>
             </div>
-            <div class="flex gap-2 text-white text-[0.875rem] h-auto justify-center items-center">
+            <div class="flex flex-nowrap overflow-x-auto gap-1 sm:gap-2 text-white text-xs sm:text-[0.875rem] h-auto justify-start items-center w-full sm:w-auto">
 
                 <div v-for="item in filters" :key="item.id"
-                    class="w-full h-auto rounded-md flex justify-center items-center text-nowrap px-2 py-1 text-gray-300 cursor-pointer duration-200"
+                    class="h-auto rounded-md flex justify-center items-center text-nowrap px-2 py-1 text-gray-300 cursor-pointer duration-200 shrink-0"
                     v-on:click="chartFilter.filters = item.id"
                     :class="{ 'bg-pink-500 !text-white !px-6 !duration-300': chartFilter.filters === item.id }">
                     {{ item.name }}</div>
             </div>
         </div>
-        <div class="flex-auto z-20 !h-[21.125rem] w-full flex gap-2">
-            <div class="text-white text-[0.875rem] w-auto flex flex-col gap-2">
+        <div class="flex-auto z-20 !min-h-[21.125rem] sm:!h-[21.125rem] w-full flex flex-col sm:flex-row gap-2">
+            <div class="text-white text-xs sm:text-[0.875rem] w-full sm:w-auto flex flex-row sm:flex-col gap-2 overflow-x-auto sm:overflow-visible pb-1 sm:pb-0">
 
                 <div v-for="(item, index) in dateRender" :key="'date-' + index"
-                    class="w-full h-auto border border-[#7068ff6e]  rounded-xl flex justify-center text-[#cdcdcd] items-center px-2 py-1 text-nowrap cursor-pointer duration-300"
+                    class="h-auto border border-[#7068ff6e] rounded-xl flex justify-center text-[#cdcdcd] items-center px-2 py-1 text-nowrap cursor-pointer duration-300 shrink-0"
                     v-on:click="chartFilter.scope = index"
                     :class="{ '!bg-[#7068FF] !text-white': chartFilter.scope === index }">
                     {{ item }}
                 </div>
             </div>
-            <div class="flex relative justify-center items-center flex-auto  h-full overflow-hidden"
+            <div class="flex relative justify-center items-center flex-auto h-[18rem] sm:h-full w-full overflow-hidden"
                 id="chart-container">
                 <div v-if="isLoading"
                     class="w-full h-full bg-transparent flex gap-2 px-4 cursor-default justify-center items-center absolute top-0 left-0 select-none">
