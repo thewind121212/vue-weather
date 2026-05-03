@@ -36,13 +36,13 @@ FROM oven/bun:1-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=4141
+ENV PORT=3000
 
 COPY --from=builder /app/dist ./dist
 
 RUN chown -R bun:bun /app
 USER bun
 
-EXPOSE 4141
+EXPOSE 3000
 
-CMD ["bunx", "serve", "-s", "dist", "-l", "4141"]
+CMD ["bunx", "serve", "-s", "dist", "-l", "3000"]

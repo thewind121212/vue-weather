@@ -12,4 +12,4 @@ services:
     container_name: vue-weather
     restart: unless-stopped
     ports:
-      - "4141:4141"
+      - "3000:3000"
