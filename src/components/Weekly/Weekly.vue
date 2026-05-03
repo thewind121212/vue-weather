@@ -182,7 +182,7 @@ watch(() => [props.weatherDaily, chartFilter.filters], () => {
                     {{ item.name }}</div>
             </div>
         </div>
-        <div class="flex-auto z-20 min-h-[21.125rem] w-full flex flex-col sm:flex-row gap-2">
+        <div class="flex-auto z-20 !min-h-[21.125rem] sm:!h-[21.125rem] w-full flex flex-col sm:flex-row gap-2">
             <div class="text-white text-xs sm:text-[0.875rem] w-full sm:w-auto flex flex-row sm:flex-col gap-2 overflow-x-auto sm:overflow-visible pb-1 sm:pb-0">
 
                 <div v-for="(item, index) in dateRender" :key="'date-' + index"

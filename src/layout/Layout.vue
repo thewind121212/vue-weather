@@ -242,8 +242,8 @@ watch(data, () => {
           </div>
           <!-- row 2 -->
           <div class="flex w-full gap-4 p-2 rounded-lg flex-auto pt-0">
-            <div class="w-full h-full 2xl:min-h-[26.625rem] 2xl:max-h-[26.625rem]">
-              <div class="grid grid-cols-1 lg:flex gap-4 rounded-2xl h-full justify-between">
+            <div class="w-full h-full lg:min-h-[27.5rem] 2xl:min-h-[26.625rem] 2xl:max-h-[26.625rem]">
+              <div class="grid grid-cols-1 lg:flex gap-4 rounded-2xl h-full lg:items-stretch justify-between">
                 <TodayForcast :weatherDaily="data?.weather.data.daily" :weatherHourly="data?.weather.data.hourly"
                   :airQualityHourly="data?.air.data.hourly" :timeZone="data?.weather.data.timezone" :hr="time.hr"
                   :weatherCurrent="data?.weather.data.current" :day="time.day" />
